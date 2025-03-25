@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class BaseDatos {
     
     Connection conexion;
-    Statement transaccion;
+    Statement transaccion;//----
     ResultSet cursor;
     
     
