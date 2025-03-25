@@ -63,7 +63,7 @@ public class BaseDatos {
         int idEmpleado = -1;
         try {
             //SELECT * FROM `Login` WHERE Correo like 'A' and Constrasena like 'A';
-            String SQL="SELECT * FROM `Login` WHERE Correo LIKE '"+correo+"' AND Contrasena LIKE '"+contrasena+"'";
+            String SQL="SELECT * FROM `Gerente` WHERE Correo LIKE '"+correo+"' AND Contrasena LIKE '"+contrasena+"'";
             cursor= transaccion.executeQuery(SQL);
             if(cursor.next()){
                 idEmpleado = cursor.getInt(1);
@@ -83,7 +83,7 @@ public class BaseDatos {
         String A[] = new String[2];
         boolean bandera = false;
         try {
-            String SQL="SELECT * FROM `Login` WHERE Correo LIKE '"+correo+"' AND Contrasena LIKE '"+contrasena+"'";
+            String SQL="SELECT * FROM `Gerente` WHERE Correo LIKE '"+correo+"' AND Contrasena LIKE '"+contrasena+"'";
             cursor= transaccion.executeQuery(SQL);
             if(cursor.next()){
                 A[0]=cursor.getString(2);
