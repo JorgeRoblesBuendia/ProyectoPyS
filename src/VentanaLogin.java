@@ -125,7 +125,6 @@ public class VentanaLogin extends javax.swing.JFrame {
     private void btnInISecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInISecActionPerformed
         String correo=txtCorreo.getText(), contrasena=txtCon.getText();
         if(correo.isBlank() || contrasena.isBlank()){
-
             mensajeError("ERROR: Campos vacios");
 
         }else{
