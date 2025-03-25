@@ -45,11 +45,12 @@ public class VentanaLogin extends javax.swing.JFrame {
         txtCorreo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtCon = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        btnCrearUsuario = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnInISec.setText("Iniciar Secion");
+        btnInISec.setText("Iniciar Sesion");
         btnInISec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInISecActionPerformed(evt);
@@ -66,12 +67,15 @@ public class VentanaLogin extends javax.swing.JFrame {
 
         jLabel2.setText("Contrasenia");
 
-        jButton2.setText("Crear usuario");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCrearUsuario.setText("Crear usuario");
+        btnCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCrearUsuarioActionPerformed(evt);
             }
         });
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setText("Iniciar sesion");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,14 +93,19 @@ public class VentanaLogin extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(144, 144, 144)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton2)
-                            .addComponent(btnInISec))))
+                            .addComponent(btnCrearUsuario)
+                            .addComponent(btnInISec)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(137, 137, 137)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(66, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -104,10 +113,10 @@ public class VentanaLogin extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(btnInISec)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addComponent(btnCrearUsuario)
                 .addGap(56, 56, 56))
         );
 
@@ -118,9 +127,13 @@ public class VentanaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCorreoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed
+        
+        VentanaCrearUsuario r= new VentanaCrearUsuario();
+        r.bd=bd;
+        r.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCrearUsuarioActionPerformed
 
     private void btnInISecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInISecActionPerformed
         String correo=txtCorreo.getText(), contrasena=txtCon.getText();
@@ -179,10 +192,11 @@ public class VentanaLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCrearUsuario;
     private javax.swing.JButton btnInISec;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField txtCon;
     private javax.swing.JTextField txtCorreo;
     // End of variables declaration//GEN-END:variables

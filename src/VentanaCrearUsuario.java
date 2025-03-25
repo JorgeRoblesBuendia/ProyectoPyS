@@ -136,7 +136,7 @@ public class VentanaCrearUsuario extends javax.swing.JFrame {
         System.out.println(txtNombre.getText()+"  - ");
         mensaje(txtNombre.getText());
         if(correo.isEmpty() || contrasena.isEmpty() || nombre.isEmpty()){
-            
+            //aaaaaaaaaaaa
             mensaje("ERROR: Campos vacios");
 
         }else{
