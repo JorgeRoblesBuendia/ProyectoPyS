@@ -99,3 +99,160 @@ public class BaseDatos {
     }
     
 }
+
+
+
+
+
+//clases de objetos por si se llega a usar 
+class Proveedores {
+    int id;
+    String nombre,contacto,telefono,direccion,email;
+
+    public Proveedores(int id, String nombre, String contacto, String telefono, String direccion, String email) {
+        this.id = id;
+        this.nombre = nombre;
+        this.contacto = contacto;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.email = email;
+    }
+    
+}
+class Categorias {
+    int id;
+    String nombre,descripcion;
+
+    public Categorias(int id, String nombre, String descripcion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+    
+}
+class Productos {
+    int id;
+    String nombre ,descripcion;
+    double precio_compra , precio_venta;
+    int stock, stockMinimo,idCategoria,idProveedor;
+    String codigoBarras;
+    
+    //fecha_vencimiento DATE,
+
+    public Productos(int id, String nombre, String descripcion, double precio_compra, double precio_venta, int stock, int stockMinimo, int idCategoria, int idProveedor, String codigoBarras) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio_compra = precio_compra;
+        this.precio_venta = precio_venta;
+        this.stock = stock;
+        this.stockMinimo = stockMinimo;
+        this.idCategoria = idCategoria;
+        this.idProveedor = idProveedor;
+        this.codigoBarras = codigoBarras;
+    }
+}
+class Empleados {
+    int id;
+    String nombre,direccion,telefono,email,puesto;
+
+    public Empleados(int id, String nombre, String direccion, String telefono, String email, String puesto) {
+        this.id = id;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.email = email;
+        this.puesto = puesto;
+    }
+    
+}
+class Ventas {
+    int id;
+    //fecha_hora DATETIME,
+    int idCliente,idEmpleado;
+    double total;
+    String tipoPago;
+
+    public Ventas(int id, int idCliente, int idEmpleado, double total, String tipoPago) {
+        this.id = id;
+        this.idCliente = idCliente;
+        this.idEmpleado = idEmpleado;
+        this.total = total;
+        this.tipoPago = tipoPago;
+    }
+
+    
+}
+class DetallesVenta {
+    int id,idVenta,idProducto,cantidad;
+    double precioUnitario,subtotal;
+
+    public DetallesVenta(int id, int idVenta, int idProducto, int cantidad, double precioUnitario, double subtotal) {
+        this.id = id;
+        this.idVenta = idVenta;
+        this.idProducto = idProducto;
+        this.cantidad = cantidad;
+        this.precioUnitario = precioUnitario;
+        this.subtotal = subtotal;
+    }
+    
+    
+}
+class Compras {
+    int id;
+//    fecha DATE,
+    int idProveedor;
+    double total;
+    String estado;
+
+    public Compras(int id, int idProveedor, double total, String estado) {
+        this.id = id;
+        this.idProveedor = idProveedor;
+        this.total = total;
+        this.estado = estado;
+    }
+}
+class DetallesCompra {
+    int id, idCompra,idProducto,cantidad;
+    double precioUnitario,subtotal;
+
+    public DetallesCompra(int id, int idCompra, int idProducto, int cantidad, double precioUnitario, double subtotal) {
+        this.id = id;
+        this.idCompra = idCompra;
+        this.idProducto = idProducto;
+        this.cantidad = cantidad;
+        this.precioUnitario = precioUnitario;
+        this.subtotal = subtotal;
+    }
+    
+}
+class Inventario {
+    int id,idProducto,cantidad;
+    //fecha_movimiento DATETIME,
+    String tipoMovimiento; // 'entrada' o 'salida'
+    String motivo;
+
+    public Inventario(int id, int idProducto, int cantidad, String tipoMovimiento, String motivo) {
+        this.id = id;
+        this.idProducto = idProducto;
+        this.cantidad = cantidad;
+        this.tipoMovimiento = tipoMovimiento;
+        this.motivo = motivo;
+    }
+    
+
+}
+class Promociones {
+    int id,idProducto;
+    String descripcion;
+    double descuento;
+    //fecha_inicio DATE,
+    //fecha_fin DATE,
+
+    public Promociones(int id, int idProducto, String descripcion, double descuento) {
+        this.id = id;
+        this.idProducto = idProducto;
+        this.descripcion = descripcion;
+        this.descuento = descuento;
+    }
+}
