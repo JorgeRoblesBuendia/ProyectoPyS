@@ -178,7 +178,7 @@ public class BaseDatos {
     //Producto producto = null; // Inicializamos el objeto como null.
 
     try {
-        String SQL = "SELECT * FROM `Productos` WHERE CodigoBarras LIKE '" + codigo+"'";
+        String SQL = "SELECT * FROM `Productos` WHERE CodigoBarras = '" + codigo+"'";
         cursor = transaccion.executeQuery(SQL);
 
         if (cursor.next()) {
@@ -202,7 +202,7 @@ public class BaseDatos {
         return p; 
     }
 
-    public ArrayList<String[]> mostrarProductosCaja(int E){
+    public ArrayList<String[]> mostrarProductosCaja(){
         ArrayList <String[]> resultado= new ArrayList ();
         try {
             
@@ -429,10 +429,10 @@ public class BaseDatos {
     }
 
     public int buscarProveedor(String email) {
-        int id = 0;
+        int id = -1;
 
         try {
-            String SQL = "SELECT * FROM `Proveedores` WHERE `email` LIKE '" + email + "'";
+            String SQL = "SELECT * FROM `Proveedores` WHERE `email` = '" + email + "'";
             cursor = transaccion.executeQuery(SQL);
 
             if (cursor.next()) {
@@ -491,7 +491,7 @@ public class BaseDatos {
     public boolean actualizarProveedor(Proveedores p,int n) {
     try {
         String SQL = "UPDATE `Proveedores` SET " +
-                     "`nombreEmpresa` = '%NombreEmpresa%', " +
+                     "`nombre` = '%NombreEmpresa%', " +
                      "`contacto` = '%Contacto%', " +
                      "`telefono` = '%Telefono%', " +
                      "`direccion` = '%Direccion%', " +
@@ -525,9 +525,8 @@ public class BaseDatos {
 
             if (cursor.next()) {
                 do {
-                    String[] datos = {cursor.getString("nombreEmpresa"), cursor.getString("contacto"), 
-                                      cursor.getString("telefono"), cursor.getString("direccion"), 
-                                      cursor.getString("email")};
+                    String[] datos = {cursor.getString("nombre"),cursor.getString("telefono"), 
+                                      cursor.getString("email"),cursor.getString("direccion")};
                     resultado.add(datos);
                 } while (cursor.next());
             }

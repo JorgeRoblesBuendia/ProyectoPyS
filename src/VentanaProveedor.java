@@ -1,4 +1,5 @@
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -17,6 +18,8 @@ public class VentanaProveedor extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(VentanaProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        actualizarTabla();
         
     }
 
@@ -74,6 +77,11 @@ public class VentanaProveedor extends javax.swing.JFrame {
         });
 
         Regresar.setText("Regresar");
+        Regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegresarActionPerformed(evt);
+            }
+        });
 
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -245,7 +253,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
       // Obtener el modelo de la tabla
     DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
     
-    // Obtener el índice de la fila seleccionada
+    // Obtener el índice de la fila seleccionada 
     int filaSeleccionada = jTable1.getSelectedRow();
     
     // Verificar si se seleccionó una fila
@@ -253,12 +261,12 @@ public class VentanaProveedor extends javax.swing.JFrame {
         modelo.removeRow(filaSeleccionada); // Eliminar la fila
     } else {
         JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar");
-    }
+    } 
     
-    
-      if(permisoBorrar){
+     bd.eliminarProveedor(txtCorreo.getText());
+        /*if(permisoBorrar){
             bd.eliminarProveedor(txtCorreo.getText());
-        }
+        }*/
         permisoBorrar=false;//actualizarTabla();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -274,7 +282,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
             }else{
                 
             }
-           if(permisoEditar)bd.actualizarProveedor(new Proveedores(0,nombre,"",telf,direccion,correo),bd.buscarProveedor(correo));
+           bd.actualizarProveedor(new Proveedores(0,nombre,"",telf,direccion,correo),bd.buscarProveedor(correo));
              
         //vaciarTxt();
         permisoEditar=false;//actualizarTabla();
@@ -340,11 +348,11 @@ public class VentanaProveedor extends javax.swing.JFrame {
 
     if(-1!=bd.buscarProveedor(correo)){
                 System.out.println("Error: Login existente en la base de datos");
-            }else{
+    }else{
         
                 bd.insertarProveedor(new Proveedores(0,nombre,"",telefono,direccion,correo));
                            this.dispose();
-            }
+    }
     JOptionPane.showMessageDialog(this, "Proveedor agregado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -360,9 +368,30 @@ public class VentanaProveedor extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void RegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegresarActionPerformed
+        // TODO add your handling code here:
+        VentanaMenu v=new VentanaMenu();
+        v.bd=bd;
+        v.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_RegresarActionPerformed
+
     /**
      * @param args the command line arguments
      */
+    
+    public void actualizarTabla(){
+        DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
+        ArrayList<String[]>datos =bd.mostrarProveedores();
+        if(datos.size()==0)return;
+        int totalRenglones=m.getRowCount();
+        for (int i = 0; i <totalRenglones; i++) {
+            m.removeRow(0);
+        }
+        for (String[] data: datos) {
+            m.addRow(data);
+        }
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
