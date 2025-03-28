@@ -142,13 +142,15 @@ public class VentanaLogin extends javax.swing.JFrame {
             //aaaaaaaaaaaa
         }else{
             if(bd.buscarLogin(correo,contrasena)){
-                mensajeError("Error: Login existente en la base de datos");
-            }else{
+                mensajeError("SE ENCONTROOO");
                 System.out.println("pasamos a main");
                 VentanaMenu v=new VentanaMenu();
                 v.bd=bd;
                 v.setVisible(true);
                 this.dispose();
+            }else{
+                mensajeError("Error: Login existente en la base de datos");
+                
             }
         }
     }//GEN-LAST:event_btnInISecActionPerformed
