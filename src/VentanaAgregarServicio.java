@@ -36,7 +36,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
             Logger.getLogger(VentanaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
         m=(DefaultTableModel) tblServicios.getModel();
-        actualizarTabla();
+        actualizarTabla();MostrarCmbCat();
     }
 
     /**
@@ -48,27 +48,93 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblServicios = new javax.swing.JTable();
         txtNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtDescrip = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtPrecio = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtTipo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         tbnEliminar = new javax.swing.JButton();
         Regresar = new javax.swing.JButton();
+        cmbCategoria = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblServicios = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Iron Maiden", 0, 24)); // NOI18N
+        jPanel1.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel1.setForeground(new java.awt.Color(255, 102, 102));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Iron Maiden", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Gestion Servicio");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 32));
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 110, 123, -1));
+
+        jLabel2.setText("Nombre");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 90, 78, -1));
+        jPanel1.add(txtDescrip, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 180, 123, -1));
+
+        jLabel3.setText("Descripcion");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 150, 78, -1));
+        jPanel1.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 240, 123, -1));
+
+        jLabel4.setText("Precio");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 220, 78, -1));
+
+        jLabel5.setText("Categoria");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 270, 78, -1));
+
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, -1, -1));
+
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
+
+        tbnEliminar.setText("Eliminar");
+        tbnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbnEliminarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(tbnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, -1, -1));
+
+        Regresar.setText("Regresar");
+        Regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegresarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 430, -1, -1));
+
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        jPanel1.add(cmbCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, 161, -1));
 
         tblServicios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -80,132 +146,16 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblServicios);
 
-        jLabel2.setText("Nombre");
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
-        jLabel3.setText("Descripcion");
-
-        jLabel4.setText("Precio");
-
-        jLabel5.setText("Tipo");
-
-        btnAgregar.setText("Agregar");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
-            }
-        });
-
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-
-        tbnEliminar.setText("Eliminar");
-        tbnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tbnEliminarActionPerformed(evt);
-            }
-        });
-
-        Regresar.setText("Regresar");
-        Regresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RegresarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDescrip, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(12, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Regresar)
-                        .addGap(23, 23, 23))))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAgregar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tbnEliminar)))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregar)
-                    .addComponent(btnBuscar)
-                    .addComponent(btnEditar)
-                    .addComponent(tbnEliminar))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDescrip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Regresar)
-                        .addGap(83, 83, 83))))
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 650));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        String nombre=txtNombre.getText(), descripcion=txtDescrip.getText(), tipo=txtTipo.getText();
+        String nombre=txtNombre.getText(), descripcion=txtDescrip.getText(), tipo=cmbCategoria.getSelectedIndex()+"";
         double precio;
         try {
             if (nombre.isEmpty() || descripcion.isEmpty() || tipo.isEmpty()) {
@@ -218,7 +168,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
             if(bd.buscarServicio(nombre)!=-1){
                 System.out.println("EL REGISTRO YA EXISTE");
             }else{
-                bd.insertarServicio(new Servicio(0,nombre,descripcion,precio,"",1));
+                bd.insertarServicio(new Servicio(0,nombre,descripcion,precio,tipo,1));
             }
         
             
@@ -239,7 +189,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
                 if(bd.buscarServicio(nombre)!=-1){
                     s=bd.buscarServicio(nombre, s);
                     txtNombre.setText(s.nombre);txtDescrip.setText(s.descripcion);
-                    txtPrecio.setText(s.precio+""); txtTipo.setText(s.categoriaServicio);
+                    txtPrecio.setText(s.precio+""); cmbCategoria.setSelectedIndex(Integer.parseInt(s.categoriaServicio));
                     permisoEditar=true;permisoBorrar=true;
                 }else{
                     System.out.println("EL REGISTRO YA EXISTE");
@@ -249,7 +199,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        String nombre=txtNombre.getText(), descripcion=txtDescrip.getText(), tipo=txtTipo.getText();
+        String nombre=txtNombre.getText(), descripcion=txtDescrip.getText(),  tipo=cmbCategoria.getSelectedIndex()+"";
         double precio;
         try {
             if (nombre.isEmpty() || descripcion.isEmpty() || tipo.isEmpty()) {
@@ -261,7 +211,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
             }
             //s,new Servicio()
             //if(permisoEditar)bd.insertarServicio(new Servicio(0,nombre,descripcion,precio,"",1));
-            if(permisoEditar)bd.actualizarServicio(new Servicio(0,nombre,descripcion,precio,"",1),bd.buscarServicio(nombre));
+            if(permisoEditar)bd.actualizarServicio(new Servicio(0,nombre,descripcion,precio,tipo,1),bd.buscarServicio(nombre));
         } catch (NumberFormatException e) {
             System.out.println("Error en el campo 'precio': " + e.getMessage());
             return;
@@ -287,7 +237,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
     
     public void vaciarTxt(){
         txtNombre.setText("");txtDescrip.setText("");
-        txtPrecio.setText("");        txtTipo.setText("");
+        txtPrecio.setText("");        cmbCategoria.setSelectedIndex(0);
     }
     
     public void actualizarTabla(){
@@ -335,23 +285,38 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
             }
         });
     }
+    public void MostrarCmbCat(){
+        ArrayList<String[]>datos =bd.mostrarCategorias();
+        cmbCategoria.removeAllItems();
+        if (datos.size() == 0) {
+            cmbCategoria.addItem("No hay datos disponibles");
+            return;
+        }
+        // Recorrer los resultados y agregarlos al JComboBox
+        cmbCategoria.addItem("Selecciona una Categoria"); 
+        for (String[] data : datos) {
+            // Por ejemplo, usar el primer campo como elemento (puedes ajustarlo según la lógica necesaria)
+            cmbCategoria.addItem(data[1]); // data[0] es el nombre, código o lo que se necesite mostrar
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Regresar;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JComboBox<String> cmbCategoria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblServicios;
     private javax.swing.JButton tbnEliminar;
     private javax.swing.JTextField txtDescrip;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecio;
-    private javax.swing.JTextField txtTipo;
     // End of variables declaration//GEN-END:variables
 }

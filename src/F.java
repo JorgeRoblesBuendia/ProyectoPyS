@@ -11,7 +11,5 @@
 public class F {
     
     
-    public static void MoverVentana(JFrameForm i,){
-        
-    }
+   
 }

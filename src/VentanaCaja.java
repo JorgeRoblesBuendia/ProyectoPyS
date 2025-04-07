@@ -1,3 +1,9 @@
+
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -8,12 +14,24 @@
  * @author jorge
  */
 public class VentanaCaja extends javax.swing.JFrame {
-
+    BaseDatos bd;
+    DefaultTableModel m;
+    int index=0;
     /**
      * Creates new form VentanaCaja
      */
     public VentanaCaja() {
         initComponents();
+        bd=new BaseDatos();
+        try {
+            if(bd.conexion.isClosed()){
+                System.out.println("Noo!!!. Se cerro");
+            }
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(VentanaLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        m=(DefaultTableModel) tblProductos.getModel();
     }
 
     /**
@@ -31,6 +49,7 @@ public class VentanaCaja extends javax.swing.JFrame {
         txtCodigoBarra = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnAgregarLista = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -42,16 +61,28 @@ public class VentanaCaja extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "CodigoBarras", "Nombre", "Precio", "Descripcion"
+                "CodigoBarras", "Nombre", "Descripcion", "Precio"
             }
         ));
         jScrollPane1.setViewportView(tblProductos);
 
         btnVender.setText("Vender");
+        btnVender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVenderActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Ingresar codigo de barra");
 
         jLabel2.setText("Caja");
+
+        btnAgregarLista.setText("AGREGAR");
+        btnAgregarLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarListaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -67,8 +98,11 @@ public class VentanaCaja extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCodigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtCodigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAgregarLista)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -76,11 +110,13 @@ public class VentanaCaja extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtCodigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCodigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgregarLista))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -90,6 +126,38 @@ public class VentanaCaja extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVenderActionPerformed
+
+    private void btnAgregarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarListaActionPerformed
+        Producto p =new Producto();
+        String codigo=txtCodigoBarra.getText();
+        
+        p=bd.buscarProducto(codigo, p);
+        if(p.codigoBarras==null){
+            Servicio s=new Servicio();
+            s=bd.buscarServicio(codigo, s);
+            if(s.nombre!=null){
+                m.setRowCount(index);
+                m.setValueAt(s.idServicio, index, 0);
+                m.setValueAt(s.nombre, index, 1);
+                m.setValueAt(s.descripcion, index, 2);
+                m.setValueAt(s.precio, index, 3);
+            }
+        }else{
+            
+            m.setRowCount(index);
+            m.setValueAt(p.codigoBarras, index, 0);
+            m.setValueAt(p.nombre, index, 1);
+            m.setValueAt(p.descripcion, index, 2);
+            m.setValueAt(p.precioVenta, index, 3);
+        }
+        
+        
+        index++;
+    }//GEN-LAST:event_btnAgregarListaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -127,6 +195,7 @@ public class VentanaCaja extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarLista;
     private javax.swing.JButton btnVender;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

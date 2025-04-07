@@ -211,8 +211,12 @@ public class BaseDatos {
             cursor= transaccion.executeQuery(SQL);
             if(cursor.next()){
                 do{
-                    String al[]={cursor.getString(3),cursor.getString(2),cursor.getString(8),
-                    cursor.getString(5)};
+                    String[] al = {
+                        cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),  
+                        cursor.getString(5),cursor.getString(6), cursor.getString(7),// cursor.getString(8),  
+                        // cursor.getString(9),cursor.getString(10), cursor.getString(11)  
+                        cursor.getString(8),cursor.getString(9),cursor.getString(10)
+                    };
                     resultado.add(al);
                 }while(cursor.next());
             }
@@ -222,9 +226,9 @@ public class BaseDatos {
         return resultado;
     }
     
-    public boolean eliminar(String id){
+    public boolean eliminarProducto(String id){
         try {
-            String SQL="DELETE FROM Productos WHERE `CodigoBarras` ='%ID%' ";
+            String SQL="DELETE FROM Productos WHERE `idProducto` ='%ID%' ";
             SQL = SQL.replaceAll("%ID%", id);
             transaccion.execute(SQL);
         } catch (SQLException ex) {
@@ -258,17 +262,12 @@ public class BaseDatos {
     }
     public boolean actualizarProductos(Producto p, String campo, String nuevoValor) {
         try {
-            /*
-            Actualiza un campo específico de la tabla `Productos` basado en el código de barras del producto.
-            */
-            // Construir la consulta SQL de forma dinámica según el campo especificado
+         
             String SQL = "UPDATE `Productos` SET `" + campo + "` = '%NuevoValor%' WHERE `CodigoBarras` = '%CodigoBarras%'";
 
-            // Reemplazar los marcadores con los valores correspondientes
             SQL = SQL.replaceAll("%NuevoValor%", nuevoValor);
             SQL = SQL.replaceAll("%CodigoBarras%", p.codigoBarras);
 
-            // Ejecutar la consulta SQL
             transaccion.execute(SQL);
             System.out.println(SQL);
         } catch (SQLException ex) {
@@ -277,6 +276,33 @@ public class BaseDatos {
         }
         return true;
     }
+public boolean actualizarProductos(Producto p) {
+    try {
+        /*String SQL = "UPDATE `Productos` SET " + "`nombre` = '" + p.nombre + "', " +"`descripcion` = '" + p.descripcion + "', " +
+                     "`precioCompra` = " + p.precioCompra + ", " +"`precioVenta` = " + p.precioVenta + ", " +
+                     "`stock` = " + p.stock + ", " +"`stockMinimo` = " + p.stockMinimo + ", " +
+                     "`idCategoria` = " + p.idCategoria + ", " +"`idProveedor` = " + p.idProveedor + ", " +
+                     "`codigoBarras` = '" + p.codigoBarras + "', " +"`fechaVencimiento` = '" + p.fechaVencimiento + "' " +
+                     "WHERE `codigoBarras` = '" + p.codigoBarras + "'";*/
+        String SQL = "UPDATE `Productos` SET " + "`nombre` = '" + p.nombre + "', " +"`descripcion` = '" + p.descripcion + "', " +
+                     "`precioCompra` = " + p.precioCompra + ", " +"`precioVenta` = " + p.precioVenta + ", " +
+                     "`stock` = " + p.stock + ", " +"`stockMinimo` = " + p.stockMinimo + ", " +
+                     "`idCategoria` = " + p.idCategoria + ", " +"`idProveedor` = " + p.idProveedor + ", "+
+                     "`codigoBarras` = '" + p.codigoBarras + "' " +
+                     "WHERE `idProducto` = '" + p.id + "'";
+
+        // Imprimir la consulta SQL para depuración
+        System.out.println(SQL);
+
+        // Ejecutar la consulta SQL
+        transaccion.execute(SQL);
+    } catch (SQLException ex) {
+        System.out.println("Error al actualizar el producto: " + ex.getMessage());
+        return false;
+    }
+    return true;
+}
+
 
 
     
@@ -664,9 +690,126 @@ public ArrayList<String[]> mostrarServicios() {
     }
     return resultado;
 }
+//---------------------------------categorias----------------------------------------------
+    public boolean insertarCategoria(Categorias c) {
+        try {
+            String SQL = "INSERT INTO `Categorias` (`idCategoria`, `nombre`, `descripcion`) " +
+                         "VALUES (NULL, '%Nombre%', '%Descripcion%');";
+            SQL = SQL.replaceAll("%Nombre%", c.nombre);
+            SQL = SQL.replaceAll("%Descripcion%", c.descripcion);
 
-    
-    
+            transaccion.execute(SQL);
+            System.out.println(SQL);
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar categoría: " + ex.getMessage());
+            return false;
+        }
+        System.out.println("Categoría insertada exitosamente");
+        return true;
+    }
+
+    public int buscarCategoria(String nombre) {
+        int id = -1;
+
+        try {
+            String SQL = "SELECT * FROM `Categorias` WHERE `nombre` LIKE '" + nombre + "'";
+            cursor = transaccion.executeQuery(SQL);
+
+            if (cursor.next()) {
+                id = cursor.getInt("idCategoria");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id;
+    }
+
+    public Categorias buscarCategoria(String nombre, Categorias c) {
+        try {
+            String SQL = "SELECT * FROM `Categorias` WHERE `nombre` LIKE '" + nombre + "'";
+            cursor = transaccion.executeQuery(SQL);
+
+            if (cursor.next()) {
+                c.id = cursor.getInt("idCategoria");
+                c.nombre = cursor.getString("nombre");
+                c.descripcion = cursor.getString("descripcion");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, "Error al buscar la categoría", ex);
+        }
+        return c;
+    }
+
+
+    public boolean eliminarCategoria(String nombre) {
+        try {
+            String SQL = "DELETE FROM `Categorias` WHERE `nombre` = '%Nombre%'";
+            SQL = SQL.replaceAll("%Nombre%", nombre);
+            transaccion.execute(SQL);
+        } catch (SQLException ex) {
+            System.out.println("Error al eliminar categoría: " + ex.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public boolean actualizarCategoria(Categorias c, String campo, String nuevoValor) {
+        try {
+            String SQL = "UPDATE `Categorias` SET `" + campo + "` = '%NuevoValor%' WHERE `idCategoria` = %IdCategoria%";
+            SQL = SQL.replaceAll("%NuevoValor%", nuevoValor);
+            SQL = SQL.replaceAll("%IdCategoria%", String.valueOf(c.id));
+
+            transaccion.execute(SQL);
+            System.out.println(SQL);
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar la categoría: " + ex.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public boolean actualizarCategoria(Categorias c, int idCategoria) {
+        try {
+            String SQL = "UPDATE `Categorias` SET " +
+                         "`nombre` = '%Nombre%', " +
+                         "`descripcion` = '%Descripcion%' " +
+                         "WHERE `idCategoria` = %IdCategoria%";
+
+            SQL = SQL.replaceAll("%Nombre%", c.nombre);
+            SQL = SQL.replaceAll("%Descripcion%", c.descripcion);
+            SQL = SQL.replaceAll("%IdCategoria%", String.valueOf(idCategoria));
+
+            transaccion.execute(SQL);
+            System.out.println(SQL);
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar la categoría: " + ex.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public ArrayList<String[]> mostrarCategorias() {
+        ArrayList<String[]> resultado = new ArrayList<>();
+        try {
+            String SQL = "SELECT * FROM `Categorias`";
+            cursor = transaccion.executeQuery(SQL);
+
+            if (cursor.next()) {
+                do {
+                    String[] datos = {
+                        cursor.getString("idCategoria"),  // ID de la categoría
+                        cursor.getString("nombre"),      // Nombre de la categoría
+                        cursor.getString("descripcion")  // Descripción de la categoría
+                    };
+                    resultado.add(datos);
+                } while (cursor.next());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }    
+
     
     
     
@@ -707,6 +850,9 @@ class Categorias {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
+
+    public Categorias() {
+    }
     
 }
 class Producto {
@@ -717,6 +863,9 @@ class Producto {
     String codigoBarras;
     
     //fecha_vencimiento DATE,
+
+    public Producto() {
+    }
 
     public Producto(int id, String nombre, String descripcion, double precioCompra, double precioVenta, int stock, int stockMinimo, int idCategoria, int idProveedor, String codigoBarras) {
         this.id = id;

@@ -1,20 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author brayan
- */
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.event.*;
 import java.sql.*;
 import java.util.Random;
 
@@ -29,10 +16,15 @@ public class GestionProductos {
     private static DefaultTableModel modeloTabla;
 
     // Campos para entrada de datos
-    private static JTextField nombreText, precioCompraText, precioVentaText, stockText, stockMinimoText, idCategoriaText, idProveedorText, codigoBarrasText, fechaVencimientoText, buscarText;
+    private static JTextField nombreText, precioCompraText, precioVentaText, stockText, stockMinimoText, codigoBarrasText, fechaVencimientoText, buscarText;
     private static JTable tabla;
+    private static JComboBox<String> categoriaComboBox, proveedorComboBox;
 
     public static void main(String[] args) {
+        // Inicializar ComboBox antes de usar
+        categoriaComboBox = new JComboBox<>();
+        proveedorComboBox = new JComboBox<>();
+
         // Crear ventana
         JFrame frame = new JFrame("Gestión de Productos");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,6 +40,8 @@ public class GestionProductos {
 
         // Cargar datos desde la BD
         cargarDatosDesdeBD();
+        cargarCategorias();
+        cargarProveedores();
 
         frame.setVisible(true);
     }
@@ -98,21 +92,19 @@ public class GestionProductos {
         stockMinimoText.setBounds(120, 210, 160, 25);
         panel.add(stockMinimoText);
 
-        JLabel idCategoriaLabel = new JLabel("ID Categoría:");
-        idCategoriaLabel.setBounds(20, 250, 100, 25);
-        panel.add(idCategoriaLabel);
+        JLabel categoriaLabel = new JLabel("Categoría:");
+        categoriaLabel.setBounds(20, 250, 100, 25);
+        panel.add(categoriaLabel);
 
-        idCategoriaText = new JTextField(20);
-        idCategoriaText.setBounds(120, 250, 160, 25);
-        panel.add(idCategoriaText);
+        categoriaComboBox.setBounds(120, 250, 160, 25);
+        panel.add(categoriaComboBox);
 
-        JLabel idProveedorLabel = new JLabel("ID Proveedor:");
-        idProveedorLabel.setBounds(20, 290, 100, 25);
-        panel.add(idProveedorLabel);
+        JLabel proveedorLabel = new JLabel("Proveedor:");
+        proveedorLabel.setBounds(20, 290, 100, 25);
+        panel.add(proveedorLabel);
 
-        idProveedorText = new JTextField(20);
-        idProveedorText.setBounds(120, 290, 160, 25);
-        panel.add(idProveedorText);
+        proveedorComboBox.setBounds(120, 290, 160, 25);
+        panel.add(proveedorComboBox);
 
         JLabel codigoBarrasLabel = new JLabel("Código Barras:");
         codigoBarrasLabel.setBounds(20, 330, 100, 25);
@@ -121,6 +113,14 @@ public class GestionProductos {
         codigoBarrasText = new JTextField(20);
         codigoBarrasText.setBounds(120, 330, 160, 25);
         panel.add(codigoBarrasText);
+
+        // Generar código de barras automáticamente al hacer clic
+        codigoBarrasText.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                generarCodigoBarras();
+            }
+        });
 
         JLabel fechaVencimientoLabel = new JLabel("Fecha Vencimiento:");
         fechaVencimientoLabel.setBounds(20, 370, 120, 25);
@@ -146,6 +146,10 @@ public class GestionProductos {
         JButton buscarButton = new JButton("Buscar");
         buscarButton.setBounds(320, 170, 120, 25);
         panel.add(buscarButton);
+        
+        JButton menuButton = new JButton("Regresar al Menú");
+        menuButton.setBounds(320, 260, 160, 25);
+        panel.add(menuButton);
 
         JLabel buscarLabel = new JLabel("Buscar:");
         buscarLabel.setBounds(320, 210, 60, 25);
@@ -168,6 +172,7 @@ public class GestionProductos {
         actualizarButton.addActionListener(e -> actualizarProducto());
         eliminarButton.addActionListener(e -> eliminarProducto());
         buscarButton.addActionListener(e -> buscarProducto());
+        menuButton.addActionListener(e -> mostrarMenuPrincipal());
     }
 
     // Cargar datos desde la BD
@@ -177,6 +182,7 @@ public class GestionProductos {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
 
+            modeloTabla.setRowCount(0);
             while (rs.next()) {
                 modeloTabla.addRow(new Object[]{
                         rs.getInt("idProducto"),
@@ -196,8 +202,78 @@ public class GestionProductos {
         }
     }
 
-    // Método para agregar producto
+    // Cargar categorías en el ComboBox
+    private static void cargarCategorias() {
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
+            String sql = "SELECT idCategoria, nombre FROM Categorias";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            categoriaComboBox.removeAllItems();
+            categoriaComboBox.addItem("-- Selecciona una categoría --");
+
+            while (rs.next()) {
+                categoriaComboBox.addItem(rs.getString("nombre") + " - " + rs.getInt("idCategoria"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar categorías: " + e.getMessage());
+        }
+    }
+
+    // Cargar proveedores en el ComboBox
+    private static void cargarProveedores() {
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
+            String sql = "SELECT idProveedor, nombre FROM Proveedores";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            proveedorComboBox.removeAllItems();
+            proveedorComboBox.addItem("-- Selecciona un proveedor --");
+
+            while (rs.next()) {
+                proveedorComboBox.addItem(rs.getString("nombre") + " - " + rs.getInt("idProveedor"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar proveedores: " + e.getMessage());
+        }
+    }
+
+    // Obtener el ID seleccionado desde el ComboBox
+    private static int obtenerIdSeleccionado(JComboBox<String> comboBox) {
+        String seleccion = (String) comboBox.getSelectedItem();
+        if (seleccion != null && !seleccion.equals("-- Selecciona una categoría --") && !seleccion.equals("-- Selecciona un proveedor --")) {
+            String[] partes = seleccion.split(" - ");
+            if (partes.length == 2) {
+                return Integer.parseInt(partes[1]);
+            }
+        }
+        return -1;
+    }
+
+    // Generar código de barras automáticamente
+    private static void generarCodigoBarras() {
+        Random rand = new Random();
+        int codigo = 100000 + rand.nextInt(900000);
+        codigoBarrasText.setText(String.valueOf(codigo));
+    }
+    
+    // Mostrar menú principal (invocar método del menú principal)
+    private static void mostrarMenuPrincipal() {
+        JOptionPane.showMessageDialog(null, "Regresando al menú principal...");
+        // Llamada a la interfaz del menú principal
+        VentanaMenu.mostrarMenu();
+    }
+
+    // Agregar producto
     private static void agregarProducto() {
+        int idCategoriaSeleccionada = obtenerIdSeleccionado(categoriaComboBox);
+        int idProveedorSeleccionado = obtenerIdSeleccionado(proveedorComboBox);
+
+        if (idCategoriaSeleccionada == -1 || idProveedorSeleccionado == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor selecciona una categoría y un proveedor válidos.");
+            return;
+        }
+
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
             String sql = "INSERT INTO Productos (nombre, precioCompra, precioVenta, stock, stockMinimo, idCategoria, idProveedor, codigoBarras, fechaVencimiento) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -206,8 +282,8 @@ public class GestionProductos {
             stmt.setDouble(3, Double.parseDouble(precioVentaText.getText()));
             stmt.setInt(4, Integer.parseInt(stockText.getText()));
             stmt.setInt(5, Integer.parseInt(stockMinimoText.getText()));
-            stmt.setInt(6, Integer.parseInt(idCategoriaText.getText()));
-            stmt.setInt(7, Integer.parseInt(idProveedorText.getText()));
+            stmt.setInt(6, idCategoriaSeleccionada);
+            stmt.setInt(7, idProveedorSeleccionado);
             stmt.setString(8, codigoBarrasText.getText());
             stmt.setString(9, fechaVencimientoText.getText());
             stmt.executeUpdate();
@@ -219,11 +295,14 @@ public class GestionProductos {
         }
     }
 
-    // Método para actualizar producto
+    // Actualizar producto
     private static void actualizarProducto() {
         int filaSeleccionada = tabla.getSelectedRow();
         if (filaSeleccionada >= 0) {
             int idProducto = (int) modeloTabla.getValueAt(filaSeleccionada, 0);
+            int idCategoriaSeleccionada = obtenerIdSeleccionado(categoriaComboBox);
+            int idProveedorSeleccionado = obtenerIdSeleccionado(proveedorComboBox);
+
             try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
                 String sql = "UPDATE Productos SET nombre=?, precioCompra=?, precioVenta=?, stock=?, stockMinimo=?, idCategoria=?, idProveedor=?, codigoBarras=?, fechaVencimiento=? WHERE idProducto=?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
@@ -232,8 +311,8 @@ public class GestionProductos {
                 stmt.setDouble(3, Double.parseDouble(precioVentaText.getText()));
                 stmt.setInt(4, Integer.parseInt(stockText.getText()));
                 stmt.setInt(5, Integer.parseInt(stockMinimoText.getText()));
-                stmt.setInt(6, Integer.parseInt(idCategoriaText.getText()));
-                stmt.setInt(7, Integer.parseInt(idProveedorText.getText()));
+                stmt.setInt(6, idCategoriaSeleccionada);
+                stmt.setInt(7, idProveedorSeleccionado);
                 stmt.setString(8, codigoBarrasText.getText());
                 stmt.setString(9, fechaVencimientoText.getText());
                 stmt.setInt(10, idProducto);
@@ -249,7 +328,7 @@ public class GestionProductos {
         }
     }
 
-    // Método para eliminar producto
+    // Eliminar producto
     private static void eliminarProducto() {
         int filaSeleccionada = tabla.getSelectedRow();
         if (filaSeleccionada >= 0) {
@@ -270,7 +349,7 @@ public class GestionProductos {
         }
     }
 
-    // Método para buscar productos
+    // Buscar producto
     private static void buscarProducto() {
         String nombreBuscar = buscarText.getText().trim();
         if (nombreBuscar.isEmpty()) {
@@ -303,3 +382,13 @@ public class GestionProductos {
         }
     }
 }
+/*
+// Método para mostrar el menú principal
+public static void mostrarMenu() {
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            new VentanaMenu().setVisible(true);
+        }
+    });
+}
+*/

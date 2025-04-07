@@ -8,12 +8,14 @@ import java.util.logging.Logger;
 import javax.swing.*;
 import java.sql.*;
 
+
 /**
  *
  * @author edwin
  */
 public class VentanaUsuarios extends javax.swing.JFrame {
     BaseDatos bd;
+    private Object txtCorreo;
     /**
      * Creates new form VentanaUsuarios
      */
@@ -41,21 +43,20 @@ public class VentanaUsuarios extends javax.swing.JFrame {
 
         BtnAgregar = new javax.swing.JButton();
         BtnActualizar = new javax.swing.JButton();
-        txtNombre = new javax.swing.JTextField();
-        txtCorreo = new javax.swing.JTextField();
         txtContr = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtUsuario = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         BtnEliminar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
+        txtTipoUsuario = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         BtnMenu = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,18 +71,6 @@ public class VentanaUsuarios extends javax.swing.JFrame {
         BtnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnActualizarActionPerformed(evt);
-            }
-        });
-
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
-
-        txtCorreo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCorreoActionPerformed(evt);
             }
         });
 
@@ -101,12 +90,6 @@ public class VentanaUsuarios extends javax.swing.JFrame {
 
         jLabel3.setText("Contraseña");
 
-        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsuarioActionPerformed(evt);
-            }
-        });
-
         jLabel4.setText("Tipo de usuario");
 
         BtnEliminar.setText("Eliminar");
@@ -117,6 +100,15 @@ public class VentanaUsuarios extends javax.swing.JFrame {
         });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        txtNombre.setText("jTextField1");
+
+        txtCorreo.setText("jTextField1");
 
         BtnMenu.setText("Menu");
         BtnMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -126,9 +118,6 @@ public class VentanaUsuarios extends javax.swing.JFrame {
         });
         jMenuBar1.add(BtnMenu);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -136,39 +125,44 @@ public class VentanaUsuarios extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addGap(81, 81, 81))
+                        .addContainerGap()
+                        .addComponent(BtnAgregar)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(txtContr, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(BtnActualizar)
+                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addContainerGap(151, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(BtnAgregar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BtnEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BtnActualizar)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(BtnEliminar)
+                                .addGap(18, 18, 18))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtContr, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(22, 22, 22))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(jLabel3)
+                        .addGap(28, 28, 28)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                    .addComponent(btnBuscar)
+                    .addComponent(txtTipoUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(68, 68, 68))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,12 +174,16 @@ public class VentanaUsuarios extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtContr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtContr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnAgregar)
                     .addComponent(BtnActualizar)
@@ -199,12 +197,41 @@ public class VentanaUsuarios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
-
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
+
+    String email = txtCorreo.getText(); // Tomamos el correo para identificar al usuario a actualizar
+
+    if (email.isEmpty()) {
+        mensaje("ERROR: El campo correo está vacío.");
+        return;
+    }
+
+    String nombre = txtNombre.getText();
+    String tipoUsuario = txtTipoUsuario;
+    String contrasena = txtContr.getText();
+
+    if (nombre.isEmpty() || tipoUsuario.isEmpty() || contrasena.isEmpty()) {
+        mensaje("ERROR: Todos los campos deben ser llenados.");
+        return;
+    }
+
+    try {
+        // Intentamos actualizar los datos del usuario en la base de datos
+        boolean actualizado = bd.actualizarUsuario(email, nombre, tipoUsuario, contrasena);
         
+        if (actualizado) {
+            mensaje("Usuario actualizado exitosamente.");
+            limpiarCampos(); // Limpiamos los campos después de la actualización
+        } else {
+            mensaje("No se pudo actualizar el usuario.");
+        }
+    } catch (SQLException ex) {
+        mensaje("ERROR: Ocurrió un problema al actualizar el usuario.");
+        Logger.getLogger(VentanaUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
+
+
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
@@ -228,24 +255,16 @@ public class VentanaUsuarios extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
-    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCorreoActionPerformed
-
     private void txtContrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContrActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContrActionPerformed
-
-    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
     String nombre = txtNombre.getText();
     //String direcciontxtCorreo.setText("");
     //String telefono txtContr.setText("");
     String email = txtCorreo.getText();
-    String puesto = txtUsuario.getText();
+    String puesto = txtTipoUsuario;
 
     if (nombre.isEmpty() || email.isEmpty() || puesto.isEmpty()) {
         mensaje("ERROR: Campos vacíos");
@@ -270,6 +289,38 @@ public class VentanaUsuarios extends javax.swing.JFrame {
     private void BtnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMenuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnMenuActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+    String email = txtCorreo.getText(); // Tomamos el texto del campo txtCorreo
+
+    if (email.isEmpty()) {
+        mensaje("ERROR: El campo correo está vacío.");
+        return;
+    }
+
+    try {
+        // Intentamos buscar al usuario en la base de datos usando el email
+        ResultSet rs = bd.buscarUsuarioPorCorreo(email); // Método de búsqueda de la base de datos
+
+        if (rs.next()) {
+            // Si encontramos al usuario, mostramos sus datos en el área de texto
+            String nombre = rs.getString("nombre");
+            String correo = rs.getString("correo");
+            String tipoUsuario = rs.getString("tipo_usuario");
+
+            // Mostrar los datos del usuario en el área de texto
+            jTextArea1.setText("Nombre: " + nombre + "\nCorreo: " + correo + "\nTipo de Usuario: " + tipoUsuario);
+        } else {
+            mensaje("No se encontró ningún usuario con ese correo.");
+        }
+    } catch (SQLException ex) {
+        mensaje("ERROR: Ocurrió un problema al buscar el usuario.");
+        Logger.getLogger(VentanaUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
+
+
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -318,7 +369,32 @@ public class VentanaUsuarios extends javax.swing.JFrame {
             }
         });
     }
+class Usuario {
+    private String nombre;
+    private String correo;
+    private String contrasena;
+    private String tipoUsuario;
 
+
+
+
+
+    // Constructor
+    public Usuario(String nombre, String correo, String contrasena, String tipoUsuario) {
+        this.nombre = nombre;
+        this.correo = correo;
+        this.contrasena = contrasena;
+        this.tipoUsuario = tipoUsuario;
+    }
+public void mensaje(String cad) {
+JOptionPane.showMessageDialog(parentComponent, cad);
+}
+    // Getters y setters
+    public String getNombre() { return nombre; }
+    public String getCorreo() { return correo; }
+    public String getContraseña() { return contrasena; }
+    public String getTipoUsuario() { return tipoUsuario; }
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnActualizar;
     private javax.swing.JButton BtnAgregar;
@@ -329,13 +405,12 @@ public class VentanaUsuarios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField txtContr;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtUsuario;
+    private javax.swing.JTextField txtTipoUsuario;
     // End of variables declaration//GEN-END:variables
 }
