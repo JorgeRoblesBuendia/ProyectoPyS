@@ -122,7 +122,7 @@ public class BaseDatos {
         String A[] = new String[2];
         boolean bandera = false;
         try {
-            String SQL="SELECT * FROM `Empleados` WHERE Correo = '"+correo+"' AND Contrasena = '"+contrasena+"'";
+            String SQL="SELECT * FROM `Empleados` WHERE email = '"+correo+"' AND Contrasena = '"+contrasena+"'";
             cursor= transaccion.executeQuery(SQL);
             if(cursor.next()){
                 A[0]=cursor.getString(6);
@@ -374,7 +374,7 @@ public boolean actualizarProductos(Producto p) {
         int id = 0;
 
         try {
-            String SQL = "SELECT * FROM `Empleados` WHERE Email LIKE '" + email + "'";
+            String SQL = "SELECT * FROM `Empleados` WHERE email = '" + email + "'";
             cursor = transaccion.executeQuery(SQL);
 
             if (cursor.next()) {
@@ -388,7 +388,7 @@ public boolean actualizarProductos(Producto p) {
     }
     public Empleado buscarEmpleado(String email, Empleado e) {
         try {
-            String SQL = "SELECT * FROM `Empleados` WHERE Email LIKE '" + email + "'";
+            String SQL = "SELECT * FROM `Empleados` WHERE email = '" + email + "'";
             cursor = transaccion.executeQuery(SQL);
 
             if (cursor.next()) {
