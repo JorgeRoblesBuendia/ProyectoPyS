@@ -120,7 +120,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nombre", "Descripcion", "Precio", "Categoria"
             }
         ));
         jScrollPane1.setViewportView(tblServicios);
