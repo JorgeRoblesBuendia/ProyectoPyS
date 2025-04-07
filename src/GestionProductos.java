@@ -5,6 +5,8 @@ import java.awt.event.*;
 import java.sql.*;
 import java.util.Random;
 
+//PENESITO RICO
+
 public class GestionProductos {
 
     // Conexión a la BD
