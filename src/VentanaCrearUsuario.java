@@ -52,6 +52,7 @@ public class VentanaCrearUsuario extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Crear Usuarios");
 
         btnCrearUsuario.setText("Crear usuario");
         btnCrearUsuario.addActionListener(new java.awt.event.ActionListener() {

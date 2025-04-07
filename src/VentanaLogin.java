@@ -49,6 +49,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
 
         btnInISec.setText("Iniciar Sesion");
         btnInISec.addActionListener(new java.awt.event.ActionListener() {

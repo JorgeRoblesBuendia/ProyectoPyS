@@ -68,6 +68,7 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
         jLabel2.setText("Nombre");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestion Usuarios");
 
         jLabel1.setText("Nombre");
 

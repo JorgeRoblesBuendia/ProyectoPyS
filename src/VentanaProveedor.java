@@ -10,7 +10,6 @@ public class VentanaProveedor extends javax.swing.JFrame {
     boolean permisoEditar=false,permisoBorrar=false;
     public VentanaProveedor() {
         initComponents();
-        setTitle("Proveedores");
         bd = new BaseDatos();
         try {
             if (bd.conexion.isClosed()) {
@@ -52,6 +51,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Proveedores");
         setBackground(new java.awt.Color(204, 204, 255));
 
         jPanel1.setBackground(new java.awt.Color(255, 102, 102));

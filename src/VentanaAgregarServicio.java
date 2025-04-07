@@ -26,7 +26,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
      */
     public VentanaAgregarServicio() {
         initComponents();
-        setTitle("Servicios");
+       
         
         bd=new BaseDatos();
         try {
@@ -69,6 +69,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Agregar Servicios");
 
         jPanel1.setBackground(new java.awt.Color(255, 102, 102));
 

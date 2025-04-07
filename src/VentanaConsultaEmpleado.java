@@ -23,7 +23,6 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
      */
     public VentanaConsultaEmpleado() {
         initComponents();
-        setTitle("Consultas");
         bd=new BaseDatos();
         try {
             if(bd.conexion.isClosed()){
@@ -56,6 +55,7 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Consultar Empleados");
 
         jPanel1.setBackground(new java.awt.Color(255, 102, 102));
 

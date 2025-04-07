@@ -23,7 +23,6 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
      */
     public VentanaGestionCategoria() {
         initComponents();
-        setTitle("Categoria");
         bd=new BaseDatos();
         try {
             if(bd.conexion.isClosed()){
@@ -64,6 +63,7 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestion Categoria");
 
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
