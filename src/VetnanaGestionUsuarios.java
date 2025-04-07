@@ -237,7 +237,7 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
         mensaje("ERROR: El campo correo está vacío.");
         return;
     }
-
+//----
     // Intentamos buscar al usuario en la base de datos usando el email
     e= bd.buscarEmpleado(email,e); // Método de búsqueda de la base de datos
     if (e!=null) {
