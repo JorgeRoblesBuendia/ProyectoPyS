@@ -5,7 +5,7 @@ import java.awt.event.*;
 import java.sql.*;
 import java.util.Random;
 
-//PENESITO RICO
+//VIVA CRISTO REY
 
 public class GestionProductos {
 
