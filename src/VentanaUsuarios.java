@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import javax.swing.*;
 import java.sql.*;
 
-
 /**
  *
  * @author edwin
@@ -21,7 +20,7 @@ public class VentanaUsuarios extends javax.swing.JFrame {
      */
     public VentanaUsuarios() {
         initComponents();
-        bd=new BaseDatos();
+         bd=new BaseDatos();
         try {
             if (bd.conexion.isClosed()) {
                 System.out.println("Nooo!!!. Se cerró");
@@ -29,7 +28,6 @@ public class VentanaUsuarios extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(VentanaRegistrarProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
 
     /**
@@ -41,61 +39,23 @@ public class VentanaUsuarios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        BtnAgregar = new javax.swing.JButton();
-        BtnActualizar = new javax.swing.JButton();
-        txtContr = new javax.swing.JTextField();
+        btnAgregar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        txtAgregar = new javax.swing.JTextField();
+        txtBuscar = new javax.swing.JTextField();
+        txtEliminar = new javax.swing.JTextField();
+        txtActualizar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        BtnEliminar = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
-        txtTipoUsuario = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JTextField();
-        txtCorreo = new javax.swing.JTextField();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        BtnMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        BtnAgregar.setText("Agregar");
-        BtnAgregar.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnAgregarActionPerformed(evt);
-            }
-        });
-
-        BtnActualizar.setText("Actualizar");
-        BtnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnActualizarActionPerformed(evt);
-            }
-        });
-
-        txtContr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtContrActionPerformed(evt);
-            }
-        });
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jLabel1.setText("Nombre");
-
-        jLabel2.setText("Correo");
-
-        jLabel3.setText("Contraseña");
-
-        jLabel4.setText("Tipo de usuario");
-
-        BtnEliminar.setText("Eliminar");
-        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnEliminarActionPerformed(evt);
+                btnAgregarActionPerformed(evt);
             }
         });
 
@@ -106,98 +66,76 @@ public class VentanaUsuarios extends javax.swing.JFrame {
             }
         });
 
-        txtNombre.setText("jTextField1");
-
-        txtCorreo.setText("jTextField1");
-
-        BtnMenu.setText("Menu");
-        BtnMenu.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnMenuActionPerformed(evt);
+                btnEliminarActionPerformed(evt);
             }
         });
-        jMenuBar1.add(BtnMenu);
 
-        setJMenuBar(jMenuBar1);
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(BtnAgregar)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BtnActualizar)
-                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(BtnEliminar)
-                                .addGap(18, 18, 18))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtContr, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(22, 22, 22))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
-                        .addComponent(jLabel3)
-                        .addGap(28, 28, 28)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                    .addComponent(btnBuscar)
-                    .addComponent(txtTipoUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(68, 68, 68))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1))
+                        .addComponent(txtEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAgregar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnActualizar)))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(7, 7, 7)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtContr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                    .addComponent(btnAgregar)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnActualizar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnAgregar)
-                    .addComponent(BtnActualizar)
-                    .addComponent(BtnEliminar)
-                    .addComponent(btnBuscar))
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(txtAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        
 
     String email = txtCorreo.getText(); // Tomamos el correo para identificar al usuario a actualizar
 
@@ -229,13 +167,14 @@ public class VentanaUsuarios extends javax.swing.JFrame {
         mensaje("ERROR: Ocurrió un problema al actualizar el usuario.");
         Logger.getLogger(VentanaUsuarios.class.getName()).log(Level.SEVERE, null, ex);
     }
-}
 
 
-    }//GEN-LAST:event_BtnActualizarActionPerformed
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
-    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-        String email = txtCorreo.getText(); // Capturar el email del empleado desde el formulario
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        
+          String email = txtCorreo.getText(); // Capturar el email del empleado desde el formulario
 
     if (email.isEmpty()) {
         mensaje("ERROR: Campo email vacío");
@@ -253,45 +192,14 @@ public class VentanaUsuarios extends javax.swing.JFrame {
     } catch (Exception e) {
         mensaje("ERROR: Ocurrió un problema al eliminar el empleado");
     }
-    }//GEN-LAST:event_BtnEliminarActionPerformed
 
-    private void txtContrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContrActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtContrActionPerformed
 
-    private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
-    String nombre = txtNombre.getText();
-    //String direcciontxtCorreo.setText("");
-    //String telefono txtContr.setText("");
-    String email = txtCorreo.getText();
-    String puesto = txtTipoUsuario;
 
-    if (nombre.isEmpty() || email.isEmpty() || puesto.isEmpty()) {
-        mensaje("ERROR: Campos vacíos");
-        return;
-    }
-
-    try {
-        // Registrar empleado en la base de datos
-        if (bd.insertarEmpleado(new Empleado(0, nombre, "", "", email, puesto))) {
-            mensaje("Empleado registrado exitosamente");
-            limpiarCampos();
-        } else {
-            mensaje("Error al registrar el empleado");
-        }
-    } catch (Exception e) {
-        mensaje("ERROR: Ocurrió un problema al registrar el empleado");
-    }
-        
-        
-    }//GEN-LAST:event_BtnAgregarActionPerformed
-
-    private void BtnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMenuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnMenuActionPerformed
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-    String email = txtCorreo.getText(); // Tomamos el texto del campo txtCorreo
+        // TODO add your handling code here:
+        String email = txtCorreo.getText(); // Tomamos el texto del campo txtCorreo
 
     if (email.isEmpty()) {
         mensaje("ERROR: El campo correo está vacío.");
@@ -317,27 +225,47 @@ public class VentanaUsuarios extends javax.swing.JFrame {
         mensaje("ERROR: Ocurrió un problema al buscar el usuario.");
         Logger.getLogger(VentanaUsuarios.class.getName()).log(Level.SEVERE, null, ex);
     }
-}
-
 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    
-    public void mensaje(String cad) {
-        JOptionPane.showMessageDialog(this, cad);
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+         String nombre = txtNombre.getText();
+    //String direcciontxtCorreo.setText("");
+    //String telefono txtContr.setText("");
+    String email = txtCorreo.getText();
+    String puesto = txtTipoUsuario;
+
+    if (nombre.isEmpty() || email.isEmpty() || puesto.isEmpty()) {
+        mensaje("ERROR: Campos vacíos");
+        return;
     }
-    
-    // Limpiar campos después de insertar
-    private void limpiarCampos() {
+
+    try {
+        // Registrar empleado en la base de datos
+        if (bd.insertarEmpleado(new Empleado(0, nombre, "", "", email, puesto))) {
+            mensaje("Empleado registrado exitosamente");
+            limpiarCampos();
+        } else {
+            mensaje("Error al registrar el empleado");
+        }
+    } catch (Exception e) {
+        mensaje("ERROR: Ocurrió un problema al registrar el empleado");
+    }
+
+        
+    }//GEN-LAST:event_btnAgregarActionPerformed
+   private void limpiarCampos() {
         txtNombre.setText("");
         txtCorreo.setText("");
         txtContr.setText("");
         txtUsuario.setText("");
     }
-    
+   
+   
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -369,48 +297,17 @@ public class VentanaUsuarios extends javax.swing.JFrame {
             }
         });
     }
-class Usuario {
-    private String nombre;
-    private String correo;
-    private String contrasena;
-    private String tipoUsuario;
 
-
-
-
-
-    // Constructor
-    public Usuario(String nombre, String correo, String contrasena, String tipoUsuario) {
-        this.nombre = nombre;
-        this.correo = correo;
-        this.contrasena = contrasena;
-        this.tipoUsuario = tipoUsuario;
-    }
-public void mensaje(String cad) {
-JOptionPane.showMessageDialog(parentComponent, cad);
-}
-    // Getters y setters
-    public String getNombre() { return nombre; }
-    public String getCorreo() { return correo; }
-    public String getContraseña() { return contrasena; }
-    public String getTipoUsuario() { return tipoUsuario; }
-}
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnActualizar;
-    private javax.swing.JButton BtnAgregar;
-    private javax.swing.JButton BtnEliminar;
-    private javax.swing.JMenu BtnMenu;
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField txtContr;
-    private javax.swing.JTextField txtCorreo;
-    private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtTipoUsuario;
+    private javax.swing.JTextField txtActualizar;
+    private javax.swing.JTextField txtAgregar;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtEliminar;
     // End of variables declaration//GEN-END:variables
 }
