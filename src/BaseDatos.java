@@ -645,7 +645,7 @@ public int buscarServicio(String nombre) {
     int id = -1;
 
     try {
-        String SQL = "SELECT * FROM `Servicios` WHERE `nombre` LIKE '" + nombre + "'";
+        String SQL = "SELECT * FROM `Servicios` WHERE `nombre` = '" + nombre + "'";
         cursor = transaccion.executeQuery(SQL);
 
         if (cursor.next()) {
@@ -659,7 +659,7 @@ public int buscarServicio(String nombre) {
 
 public Servicio buscarServicio(String nombre, Servicio s) {
     try {
-        String SQL = "SELECT * FROM `Servicios` WHERE `nombre` LIKE '" + nombre + "'";
+        String SQL = "SELECT * FROM `Servicios` WHERE `nombre` = '" + nombre + "'";
         cursor = transaccion.executeQuery(SQL);
 
         if (cursor.next()) {
