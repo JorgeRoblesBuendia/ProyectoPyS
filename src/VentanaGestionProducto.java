@@ -29,7 +29,7 @@ public class VentanaGestionProducto extends javax.swing.JFrame {
                 System.out.println("Nooo!!!. Se cerró");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(VentanaRegistrarProducto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VentanaGestionProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         m=(DefaultTableModel) tblProductos.getModel();
