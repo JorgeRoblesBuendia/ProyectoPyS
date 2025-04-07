@@ -49,49 +49,32 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        txtDescrip = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtPrecio = new javax.swing.JTextField();
+        txtDescrip = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
+        txtPrecio = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
         btnEditar = new javax.swing.JButton();
+        cmbCategoria = new javax.swing.JComboBox<>();
         tbnEliminar = new javax.swing.JButton();
         Regresar = new javax.swing.JButton();
-        cmbCategoria = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblServicios = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 102, 102));
-        jPanel1.setForeground(new java.awt.Color(255, 102, 102));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jLabel3.setText("Descripcion");
 
         jLabel1.setFont(new java.awt.Font("Iron Maiden", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Gestion Servicio");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 32));
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 110, 123, -1));
-
-        jLabel2.setText("Nombre");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 90, 78, -1));
-        jPanel1.add(txtDescrip, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 180, 123, -1));
-
-        jLabel3.setText("Descripcion");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 150, 78, -1));
-        jPanel1.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 240, 123, -1));
 
         jLabel4.setText("Precio");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 220, 78, -1));
-
-        jLabel5.setText("Categoria");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 270, 78, -1));
 
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +82,6 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -107,7 +89,8 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
                 btnBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, -1, -1));
+
+        jLabel5.setText("Categoria");
 
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -115,7 +98,8 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
                 btnEditarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
+
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         tbnEliminar.setText("Eliminar");
         tbnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +107,6 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
                 tbnEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(tbnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, -1, -1));
 
         Regresar.setText("Regresar");
         Regresar.addActionListener(new java.awt.event.ActionListener() {
@@ -131,10 +114,6 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
                 RegresarActionPerformed(evt);
             }
         });
-        jPanel1.add(Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 430, -1, -1));
-
-        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-        jPanel1.add(cmbCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, 161, -1));
 
         tblServicios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -146,9 +125,114 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblServicios);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+        jLabel2.setText("Nombre");
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 650));
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 653, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addComponent(txtDescrip, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(80, 80, 80)
+                                    .addComponent(Regresar))))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGap(70, 70, 70)
+                                            .addComponent(btnBuscar))
+                                        .addComponent(btnAgregar))
+                                    .addGap(8, 8, 8)
+                                    .addComponent(btnEditar)
+                                    .addGap(8, 8, 8)
+                                    .addComponent(tbnEliminar)))))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 519, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(8, 8, 8)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnBuscar)
+                                .addComponent(btnAgregar)
+                                .addComponent(btnEditar)
+                                .addComponent(tbnEliminar))
+                            .addGap(17, 17, 17)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(22, 22, 22)
+                            .addComponent(jLabel2)
+                            .addGap(4, 4, 4)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel3)
+                            .addGap(14, 14, 14)
+                            .addComponent(txtDescrip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel4)
+                            .addGap(4, 4, 4)
+                            .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(8, 8, 8)
+                            .addComponent(jLabel5)
+                            .addGap(44, 44, 44)
+                            .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(78, 78, 78)
+                            .addComponent(Regresar)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 24, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 39, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -163,19 +247,18 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
                 return;
             }else{
                 if ((precio = Double.parseDouble(txtPrecio.getText())) <= 0)
-                    throw new NumberFormatException("El precio debe ser mayor a 0.");
+                throw new NumberFormatException("El precio debe ser mayor a 0.");
             }
             if(bd.buscarServicio(nombre)!=-1){
                 System.out.println("EL REGISTRO YA EXISTE");
             }else{
                 bd.insertarServicio(new Servicio(0,nombre,descripcion,precio,tipo,1));
             }
-        
-            
+
         } catch (NumberFormatException e) {
             System.out.println("Error en el campo 'precio': " + e.getMessage());
             return;
-        }        
+        }
         vaciarTxt();actualizarTabla();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -183,19 +266,19 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
         String nombre=txtNombre.getText();
         Servicio s=new Servicio(0,"","",0.0,"",1);
         if (nombre.isEmpty()) {
-                System.out.println("el campo 'nombre' estar vacíos.");
-                return;
+            System.out.println("el campo 'nombre' estar vacíos.");
+            return;
+        }else{
+            if(bd.buscarServicio(nombre)!=-1){
+                s=bd.buscarServicio(nombre, s);
+                txtNombre.setText(s.nombre);txtDescrip.setText(s.descripcion);
+                txtPrecio.setText(s.precio+""); cmbCategoria.setSelectedIndex(Integer.parseInt(s.categoriaServicio));
+                permisoEditar=true;permisoBorrar=true;
             }else{
-                if(bd.buscarServicio(nombre)!=-1){
-                    s=bd.buscarServicio(nombre, s);
-                    txtNombre.setText(s.nombre);txtDescrip.setText(s.descripcion);
-                    txtPrecio.setText(s.precio+""); cmbCategoria.setSelectedIndex(Integer.parseInt(s.categoriaServicio));
-                    permisoEditar=true;permisoBorrar=true;
-                }else{
-                    System.out.println("EL REGISTRO YA EXISTE");
-                }
+                System.out.println("EL REGISTRO YA EXISTE");
             }
-        actualizarTabla();    
+        }
+        actualizarTabla();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -207,7 +290,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
                 return;
             }else{
                 if ((precio = Double.parseDouble(txtPrecio.getText())) <= 0)
-                    throw new NumberFormatException("El precio debe ser mayor a 0.");
+                throw new NumberFormatException("El precio debe ser mayor a 0.");
             }
             //s,new Servicio()
             //if(permisoEditar)bd.insertarServicio(new Servicio(0,nombre,descripcion,precio,"",1));
@@ -215,7 +298,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             System.out.println("Error en el campo 'precio': " + e.getMessage());
             return;
-        }        
+        }
         vaciarTxt();permisoEditar=false;actualizarTabla();
     }//GEN-LAST:event_btnEditarActionPerformed
 
