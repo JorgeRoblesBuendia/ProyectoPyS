@@ -156,10 +156,16 @@ public class VentanaMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProvedoresActionPerformed
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-        VentanaGestionProducto v=new VentanaGestionProducto();
-                v.bd=bd;
-                v.setVisible(true);
-                this.dispose();
+                                            
+        java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            new VentanaMenu().setVisible(true);
+        }
+    });
+        
+        GestionProductos.main(null);
+    this.dispose(); 
+                                                
         
     }//GEN-LAST:event_btnProductosActionPerformed
 public static void mostrarMenu() {
