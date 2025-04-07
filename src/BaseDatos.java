@@ -399,7 +399,26 @@ public boolean actualizarProductos(Producto p) {
         }
         return true;
     }
+    public boolean actualizarEmpleado(String nombre, String email, String Contr) {
+    try {
+        String SQL = "UPDATE `Empleados` SET  `email` = '%Email%', " +
+                    "`Contrasena` = '%con%' " +
+                     "WHERE `Nombre` = '%Nomb%'";
 
+        // Reemplazar los marcadores con los valores correspondientes
+        SQL = SQL.replaceAll("%Nombre%", nombre);
+        SQL = SQL.replaceAll("%Email%", email);
+        SQL = SQL.replaceAll("%con%", Contr);
+
+        // Ejecutar la consulta SQL
+        transaccion.execute(SQL);
+        System.out.println(SQL);
+    } catch (SQLException ex) {
+        System.out.println("Error al actualizar el empleado: " + ex.getMessage());
+        return false;
+    }
+    return true;
+}
 
     public ArrayList<String[]> mostrarEmpleados() {
         ArrayList<String[]> resultado = new ArrayList<>();
@@ -886,15 +905,32 @@ class Producto {
 class Empleado{
     int id;
     String nombre,direccion,telefono,email,puesto;
+    String contr;
 
-    public Empleado(int id, String nombre, String direccion, String telefono, String email, String puesto) {
+    public Empleado(int id, String nombre, String direccion, String telefono, String email, String puesto, String contr) {
         this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
         this.email = email;
         this.puesto = puesto;
+        this.contr = contr;
     }
+
+    public Empleado(int id, String nombre, String email, String contr) {
+        this.id = id;
+        this.nombre = nombre;
+        this.email = email;
+        this.contr = contr;
+    }
+
+    
+    
+
+    
+
+    Empleado() {
+        }
     
 }
 class Ventas {
