@@ -122,7 +122,7 @@ public class BaseDatos {
         String A[] = new String[2];
         boolean bandera = false;
         try {
-            String SQL="SELECT * FROM `Empleados` WHERE Correo = '"+correo+"' AND Contrasena = '"+contrasena+"'";
+            String SQL="SELECT * FROM `Empleados` WHERE email = '"+correo+"' AND Contrasena = '"+contrasena+"'";
             cursor= transaccion.executeQuery(SQL);
             if(cursor.next()){
                 A[0]=cursor.getString(6);
@@ -189,7 +189,7 @@ public class BaseDatos {
         int cd=0;
         
         try {
-            String SQL="SELECT * FROM `Productos` WHERE CodigoBarras LIKE '"+codigo+"'";
+            String SQL="SELECT * FROM `Productos` WHERE CodigoBarras = '"+codigo+"'";
             cursor= transaccion.executeQuery(SQL);
             if(cursor.next()){
                 cd=cursor.getInt(3);
@@ -250,7 +250,7 @@ public class BaseDatos {
             if(cursor.next()){
                 do{
                     String[] al = {
-                        cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),  
+                        cursor.getString(10), cursor.getString(2), cursor.getString(3), cursor.getString(4),  
                         cursor.getString(5),cursor.getString(6), cursor.getString(7),// cursor.getString(8),  
                         // cursor.getString(9),cursor.getString(10), cursor.getString(11)  
                         cursor.getString(8),cursor.getString(9),cursor.getString(10)
@@ -374,7 +374,7 @@ public boolean actualizarProductos(Producto p) {
         int id = 0;
 
         try {
-            String SQL = "SELECT * FROM `Empleados` WHERE Email LIKE '" + email + "'";
+            String SQL = "SELECT * FROM `Empleados` WHERE email = '" + email + "'";
             cursor = transaccion.executeQuery(SQL);
 
             if (cursor.next()) {
@@ -388,7 +388,7 @@ public boolean actualizarProductos(Producto p) {
     }
     public Empleado buscarEmpleado(String email, Empleado e) {
         try {
-            String SQL = "SELECT * FROM `Empleados` WHERE Email LIKE '" + email + "'";
+            String SQL = "SELECT * FROM `Empleados` WHERE email = '" + email + "'";
             cursor = transaccion.executeQuery(SQL);
 
             if (cursor.next()) {
@@ -482,6 +482,192 @@ public boolean actualizarProductos(Producto p) {
     
     
     //-----------------------------------ventaaaa
+
+        public boolean insertarVenta(Ventas v) {
+        try {
+            String SQL = "INSERT INTO `Ventas` ( `idCliente`, `idEmpleado`, `total`, `tipoPago`) " +
+                         "VALUES ( %IdCliente%, %IdEmpleado%, %Total%, '%TipoPago%')";
+            //SQL = SQL.replaceAll("%FechaHora%", null);
+            SQL = SQL.replaceAll("%IdCliente%", String.valueOf(v.idCliente));
+            SQL = SQL.replaceAll("%IdEmpleado%", String.valueOf(v.idEmpleado));
+            SQL = SQL.replaceAll("%Total%", String.valueOf(v.total));
+            SQL = SQL.replaceAll("%TipoPago%", v.tipoPago);
+            transaccion.execute(SQL);
+            System.out.println(SQL);
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar venta: " + ex.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public Ventas buscarVenta(int idVenta) {
+        Ventas v = null;
+        try {
+            String SQL = "SELECT * FROM `Ventas` WHERE `idVenta` = " + idVenta;
+            cursor = transaccion.executeQuery(SQL);
+
+            if (cursor.next()) {
+                v = new Ventas();
+                v.id = cursor.getInt("idVenta");
+                v.idCliente = cursor.getInt("idCliente");
+                v.idEmpleado = cursor.getInt("idEmpleado");
+                v.total = cursor.getDouble("total");
+                v.tipoPago = cursor.getString("tipoPago");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar venta: " + ex.getMessage());
+        }
+        return v;
+    }
+    public boolean actualizarVentaTotal(int idVenta, String tot) {
+        try {
+            String SQL = "UPDATE `Ventas` SET `total` = '%NuevoValor%' WHERE `idVenta` = %IdVenta%";
+            SQL = SQL.replaceAll("%NuevoValor%", tot);
+            SQL = SQL.replaceAll("%IdVenta%", String.valueOf(idVenta));
+
+            transaccion.execute(SQL);
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar la venta: " + ex.getMessage());
+            return false;
+        }
+        return true;
+    }
+    public boolean actualizarVenta(int idVenta, String campo, String nuevoValor) {
+        try {
+            String SQL = "UPDATE `Ventas` SET `" + campo + "` = '%NuevoValor%' WHERE `idVenta` = %IdVenta%";
+            SQL = SQL.replaceAll("%NuevoValor%", nuevoValor);
+            SQL = SQL.replaceAll("%IdVenta%", String.valueOf(idVenta));
+
+            transaccion.execute(SQL);
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar la venta: " + ex.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public boolean eliminarVenta(int idVenta) {
+        try {
+            String SQL = "DELETE FROM `Ventas` WHERE `idVenta` = " + idVenta;
+            transaccion.execute(SQL);
+        } catch (SQLException ex) {
+            System.out.println("Error al eliminar venta: " + ex.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public ArrayList<String[]> mostrarVentas() {
+        ArrayList<String[]> resultado = new ArrayList<>();
+        try {
+            String SQL = "SELECT * FROM `Ventas`";
+            cursor = transaccion.executeQuery(SQL);
+            if (cursor.next()) {
+                    do {
+                        String[] datos = {cursor.getInt("idVenta")+"",
+                                cursor.getInt("idEmpleado")+"",
+                                cursor.getDouble("total")+"",
+                                cursor.getString("tipoPago")};
+                        resultado.add(datos);
+                    } while (cursor.next());
+                }
+
+
+        } catch (SQLException ex) {
+            System.out.println("Error al mostrar ventas: " + ex.getMessage());
+        }
+        return resultado;
+    }
+
+public boolean insertarDetalleVenta(DetallesVenta dv) {
+    try {
+        String SQL = "INSERT INTO `DetallesVenta` (`idVenta`, `idProducto`, `cantidad`, `precioUnitario`, `subtotal`) " +
+                     "VALUES (%IdVenta%, %IdProducto%, %Cantidad%, %PrecioUnitario%, %Subtotal%)";
+        SQL = SQL.replaceAll("%IdVenta%", String.valueOf(dv.idVenta));
+        SQL = SQL.replaceAll("%IdProducto%", String.valueOf(dv.idProducto));
+        SQL = SQL.replaceAll("%Cantidad%", String.valueOf(dv.cantidad));
+        SQL = SQL.replaceAll("%PrecioUnitario%", String.valueOf(dv.precioUnitario));
+        SQL = SQL.replaceAll("%Subtotal%", String.valueOf(dv.subtotal));
+
+        transaccion.execute(SQL);
+        System.out.println(SQL);
+    } catch (SQLException ex) {
+        System.out.println("Error al insertar detalle de venta: " + ex.getMessage());
+        return false;
+    }
+    return true;
+}
+
+public DetallesVenta buscarDetalleVenta(int idDetalle) {
+    DetallesVenta dv = null;
+    try {
+        String SQL = "SELECT * FROM `DetallesVenta` WHERE `idDetalle` = " + idDetalle;
+        cursor = transaccion.executeQuery(SQL);
+
+        if (cursor.next()) {
+            dv = new DetallesVenta();
+            dv.id = cursor.getInt("idDetalle");
+            dv.idVenta = cursor.getInt("idVenta");
+            dv.idProducto = cursor.getInt("idProducto");
+            dv.cantidad = cursor.getInt("cantidad");
+            dv.precioUnitario = cursor.getDouble("precioUnitario");
+            dv.subtotal = cursor.getDouble("subtotal");
+        }
+    } catch (SQLException ex) {
+        System.out.println("Error al buscar detalle de venta: " + ex.getMessage());
+    }
+    return dv;
+}
+
+public boolean actualizarDetalleVenta(int idDetalle, String campo, String nuevoValor) {
+    try {
+        String SQL = "UPDATE `DetallesVenta` SET `" + campo + "` = '%NuevoValor%' WHERE `idDetalle` = %IdDetalle%";
+        SQL = SQL.replaceAll("%NuevoValor%", nuevoValor);
+        SQL = SQL.replaceAll("%IdDetalle%", String.valueOf(idDetalle));
+
+        transaccion.execute(SQL);
+    } catch (SQLException ex) {
+        System.out.println("Error al actualizar detalle de venta: " + ex.getMessage());
+        return false;
+    }
+    return true;
+}
+
+public boolean eliminarDetalleVenta(int idDetalle) {
+    try {
+        String SQL = "DELETE FROM `DetallesVenta` WHERE `idDetalle` = " + idDetalle;
+        transaccion.execute(SQL);
+    } catch (SQLException ex) {
+        System.out.println("Error al eliminar detalle de venta: " + ex.getMessage());
+        return false;
+    }
+    return true;
+}
+
+public ArrayList<String[]> mostrarDetallesVenta() {
+    ArrayList<String[]> resultado = new ArrayList<>();
+    try {
+        String SQL = "SELECT * FROM `DetallesVenta`";
+        cursor = transaccion.executeQuery(SQL);
+
+        if (cursor.next()) {
+            do {
+                String[] datos = {cursor.getInt("idDetalle")+""
+                    ,cursor.getInt("idVenta")+""
+                    ,cursor.getInt("idProducto")+""
+                    ,cursor.getInt("cantidad")+""
+                    ,cursor.getBigDecimal("precioUnitario")+""
+                    ,cursor.getBigDecimal("subtotal")+""};
+                    resultado.add(datos);
+            } while (cursor.next());
+            
+        }
+    } catch (SQLException ex) {
+        System.out.println("Error al mostrar detalles de venta: " + ex.getMessage());
+    }
+    return resultado;
+}
     
     
 
@@ -731,13 +917,13 @@ public boolean actualizarServicio(Servicio s,int s2) {
 public ArrayList<String[]> mostrarServicios() {
     ArrayList<String[]> resultado = new ArrayList<>();
     try {
-        String SQL = "SELECT * FROM `Servicios`";
+        String SQL = "SELECT *,C.nombre FROM `Servicios`INNER JOIN `Categorias` C";
         cursor = transaccion.executeQuery(SQL);
 
         if (cursor.next()) {
             do {
                 String[] datos = {cursor.getString("nombre"), cursor.getString("descripcion"), 
-                                  cursor.getBigDecimal("precio").toString(), cursor.getString("categoriaServicio"), 
+                                  cursor.getBigDecimal("precio").toString(), cursor.getString(10), 
                                   String.valueOf(cursor.getBoolean("activo"))};
                 resultado.add(datos);
             } while (cursor.next());
@@ -986,6 +1172,10 @@ class Ventas {
         this.tipoPago = tipoPago;
     }
 
+    Ventas() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     
 }
 class DetallesVenta {
@@ -999,6 +1189,10 @@ class DetallesVenta {
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
         this.subtotal = subtotal;
+    }
+
+    DetallesVenta() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     
