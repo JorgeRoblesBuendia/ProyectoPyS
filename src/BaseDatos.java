@@ -80,6 +80,27 @@ public class BaseDatos {
         }
         return idEmpleado;
     }
+    public int getLoginEmpleado(String correo, String contrasena){
+        String A[] = new String[2];
+        int idEmpleado = -1;
+        try {
+            //SELECT * FROM `Login` WHERE Correo like 'A' and Constrasena like 'A';
+            String SQL="SELECT * FROM `Empleados` WHERE Correo LIKE '"+correo+"' AND Contrasena LIKE '"+contrasena+"'";
+            cursor= transaccion.executeQuery(SQL);
+            if(cursor.next()){
+                idEmpleado = cursor.getInt(1);
+                A[0]=cursor.getString(6);
+                A[1]=cursor.getString(8);
+                if(A[0].equals(correo) && A[1].equals(contrasena)){
+                    idEmpleado = cursor.getInt(1);
+                };
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idEmpleado;
+    }
     public boolean buscarLogin(String correo, String contrasena){//validar login
         String A[] = new String[2];
         boolean bandera = false;
@@ -89,6 +110,23 @@ public class BaseDatos {
             if(cursor.next()){
                 A[0]=cursor.getString(3);
                 A[1]=cursor.getString(4);
+                if(A[0].equals(correo) && A[1].equals(contrasena))bandera=true;
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return bandera;
+    }
+    public boolean buscarLoginEmpleado(String correo, String contrasena){//validar login
+        String A[] = new String[2];
+        boolean bandera = false;
+        try {
+            String SQL="SELECT * FROM `Empleados` WHERE Correo = '"+correo+"' AND Contrasena = '"+contrasena+"'";
+            cursor= transaccion.executeQuery(SQL);
+            if(cursor.next()){
+                A[0]=cursor.getString(6);
+                A[1]=cursor.getString(8);
                 if(A[0].equals(correo) && A[1].equals(contrasena))bandera=true;
             }
             
