@@ -10,6 +10,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
     boolean permisoEditar=false,permisoBorrar=false;
     public VentanaProveedor() {
         initComponents();
+        setTitle("Proveedores");
         bd = new BaseDatos();
         try {
             if (bd.conexion.isClosed()) {
@@ -418,6 +419,8 @@ public class VentanaProveedor extends javax.swing.JFrame {
 
     private void RegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegresarActionPerformed
         // TODO add your handling code here:
+            JOptionPane.showMessageDialog(null, "Regresando al menú principal...");
+
         VentanaMenu v=new VentanaMenu();
         v.bd=bd;
         v.setVisible(true);

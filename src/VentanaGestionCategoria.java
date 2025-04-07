@@ -23,6 +23,7 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
      */
     public VentanaGestionCategoria() {
         initComponents();
+        setTitle("Categoria");
         bd=new BaseDatos();
         try {
             if(bd.conexion.isClosed()){
@@ -136,6 +137,11 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         });
 
         btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -299,6 +305,18 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
     private void btnReFRessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReFRessActionPerformed
         actualizarTabla();
     }//GEN-LAST:event_btnReFRessActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+            JOptionPane.showMessageDialog(null, "Regresando al menú principal...");
+
+                VentanaMenu v=new VentanaMenu();
+        v.bd=bd;
+        v.setVisible(true);
+        this.dispose();
+        
+        
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments

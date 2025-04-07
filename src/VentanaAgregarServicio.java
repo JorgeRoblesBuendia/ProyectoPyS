@@ -3,6 +3,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -25,6 +26,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
      */
     public VentanaAgregarServicio() {
         initComponents();
+        setTitle("Servicios");
         
         bd=new BaseDatos();
         try {
@@ -312,6 +314,8 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
 
     private void RegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegresarActionPerformed
         // TODO add your handling code here:
+            JOptionPane.showMessageDialog(null, "Regresando al menú principal...");
+
         VentanaMenu v=new VentanaMenu();
         v.bd=bd;
         v.setVisible(true);
