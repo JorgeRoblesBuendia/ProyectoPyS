@@ -36,8 +36,8 @@ public class BaseDatos {
     public BaseDatos() {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conexion=DriverManager.getConnection("jdbc:mysql://belbr9kwb1stmqbvm6si-mysql.services.clever-cloud.com:3306/belbr9kwb1stmqbvm6si?zeroDateTimeBehavior=CONVERT_TO_NULL",
-                    "uakgprfg2wghdbl8","GbNuYm3g8kkcG1jRi14n");
+            conexion=DriverManager.getConnection("jdbc:mysql://bizxdrsoaiigjnp3sfht-mysql.services.clever-cloud.com:21804/bizxdrsoaiigjnp3sfht?zeroDateTimeBehavior=CONVERT_TO_NULL",
+                    "uryaod5uqxph6syc","izdaon0t333M76oMWL9");
             transaccion=conexion.createStatement();
             
             System.out.println("Nos conectamos con exito");
