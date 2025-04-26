@@ -20,6 +20,8 @@ public class VentanaLogin extends javax.swing.JFrame {
      */
     public VentanaLogin() {
         initComponents();
+        setLocationRelativeTo(null);
+
         bd=new BaseDatos();
         try {
             if(bd.conexion.isClosed()){

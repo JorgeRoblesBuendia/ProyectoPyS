@@ -21,6 +21,8 @@ public class Inventario extends javax.swing.JFrame {
      */
     public Inventario() {
         initComponents();
+        setLocationRelativeTo(null);
+
         bd = new BaseDatos();
         try {
             if (bd.conexion.isClosed()) {
@@ -29,6 +31,7 @@ public class Inventario extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(VentanaProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
     }
 
     /**

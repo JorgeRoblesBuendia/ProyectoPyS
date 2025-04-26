@@ -10,6 +10,8 @@ public class VentanaProveedor extends javax.swing.JFrame {
     boolean permisoEditar=false,permisoBorrar=false;
     public VentanaProveedor() {
         initComponents();
+        setLocationRelativeTo(null);
+
         bd = new BaseDatos();
         try {
             if (bd.conexion.isClosed()) {

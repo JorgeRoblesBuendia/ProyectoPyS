@@ -23,6 +23,8 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
      */
     public VentanaConsultaEmpleado() {
         initComponents();
+        setLocationRelativeTo(null);
+
         bd=new BaseDatos();
         try {
             if(bd.conexion.isClosed()){

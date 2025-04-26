@@ -23,6 +23,8 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
      */
     public VentanaGestionCategoria() {
         initComponents();
+        setLocationRelativeTo(null);
+
         bd=new BaseDatos();
         try {
             if(bd.conexion.isClosed()){

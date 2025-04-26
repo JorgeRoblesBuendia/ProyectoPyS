@@ -20,6 +20,8 @@ public class VentanaMenu extends javax.swing.JFrame {
      */
     public VentanaMenu() {
         initComponents();
+        setLocationRelativeTo(null);
+
         bd=new BaseDatos();
         try {
             if(bd.conexion.isClosed()){

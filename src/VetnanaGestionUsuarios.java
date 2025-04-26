@@ -24,7 +24,8 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
     public VetnanaGestionUsuarios() {
         
         initComponents();
-        
+        setLocationRelativeTo(null);
+
         
         bd=new BaseDatos();
         try {

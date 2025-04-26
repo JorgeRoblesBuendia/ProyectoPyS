@@ -26,6 +26,8 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
      */
     public VentanaAgregarServicio() {
         initComponents();
+        setLocationRelativeTo(null);
+
        
         
         bd=new BaseDatos();

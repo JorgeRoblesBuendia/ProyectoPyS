@@ -23,6 +23,8 @@ public class VentanaCaja extends javax.swing.JFrame {
      */
     public VentanaCaja() {
         initComponents();
+        setLocationRelativeTo(null);
+
         bd=new BaseDatos();
         try {
             if(bd.conexion.isClosed()){

@@ -23,6 +23,8 @@ public class VentanaCrearUsuario extends javax.swing.JFrame {
      */
     public VentanaCrearUsuario() {
         initComponents();
+        setLocationRelativeTo(null);
+
         bd=new BaseDatos();
         try {
             if(bd.conexion.isClosed()){
