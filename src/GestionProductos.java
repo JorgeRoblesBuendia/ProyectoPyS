@@ -182,25 +182,32 @@ public class GestionProductos {
         panel.add(diaComboBox);
         panel.add(mesComboBox);
         panel.add(añoComboBox);
+        
+        //Imagenes
+        ImageIcon iconoAgregar = new ImageIcon(GestionProductos.class.getResource("/imagenes/mas.png"));
+    ImageIcon iconoActualizar = new ImageIcon(GestionProductos.class.getResource("/imagenes/actualizar.png"));
+    ImageIcon iconoEliminar = new ImageIcon(GestionProductos.class.getResource("/imagenes/bote-de-basura.png"));
+    ImageIcon iconoBuscar = new ImageIcon(GestionProductos.class.getResource("/imagenes/lupa.png"));
+    ImageIcon iconoMenu = new ImageIcon(GestionProductos.class.getResource("/imagenes/regresar.png"));
 
         // Botones
-        JButton agregarButton = new JButton("Agregar");
+        JButton agregarButton = new JButton("Agregar",iconoAgregar);
         agregarButton.setBounds(320, 50, 120, 25);
         panel.add(agregarButton);
 
-        JButton actualizarButton = new JButton("Actualizar");
+        JButton actualizarButton = new JButton("Actualizar",iconoActualizar);
         actualizarButton.setBounds(320, 90, 120, 25);
         panel.add(actualizarButton);
 
-        JButton eliminarButton = new JButton("Eliminar");
+        JButton eliminarButton = new JButton("Eliminar",iconoEliminar);
         eliminarButton.setBounds(320, 130, 120, 25);
         panel.add(eliminarButton);
 
-        JButton buscarButton = new JButton("Buscar");
+        JButton buscarButton = new JButton("Buscar",iconoBuscar);
         buscarButton.setBounds(320, 170, 120, 25);
         panel.add(buscarButton);
 
-        JButton menuButton = new JButton("Regresar al Menú");
+        JButton menuButton = new JButton("Regresar al Menú",iconoMenu);
         menuButton.setBounds(320, 260, 160, 25);
         panel.add(menuButton);
 
