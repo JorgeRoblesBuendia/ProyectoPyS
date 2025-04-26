@@ -7,9 +7,9 @@ import java.util.Random;
 
 public class GestionProductos {
     // Conexión a la BD
-    private static final String URL = "jdbc:mysql://belbr9kwb1stmqbvm6si-mysql.services.clever-cloud.com:3306/belbr9kwb1stmqbvm6si?zeroDateTimeBehavior=CONVERT_TO_NULL";
-    private static final String USER = "uakgprfg2wghdbl8";
-    private static final String PASSWORD = "GbNuYm3g8kkcG1jRi14n";
+    private static final String URL = "jdbc:mysql://bizxdrsoaiigjnp3sfht-mysql.services.clever-cloud.com:21804/bizxdrsoaiigjnp3sfht?zeroDateTimeBehavior=CONVERT_TO_NULL";
+    private static final String USER = "uryaod5uqxph6syc";//---
+    private static final String PASSWORD = "izdaon0t333M76oMWL9";
 
     // Modelo de tabla
     private static DefaultTableModel modeloTabla;
