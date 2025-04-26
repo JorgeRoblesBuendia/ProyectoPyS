@@ -52,6 +52,7 @@ public class VentanaMenu extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu");
@@ -61,56 +62,56 @@ public class VentanaMenu extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setBackground(new java.awt.Color(51, 51, 255));
-        jLabel1.setFont(new java.awt.Font("Iron Maiden", 1, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("MS UI Gothic", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 255));
         jLabel1.setText("MENU");
         jLabel1.setToolTipText("");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, -1, -1));
 
-        btnEmpleados.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnEmpleados.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnEmpleados.setText("Empleados");
         btnEmpleados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEmpleadosActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, -1, -1));
+        jPanel1.add(btnEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, -1, -1));
 
-        btnProductos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnProductos.setText("Productos");
+        btnProductos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnProductos.setText("Inventario");
         btnProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProductosActionPerformed(evt);
             }
         });
-        jPanel1.add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, -1, -1));
+        jPanel1.add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, -1, -1));
 
-        btnProvedores.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnProvedores.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnProvedores.setText("Provedores");
         btnProvedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProvedoresActionPerformed(evt);
             }
         });
-        jPanel1.add(btnProvedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, -1, -1));
+        jPanel1.add(btnProvedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 260, -1, -1));
 
-        btnServicios.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnServicios.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnServicios.setText("Servicios");
         btnServicios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnServiciosActionPerformed(evt);
             }
         });
-        jPanel1.add(btnServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, -1, -1));
+        jPanel1.add(btnServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 180, -1, -1));
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setText("Categoria");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -123,7 +124,16 @@ public class VentanaMenu extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
         jLabel2.setText("Powered by P&S");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 390, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 390, -1, -1));
+
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton2.setText("Almacen");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 260, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,15 +141,14 @@ public class VentanaMenu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 848, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -155,15 +164,11 @@ public class VentanaMenu extends javax.swing.JFrame {
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
                                             
-        java.awt.EventQueue.invokeLater(new Runnable() {
-        public void run() {
-            new VentanaMenu().setVisible(true);
-        }
-    });
-        
-   //     GestionProductos.main(null);
-    this.dispose(); 
-                                                
+             // TODO add your handling code here:
+        Inventario v =new Inventario();
+        v.bd=bd;
+        v.setVisible(true);
+        this.dispose();                            
         
     }//GEN-LAST:event_btnProductosActionPerformed
 public static void mostrarMenu() {
@@ -195,6 +200,17 @@ public static void mostrarMenu() {
         v.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnEmpleadosActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+                                                 
+             // TODO add your handling code here:
+        Almacen v =new Almacen();
+        v.bd=bd;
+        v.setVisible(true);
+        this.dispose();  
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,6 +253,7 @@ public static void mostrarMenu() {
     private javax.swing.JButton btnProvedores;
     private javax.swing.JButton btnServicios;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
