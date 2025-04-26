@@ -57,7 +57,7 @@ public class VentanaCaja extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Caja");
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(255, 102, 102));
 
         tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

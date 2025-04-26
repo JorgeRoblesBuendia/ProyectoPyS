@@ -70,6 +70,8 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestion Usuarios");
 
+        jPanel1.setBackground(new java.awt.Color(255, 102, 102));
+
         jLabel1.setText("Nombre");
 
         jLabel3.setText("Correo");

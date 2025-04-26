@@ -56,6 +56,10 @@ public class Inventario extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(860, 500));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel4.setBackground(new java.awt.Color(255, 102, 102));
+
+        jPanel3.setBackground(new java.awt.Color(255, 102, 102));
+
         tableInventario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -86,6 +90,8 @@ public class Inventario extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
+
+        jPanel1.setBackground(new java.awt.Color(255, 102, 102));
 
         jLabel1.setText("Nombre");
 
@@ -176,6 +182,8 @@ public class Inventario extends javax.swing.JFrame {
                                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
+
+        jPanel2.setBackground(new java.awt.Color(255, 102, 102));
 
         btnActualizar.setText("Actualizar");
 
