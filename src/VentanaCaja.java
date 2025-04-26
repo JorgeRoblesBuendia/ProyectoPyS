@@ -169,21 +169,66 @@ public class VentanaCaja extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-        ///
+          if (index == 0) {
+        javax.swing.JOptionPane.showMessageDialog(this, "No hay productos agregados para vender.");
+        return; // No hacer nada si no hay productos
+    }
+
+    double sum = 0;
+    for (int i = 0; i < index; i++) {
+        bd.insertarDetalleVenta(new DetallesVenta(0, 1, A[i].id, 1, A[i].precioVenta, A[i].precioVenta));
+        sum = sum + A[i].precioVenta;
+        bd.actualizarVentaTotal(1, sum + "");
+    }
+
+    // ==============================
+    // Generar ticket de la venta
+    // ==============================
+
+    try {
+        // Crear nombre de archivo único
+        String nombreArchivo = "ticket_" + System.currentTimeMillis() + ".txt";
         
-        double sum=0;
-        for (int i = 0; i < index; i++) {
-            //int id, int idVenta, int idProducto, int cantidad, double precioUnitario, double subtotal
-            
-            bd.insertarDetalleVenta(new DetallesVenta(0,1,A[i].id,1,A[i].precioVenta,A[i].precioVenta));
-            sum=sum+A[i].precioVenta;
-            
-            bd.actualizarVentaTotal(1,sum+"");
+        java.io.FileWriter ticket = new java.io.FileWriter(nombreArchivo);
+
+        ticket.write("====================================\n");
+        ticket.write("            P&S\n");
+        ticket.write("         TICKET DE COMPRA\n");
+        ticket.write("====================================\n\n");
+
+        // Fecha y Hora actuales
+        java.time.LocalDateTime fechaHora = java.time.LocalDateTime.now();
+        ticket.write("Fecha: " + fechaHora.toLocalDate() + "\n");
+        ticket.write("Hora: " + fechaHora.toLocalTime().withNano(0) + "\n\n");
+
+        // Productos desde la tabla
+        ticket.write("Productos:\n");
+        for (int i = 0; i < tblProductos.getRowCount(); i++) {
+            Object nombre = tblProductos.getValueAt(i, 1); // Columna 1 = Nombre
+            Object precio = tblProductos.getValueAt(i, 3); // Columna 3 = Precio
+
+            if (nombre != null && precio != null && !nombre.toString().isEmpty()) {
+                ticket.write("- " + nombre.toString() + " : $" + precio.toString() + "\n");
+            }
         }
-        
-        index=0;
-        limpiarTabla();
-        
+
+        ticket.write("\nTOTAL: $" + String.format("%.2f", sum) + "\n");
+        ticket.write("\n¡Gracias por su compra!\n");
+
+        ticket.close();
+
+        // Abrir automáticamente el ticket
+        java.awt.Desktop.getDesktop().open(new java.io.File(nombreArchivo));
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        javax.swing.JOptionPane.showMessageDialog(this, "Error al generar o abrir el ticket.");
+    }
+
+    // ==============================
+
+    index = 0;
+    limpiarTabla();
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnAgregarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarListaActionPerformed
