@@ -53,7 +53,6 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         btnBorrar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnReFRess = new javax.swing.JButton();
-        btnRegresar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
         txtBuscar = new javax.swing.JTextField();
@@ -117,13 +116,6 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
             }
         });
 
-        btnRegresar.setText("Regresar");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
-
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreActionPerformed(evt);
@@ -154,38 +146,30 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE)
+                .addComponent(btnAgregar)
+                .addGap(84, 84, 84)
+                .addComponent(btnActualizar)
+                .addGap(81, 81, 81)
+                .addComponent(btnBorrar)
+                .addGap(81, 81, 81)
+                .addComponent(btnBuscar)
+                .addGap(82, 82, 82)
+                .addComponent(btnReFRess)
+                .addGap(141, 141, 141))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(txtDescripcion)
                     .addComponent(txtBuscar)
                     .addComponent(jScrollPane1)
                     .addComponent(txtNombre)))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(101, Short.MAX_VALUE)
-                .addComponent(btnAgregar)
-                .addGap(77, 77, 77)
-                .addComponent(btnActualizar)
-                .addGap(54, 54, 54)
-                .addComponent(btnBorrar)
-                .addGap(63, 63, 63)
-                .addComponent(btnBuscar)
-                .addGap(51, 51, 51)
-                .addComponent(btnReFRess)
-                .addGap(63, 63, 63)
-                .addComponent(btnRegresar)
-                .addGap(102, 102, 102))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,8 +192,7 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
                     .addComponent(btnActualizar)
                     .addComponent(btnBorrar)
                     .addComponent(btnBuscar)
-                    .addComponent(btnReFRess)
-                    .addComponent(btnRegresar))
+                    .addComponent(btnReFRess))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -217,7 +200,8 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
 
         jMenu1.setText("Archivo");
 
-        jMenuItem1.setText("Menu");
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem1.setText("Regresar al menu principal");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -323,20 +307,16 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         actualizarTabla();
     }//GEN-LAST:event_btnReFRessActionPerformed
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
+        
+                // TODO add your handling code here:
             JOptionPane.showMessageDialog(null, "Regresando al menú principal...");
 
                 VentanaMenu v=new VentanaMenu();
         v.bd=bd;
         v.setVisible(true);
         this.dispose();
-        
-        
-    }//GEN-LAST:event_btnRegresarActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
@@ -390,7 +370,6 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnReFRess;
-    private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
