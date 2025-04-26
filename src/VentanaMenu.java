@@ -159,7 +159,7 @@ public class VentanaMenu extends javax.swing.JFrame {
         }
     });
         
-        GestionProductos.main(null);
+   //     GestionProductos.main(null);
     this.dispose(); 
                                                 
         
@@ -167,7 +167,7 @@ public class VentanaMenu extends javax.swing.JFrame {
 public static void mostrarMenu() {
     java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
-            new GestionProductos().getClass();
+      //      new GestionProductos().getClass();
         }
     });
 }

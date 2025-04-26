@@ -26,7 +26,7 @@ public class VentanaMenuEmpleado extends javax.swing.JFrame {
                 System.out.println("Nooo!!!. Se cerró");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(GestionProductos.class.getName()).log(Level.SEVERE, null, ex);
+         //   Logger.getLogger(GestionProductos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
