@@ -153,21 +153,20 @@ public class BaseDatos {
             INSERT INTO `Productos` (`idArticulo`, `Nombre`, `Descripcion`, `CodigoBarras`, `PrecioCompra`, `PrecioVenta`, `Stock`, `StockMinimo`, `IdCategoria`, `IdProveedor`) 
             VALUES (NULL, 'Producto', 'Descripción', 'Código de Barras', 'Precio de Compra', 'Precio de Venta', 'Stock', 'Stock Mínimo', 'Categoría', 'Proveedor');
             */
-            String SQL = "INSERT INTO `Productos` (`Nombre`, `Descripcion`, `CodigoBarras`, `PrecioCompra`, `PrecioVenta`, `Stock`, `StockMinimo`, `IdCategoria`, `IdProveedor`) "
-                       + "VALUES ('%Nombre%', '%Descripcion%', '%CodigoBarras%', '%PrecioCompra%', '%PrecioVenta%', '%Stock%', '%StockMinimo%', '%IdCategoria%', '%IdProveedor%');";
+            String SQL = "INSERT INTO `Productos` (`Nombre`, `Descripcion`, `CodigoBarras`,`StockMinimo`, `IdCategoria`, `IdProveedor`) "
+                       + "VALUES ('%Nombre%', '%Descripcion%', '%CodigoBarras%', '%StockMinimo%', '%IdCategoria%', '%IdProveedor%');";
 
             SQL = SQL.replaceAll("%Nombre%", p.nombre);
             SQL = SQL.replaceAll("%Descripcion%", p.descripcion);
             SQL = SQL.replaceAll("%CodigoBarras%", p.codigoBarras);
-            SQL = SQL.replaceAll("%PrecioCompra%", String.valueOf(p.precioCompra));
-            SQL = SQL.replaceAll("%PrecioVenta%", String.valueOf(p.precioVenta));
-            SQL = SQL.replaceAll("%Stock%", String.valueOf(p.stock));
+            //SQL = SQL.replaceAll("%PrecioCompra%", String.valueOf(p.precioCompra));
+            //SQL = SQL.replaceAll("%PrecioVenta%", String.valueOf(p.precioVenta));
+            //SQL = SQL.replaceAll("%Stock%", String.valueOf(p.stock));
             SQL = SQL.replaceAll("%StockMinimo%", String.valueOf(p.stockMinimo));
             SQL = SQL.replaceAll("%IdCategoria%", String.valueOf(p.idCategoria));
             SQL = SQL.replaceAll("%IdProveedor%", String.valueOf(p.idProveedor));
 
             transaccion.execute(SQL);
-            System.out.println(SQL);
         } catch (SQLException ex) {
             System.out.println("Error al insertar producto: " + ex.getMessage());
             return false;
@@ -254,6 +253,29 @@ public class BaseDatos {
                         cursor.getString(5),cursor.getString(6), cursor.getString(7),// cursor.getString(8),  
                         // cursor.getString(9),cursor.getString(10), cursor.getString(11)  
                         cursor.getString(8),cursor.getString(9),cursor.getString(10)
+                    };
+                    resultado.add(al);
+                }while(cursor.next());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
+    public ArrayList<String[]> mostrarProductos(){
+        ArrayList <String[]> resultado= new ArrayList ();
+        try {
+            
+            //"SELECT * FROM `Productos` WHERE idEmpresa= "+E
+            String SQL="SELECT *,ca.nombre,p.nombre FROM Productos pro INNER JOIN Proveedores p on"
+                    + " p.idProveedor=pro.idProveedor inner join Categorias ca on ca.idCategoria = pro.idCategoria;";
+            cursor= transaccion.executeQuery(SQL);
+            if(cursor.next()){
+                do{
+                    String[] al = {
+                        cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(7),  
+                         cursor.getString(9),  cursor.getString(15)
+                        
                     };
                     resultado.add(al);
                 }while(cursor.next());
