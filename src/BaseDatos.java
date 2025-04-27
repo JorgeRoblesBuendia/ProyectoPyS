@@ -260,6 +260,26 @@ public class BaseDatos {
         }
         return resultado;
     }
+    public ArrayList<String[]> mostrarProductosAlmacen(){
+        ArrayList <String[]> resultado= new ArrayList ();
+        try {
+            
+            //"SELECT * FROM `Productos` WHERE idEmpresa= "+E
+            String SQL="SELECT * FROM Productos";
+            cursor= transaccion.executeQuery(SQL);
+            if(cursor.next()){
+                do{
+                    String[] al = {
+                        cursor.getString(2)
+                    };
+                    resultado.add(al);
+                }while(cursor.next());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
     public ArrayList<String[]> mostrarProductos(){
         ArrayList <String[]> resultado= new ArrayList ();
         try {
@@ -342,9 +362,7 @@ public boolean actualizarProductos(Producto p) {
                      "`idCategoria` = " + p.idCategoria + ", " +"`idProveedor` = " + p.idProveedor + ", " +
                      "`codigoBarras` = '" + p.codigoBarras + "', " +"`fechaVencimiento` = '" + p.fechaVencimiento + "' " +
                      "WHERE `codigoBarras` = '" + p.codigoBarras + "'";*/
-        String SQL = "UPDATE `Productos` SET " + "`nombre` = '" + p.nombre + "', " +"`descripcion` = '" + p.descripcion + "', " +
-                     "`precioCompra` = " + p.precioCompra + ", " +"`precioVenta` = " + p.precioVenta + ", " +
-                     "`stock` = " + p.stock + ", " +"`stockMinimo` = " + p.stockMinimo + ", " +
+        String SQL = "UPDATE `Productos` SET " + "`nombre` = '"+ p.nombre +"'," +"`descripcion` = '" + p.descripcion + "', " +"`stockMinimo` = " + p.stockMinimo + ", " +
                      "`idCategoria` = " + p.idCategoria + ", " +"`idProveedor` = " + p.idProveedor + ", "+
                      "`codigoBarras` = '" + p.codigoBarras + "' " +
                      "WHERE `idProducto` = '" + p.id + "'";
@@ -1071,15 +1089,149 @@ public ArrayList<String[]> mostrarServicios() {
             Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
         }
         return resultado;
-    }    
+    }   
+    
+    //-----------------------------------------ALMACEEEN----------------------------------
+    public boolean insertarAlmacen(AlmacenC a) {
+        try {
+            String SQL = "INSERT INTO `Almacen` (`idRegistro`, `idProducto`, `cantidad`, `precioC`, `precioV`, `FechaCa`) " +
+                         "VALUES (NULL, %IdProducto%, %Stock%, %PrecioC%, %PrecioV%, '%FechaCa%');";
+            SQL = SQL.replaceAll("%IdProducto%", String.valueOf(a.idProducto));
+            SQL = SQL.replaceAll("%Stock%", String.valueOf(a.stock));
+            SQL = SQL.replaceAll("%PrecioC%", String.valueOf(a.precioC));
+            SQL = SQL.replaceAll("%PrecioV%", String.valueOf(a.precioV));
+            SQL = SQL.replaceAll("%FechaCa%", a.FechaCa);
 
-    
-    
-    
-    
-    
-    
-    
+            transaccion.execute(SQL);
+            System.out.println(SQL);
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar en el almacén: " + ex.getMessage());
+            return false;
+        }
+        System.out.println("Registro insertado exitosamente en el almacén.");
+        return true;
+    }
+
+    public int buscarAlmacen(int idProducto) {
+        int idRegistro = -1;
+
+        try {
+            String SQL = "SELECT * FROM `Almacen` WHERE `idProducto` = " + idProducto;
+            cursor = transaccion.executeQuery(SQL);
+
+            if (cursor.next()) {
+                idRegistro = cursor.getInt("idRegistro");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idRegistro;
+    }
+
+    public AlmacenC buscarAlmacen(int idProducto, AlmacenC a) {
+        try {
+            String SQL = "SELECT * FROM `Almacen` WHERE `idProducto` = " + idProducto;
+            cursor = transaccion.executeQuery(SQL);
+
+            if (cursor.next()) {
+                a.idRegistro = cursor.getInt("idRegistro");
+                a.idProducto = cursor.getInt("idProducto");
+                a.stock = cursor.getInt("cantidad");
+                a.precioC = cursor.getDouble("precioC");
+                a.precioV = cursor.getDouble("precioV");
+                a.FechaCa = cursor.getString("FechaCa");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, "Error al buscar en el almacén", ex);
+        }
+        return a;
+    }
+
+    public boolean eliminarAlmacen(int idRegistro) {
+        try {
+            String SQL = "DELETE FROM `Almacen` WHERE `idRegistro` = " + idRegistro;
+            transaccion.execute(SQL);
+        } catch (SQLException ex) {
+            System.out.println("Error al eliminar del almacén: " + ex.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public boolean actualizarAlmacen(AlmacenC a, String campo, String nuevoValor) {
+        try {
+            String SQL = "UPDATE `Almacen` SET `" + campo + "` = '%NuevoValor%' WHERE `idRegistro` = %IdRegistro%";
+            SQL = SQL.replaceAll("%NuevoValor%", nuevoValor);
+            SQL = SQL.replaceAll("%IdRegistro%", String.valueOf(a.idRegistro));
+
+            transaccion.execute(SQL);
+            System.out.println(SQL);
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar el almacén: " + ex.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public boolean actualizarAlmacen(AlmacenC a, int idRegistro) {
+        try {
+            String SQL = "UPDATE `Almacen` SET " +
+                         "`idProducto` = %IdProducto%, " +
+                         "`cantidad` = %Stock%, " +
+                         "`precioC` = %PrecioC%, " +
+                         "`precioV` = %PrecioV%, " +
+                         "`FechaCa` = '%FechaCa%' " +
+                         "WHERE `idRegistro` = %IdRegistro%";
+
+            SQL = SQL.replaceAll("%IdProducto%", String.valueOf(a.idProducto));
+            SQL = SQL.replaceAll("%Stock%", String.valueOf(a.stock));
+            SQL = SQL.replaceAll("%PrecioC%", String.valueOf(a.precioC));
+            SQL = SQL.replaceAll("%PrecioV%", String.valueOf(a.precioV));
+            SQL = SQL.replaceAll("%FechaCa%", a.FechaCa);
+            SQL = SQL.replaceAll("%IdRegistro%", String.valueOf(idRegistro));
+
+            transaccion.execute(SQL);
+            System.out.println(SQL);
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar el almacén: " + ex.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public ArrayList<String[]> mostrarAlmacen() {
+        ArrayList<String[]> resultado = new ArrayList<>();
+        try {
+            String SQL = "SELECT * FROM `Almacen`";
+            cursor = transaccion.executeQuery(SQL);
+
+            if (cursor.next()) {
+                do {
+                    String[] datos = {
+                        cursor.getString("idRegistro"),  // ID del registro
+                        cursor.getString("idProducto"), // ID del producto
+                        cursor.getString("cantidad"),      // Stock
+                        cursor.getString("precioC"),    // Precio de compra
+                        cursor.getString("precioV"),    // Precio de venta
+                        cursor.getString("FechaCa")     // Fecha de caducidad
+                    };
+                    resultado.add(datos);
+                } while (cursor.next());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
+
+
+
+
+
+
+
+
+
     
     
     
@@ -1306,4 +1458,24 @@ class Servicio {
         this.activo = activo;
     }
 
+}
+
+class AlmacenC{
+    int idRegistro, idProducto;
+    int stock;
+    double precioC, precioV;
+    String FechaCa;
+
+    public AlmacenC(int idRegistro, int idProducto, int stock, double precioC, double precioV, String FechaCa) {
+        this.idRegistro = idRegistro;
+        this.idProducto = idProducto;
+        this.stock = stock;
+        this.precioC = precioC;
+        this.precioV = precioV;
+        this.FechaCa = FechaCa;
+    }
+
+    public AlmacenC() {
+    }
+    
 }
