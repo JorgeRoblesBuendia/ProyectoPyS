@@ -284,9 +284,9 @@ public class BaseDatos {
         ArrayList <String[]> resultado= new ArrayList ();
         try {
             
-            //"SELECT * FROM `Productos` WHERE idEmpresa= "+E
+            //"SELECT * FROM `Productos` WHERE idEmpresa= 
             String SQL="SELECT *,ca.nombre,p.nombre FROM Productos pro INNER JOIN Proveedores p on"
-                    + " p.idProveedor=pro.idProveedor inner join Categorias ca on ca.idCategoria = pro.idCategoria;";
+                    + " p.idProveedor=pro.idProveedor inner join Categorias ca on ca.idCategoria = pro.idCategoria:";
             cursor= transaccion.executeQuery(SQL);
             if(cursor.next()){
                 do{

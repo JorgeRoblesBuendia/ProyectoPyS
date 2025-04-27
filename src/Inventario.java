@@ -379,10 +379,16 @@ public class Inventario extends javax.swing.JFrame {
                 codigoBarras=txtCodigoBarras.getText();
         int categoria = cmbCategoria.getSelectedIndex();
         int proveedor = cmbProveedor.getSelectedIndex();
-        Producto p = new Producto( nombre, 
+        Producto p=new Producto();p=bd.buscarProducto(nombre, p);
+        p.descripcion=descripcion;
+        p.nombre=nombre;
+        p.stockMinimo=Integer.parseInt(stock);
+        p.codigoBarras=codigoBarras;
+        p.idCategoria=categoria; p.idProveedor=proveedor;
+        /*Producto p = new Producto( nombre, 
         descripcion,      Integer.parseInt(stock),categoria,
     proveedor,codigoBarras);
-        p=bd.buscarProducto(nombre, p);
+        p=bd.buscarProducto(nombre, p);*/
         if (p!=null) {
             if(bd.actualizarProductos(p)){
                 JOptionPane.showMessageDialog(this, "Actualizamos con exito");
