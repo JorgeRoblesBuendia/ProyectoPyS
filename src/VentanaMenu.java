@@ -235,7 +235,7 @@ public static void mostrarMenu() {
 
     private void jMenuItem_EmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_EmpleadosActionPerformed
         // TODO add your handling code here:
-        VentanaConsultaEmpleado v = new VentanaConsultaEmpleado();
+        VetnanaGestionUsuarios v = new VetnanaGestionUsuarios();
         v.bd = bd;
         v.setVisible(true);
         this.dispose();

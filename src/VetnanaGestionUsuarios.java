@@ -153,7 +153,7 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("MS UI Gothic", 1, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Gestion de usuarios");
+        jLabel5.setText("Gestion de Empleados");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -184,7 +184,7 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
                                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(305, 305, 305)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel5)))
                 .addContainerGap(213, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(

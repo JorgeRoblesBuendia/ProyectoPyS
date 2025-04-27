@@ -53,7 +53,6 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
         txtCodigoB = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProductos = new javax.swing.JTable();
-        Regresar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -96,16 +95,6 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblProductos);
 
-        Regresar.setBackground(new java.awt.Color(102, 102, 255));
-        Regresar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        Regresar.setForeground(new java.awt.Color(255, 255, 255));
-        Regresar.setText("Ingresar a menu empleado");
-        Regresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RegresarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -118,8 +107,7 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
                         .addComponent(btnBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtCodigoB, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Regresar)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(339, 339, 339)
@@ -135,7 +123,6 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Regresar)
                     .addComponent(btnBuscar)
                     .addComponent(txtCodigoB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(160, 160, 160))
@@ -187,21 +174,13 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
         
     }//GEN-LAST:event_txtCodigoBActionPerformed
 
-    private void RegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegresarActionPerformed
-        // TODO add your handling code here:
-        VentanaMenuEmpleado v=new VentanaMenuEmpleado();
-        v.bd=bd;
-        v.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_RegresarActionPerformed
-
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
         
                 // TODO add your handling code here:
                     JOptionPane.showMessageDialog(null, "Regresando al menú principal...");
 
-        VentanaMenu v=new VentanaMenu();
+        VentanaMenuEmpleado v=new VentanaMenuEmpleado();
         v.bd=bd;
         v.setVisible(true);
         this.dispose();
@@ -254,7 +233,6 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Regresar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
