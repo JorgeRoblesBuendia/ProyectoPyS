@@ -35,16 +35,18 @@ public class VentanaINICIO extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
         setBackground(new java.awt.Color(255, 102, 102));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(51, 153, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.setMinimumSize(new java.awt.Dimension(860, 532));
         jPanel2.setPreferredSize(new java.awt.Dimension(350, 500));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("© Tigres Maiden");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 300, -1, -1));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, -1, -1));
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 358, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -55,28 +57,19 @@ public class VentanaINICIO extends javax.swing.JFrame {
         NOMBRE_TITULO.setFont(new java.awt.Font("Segoe UI", 3, 92)); // NOI18N
         NOMBRE_TITULO.setForeground(new java.awt.Color(255, 255, 255));
         NOMBRE_TITULO.setText("P&S");
-        jPanel2.add(NOMBRE_TITULO, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 180, -1, 80));
+        jPanel2.add(NOMBRE_TITULO, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, -1, 80));
 
         WELCOME.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         WELCOME.setForeground(new java.awt.Color(255, 255, 255));
         WELCOME.setText("WELCOME TO...");
-        jPanel2.add(WELCOME, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 270, 140, -1));
+        jPanel2.add(WELCOME, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 250, 140, -1));
 
         CargandoLABEL.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         CargandoLABEL.setForeground(new java.awt.Color(255, 255, 255));
         CargandoLABEL.setText("Powered by P&S...");
-        jPanel2.add(CargandoLABEL, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 490, 160, 30));
+        jPanel2.add(CargandoLABEL, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 490, 160, 30));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 910, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
-        );
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 899, 532));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
