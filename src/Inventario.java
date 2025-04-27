@@ -382,6 +382,7 @@ public class Inventario extends javax.swing.JFrame {
         Producto p = new Producto( nombre, 
         descripcion,      Integer.parseInt(stock),categoria,
     proveedor,codigoBarras);
+        p=bd.buscarProducto(nombre, p);
         if(bd.actualizarProductos(p)){
             JOptionPane.showMessageDialog(this, "Actualizamos con exito");
         }else{

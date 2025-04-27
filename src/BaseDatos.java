@@ -356,12 +356,7 @@ public class BaseDatos {
     }
 public boolean actualizarProductos(Producto p) {
     try {
-        /*String SQL = "UPDATE `Productos` SET " + "`nombre` = '" + p.nombre + "', " +"`descripcion` = '" + p.descripcion + "', " +
-                     "`precioCompra` = " + p.precioCompra + ", " +"`precioVenta` = " + p.precioVenta + ", " +
-                     "`stock` = " + p.stock + ", " +"`stockMinimo` = " + p.stockMinimo + ", " +
-                     "`idCategoria` = " + p.idCategoria + ", " +"`idProveedor` = " + p.idProveedor + ", " +
-                     "`codigoBarras` = '" + p.codigoBarras + "', " +"`fechaVencimiento` = '" + p.fechaVencimiento + "' " +
-                     "WHERE `codigoBarras` = '" + p.codigoBarras + "'";*/
+
         String SQL = "UPDATE `Productos` SET " + "`nombre` = '"+ p.nombre +"'," +"`descripcion` = '" + p.descripcion + "', " +"`stockMinimo` = " + p.stockMinimo + ", " +
                      "`idCategoria` = " + p.idCategoria + ", " +"`idProveedor` = " + p.idProveedor + ", "+
                      "`codigoBarras` = '" + p.codigoBarras + "' " +
