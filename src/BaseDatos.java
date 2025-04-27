@@ -122,7 +122,7 @@ public class BaseDatos {
         String A[] = new String[2];
         boolean bandera = false;
         try {
-            String SQL="SELECT * FROM `Empleados` WHERE email = '"+correo+"' AND Contrasena = '"+contrasena+"'";
+            String SQL="SELECT * FROM `Empleados` WHERE email = '"+correo+"' AND contrasena = '"+contrasena+"'";
             cursor= transaccion.executeQuery(SQL);
             if(cursor.next()){
                 A[0]=cursor.getString(6);

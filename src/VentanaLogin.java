@@ -273,8 +273,8 @@ public class VentanaLogin extends javax.swing.JFrame {
         limpiarCampos();
         return;
     }
-    BaseDatos bd = new BaseDatos();
-    boolean loginCorrecto = bd.buscarLogin(correo, contrasena); // Usa tu método buscarLogin
+    //BaseDatos bd = new BaseDatos();
+    /*boolean loginCorrecto = bd.buscarLogin(correo, contrasena); // Usa tu método buscarLogin
 
     if (loginCorrecto) {
         javax.swing.JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
@@ -282,7 +282,7 @@ public class VentanaLogin extends javax.swing.JFrame {
     } else {
         javax.swing.JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos. Intenta de nuevo.");
         limpiarCampos();
-    }
+    }*/
     
             if(bd.buscarLogin(correo,contrasena)){
                 mensajeError("SE ENCONTROOO");
@@ -299,6 +299,9 @@ public class VentanaLogin extends javax.swing.JFrame {
                     v.bd=bd;
                     v.setVisible(true);
                     this.dispose();
+                    
+                }else{
+                    System.out.println("no se encontro ");
                 }
                 //mensajeError("Error: Login existente en la base de datos");
 
