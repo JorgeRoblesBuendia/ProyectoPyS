@@ -1110,6 +1110,15 @@ class Producto {
     public Producto() {
     }
 
+    public Producto(String nombre, String descripcion, int stockMinimo, int idCategoria, int idProveedor, String codigoBarras) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.stockMinimo = stockMinimo;
+        this.idCategoria = idCategoria;
+        this.idProveedor = idProveedor;
+        this.codigoBarras = codigoBarras;
+    }
+
     public Producto(int id, String nombre, String descripcion, double precioCompra, double precioVenta, int stock, int stockMinimo, int idCategoria, int idProveedor, String codigoBarras) {
         this.id = id;
         this.nombre = nombre;
