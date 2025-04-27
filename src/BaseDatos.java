@@ -284,15 +284,16 @@ public class BaseDatos {
         ArrayList <String[]> resultado= new ArrayList ();
         try {
             
-            //"SELECT * FROM `Productos` WHERE idEmpresa= 
-            String SQL="SELECT *,ca.nombre,p.nombre FROM Productos pro INNER JOIN Proveedores p on"
-                    + " p.idProveedor=pro.idProveedor inner join Categorias ca on ca.idCategoria = pro.idCategoria;";
+            /*SELECT pro.nombre,pro.descripcion,pro.stockMinimo,pro.codigoBarras,ca.nombre,p.nombre FROM Productos pro INNER JOIN Proveedores p on p.idProveedor=pro.idProveedor inner join Categorias ca on ca.idCategoria = pro.idCategoria;*/
+            String SQL="SELECT pro.nombre,pro.descripcion,pro.stockMinimo,pro.codigoBarras,ca.nombre,"
+                    + "p.nombre FROM Productos pro INNER JOIN Proveedores p on p.idProveedor=pro.idProveedor "
+                    + "inner join Categorias ca on ca.idCategoria = pro.idCategoria";
             cursor= transaccion.executeQuery(SQL);
             if(cursor.next()){
                 do{
                     String[] al = {
-                        cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(7),  
-                         cursor.getString(9),  cursor.getString(15)
+                        cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),  
+                         cursor.getString(5),  cursor.getString(6)
                         
                     };
                     resultado.add(al);

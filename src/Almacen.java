@@ -337,9 +337,7 @@ public class Almacen extends javax.swing.JFrame {
                 }else{
                     JOptionPane.showMessageDialog(this, "Error al Registrar");
                 }
-        
                 //actualizarTabla();
-                
             }
         } else {
             System.out.println("No se ha seleccionado ninguna fecha.");
