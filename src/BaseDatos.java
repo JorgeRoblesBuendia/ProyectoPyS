@@ -242,15 +242,13 @@ public class BaseDatos {
         try {
             
             //"SELECT * FROM `Productos` WHERE idEmpresa= "+E
-            String SQL="SELECT * FROM Productos";
+            String SQL="SELECT p.codigoBarras,p.nombre,a.cantidad,a.precioVenta FROM "
+                    + "Productos p INNER JOIN Almacen a on a.idProducto = p.idProducto";
             cursor= transaccion.executeQuery(SQL);
             if(cursor.next()){
                 do{
                     String[] al = {
-                        cursor.getString(10), cursor.getString(2), cursor.getString(3), cursor.getString(4),  
-                        cursor.getString(5),cursor.getString(6), cursor.getString(7),// cursor.getString(8),  
-                        // cursor.getString(9),cursor.getString(10), cursor.getString(11)  
-                        cursor.getString(8),cursor.getString(9),cursor.getString(10)
+                        cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)
                     };
                     resultado.add(al);
                 }while(cursor.next());
