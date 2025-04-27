@@ -286,7 +286,7 @@ public class BaseDatos {
             
             //"SELECT * FROM `Productos` WHERE idEmpresa= 
             String SQL="SELECT *,ca.nombre,p.nombre FROM Productos pro INNER JOIN Proveedores p on"
-                    + " p.idProveedor=pro.idProveedor inner join Categorias ca on ca.idCategoria = pro.idCategoria:";
+                    + " p.idProveedor=pro.idProveedor inner join Categorias ca on ca.idCategoria = pro.idCategoria;";
             cursor= transaccion.executeQuery(SQL);
             if(cursor.next()){
                 do{
