@@ -1225,13 +1225,13 @@ class DetallesCompra {
     }
     
 }
-class Inventario {
+class InventarioC {
     int id,idProducto,cantidad;
     //fecha_movimiento DATETIME,
     String tipoMovimiento; // 'entrada' o 'salida'
     String motivo;
 
-    public Inventario(int id, int idProducto, int cantidad, String tipoMovimiento, String motivo) {
+    public InventarioC(int id, int idProducto, int cantidad, String tipoMovimiento, String motivo) {
         this.id = id;
         this.idProducto = idProducto;
         this.cantidad = cantidad;
