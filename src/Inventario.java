@@ -374,12 +374,12 @@ public class Inventario extends javax.swing.JFrame {
         ArrayList<String[]>datos =bd.mostrarProductos();
         if(datos.size()==0)return;
         int totalRenglones=m.getRowCount();
-        for (int i = 0; i <totalRenglones; i++) {
+        for (int i = 0; i <totalRenglones; i++) {//hh
             m.removeRow(0);
         }
         for (String[] data: datos) {
             m.addRow(data);
-        }
+        }   
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
