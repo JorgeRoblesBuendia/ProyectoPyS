@@ -153,7 +153,7 @@ public class BaseDatos {
             INSERT INTO `Productos` (`idArticulo`, `Nombre`, `Descripcion`, `CodigoBarras`, `PrecioCompra`, `PrecioVenta`, `Stock`, `StockMinimo`, `IdCategoria`, `IdProveedor`) 
             VALUES (NULL, 'Producto', 'Descripción', 'Código de Barras', 'Precio de Compra', 'Precio de Venta', 'Stock', 'Stock Mínimo', 'Categoría', 'Proveedor');
             */
-            String SQL = "INSERT INTO `Productos` (`Nombre`, `Descripcion`, `CodigoBarras`,`StockMinimo`, `IdCategoria`, `IdProveedor`) "
+            String SQL = "INSERT INTO `Productos` (`Nombre`, `Descripcion`, `codigoBarras`,`StockMinimo`, `IdCategoria`, `IdProveedor`) "
                        + "VALUES ('%Nombre%', '%Descripcion%', '%CodigoBarras%', '%StockMinimo%', '%IdCategoria%', '%IdProveedor%');";
 
             SQL = SQL.replaceAll("%Nombre%", p.nombre);
@@ -167,6 +167,7 @@ public class BaseDatos {
             SQL = SQL.replaceAll("%IdProveedor%", String.valueOf(p.idProveedor));
 
             transaccion.execute(SQL);
+            System.out.println(SQL);
         } catch (SQLException ex) {
             System.out.println("Error al insertar producto: " + ex.getMessage());
             return false;
@@ -215,18 +216,15 @@ public class BaseDatos {
     //Producto producto = null; // Inicializamos el objeto como null.
 
     try {
-        String SQL = "SELECT * FROM `Productos` WHERE CodigoBarras = '" + codigo+"'";
+        String SQL = "SELECT * FROM `Productos` WHERE CodigoBarras = '" + codigo+"' or nombre='" + codigo+"'";
         cursor = transaccion.executeQuery(SQL);
 
         if (cursor.next()) {
-            //p = new Producto(); 
-            p.id = cursor.getInt("idArticulo");
+            //p = new Producto(); Articulo
+            p.id = cursor.getInt("idProducto");
             p.nombre = cursor.getString("Nombre");
             p.descripcion = cursor.getString("Descripcion");
             p.codigoBarras = cursor.getString("CodigoBarras");
-            p.precioCompra = cursor.getDouble("PrecioCompra");
-            p.precioVenta = cursor.getDouble("PrecioVenta");
-            p.stock = cursor.getInt("Stock");
             p.stockMinimo = cursor.getInt("StockMinimo");
             p.idCategoria = cursor.getInt("IdCategoria");
             p.idProveedor = cursor.getInt("IdProveedor");

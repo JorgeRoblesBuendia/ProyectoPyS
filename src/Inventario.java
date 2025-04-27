@@ -207,16 +207,31 @@ public class Inventario extends javax.swing.JFrame {
         btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setBackground(new java.awt.Color(102, 102, 255));
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setBackground(new java.awt.Color(102, 102, 255));
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnAgregar.setBackground(new java.awt.Color(102, 102, 255));
         btnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -332,6 +347,70 @@ public class Inventario extends javax.swing.JFrame {
                 actualizarTabla();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String nombreBuscar = txtNombre.getText();
+        if (nombreBuscar.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Introduce un nombre para buscar.");
+            return;
+        }
+        Producto p=new Producto();
+                p= bd.buscarProducto(nombreBuscar, p);
+                txtNombre.setText(p.nombre);
+               txtDescripcion.setText(p.descripcion);
+               txtStock.setText(p.stockMinimo+"");
+               txtCodigoBarras.setText(p.codigoBarras);
+        cmbCategoria.setSelectedIndex(p.idCategoria);cmbProveedor.setSelectedIndex(p.idProveedor);
+        // Configurar las filas correctamente
+        /*m.setRowCount(0); // Limpiar las filas existentes
+        m.setRowCount(1); // Crear una fila (índice 0)
+
+        // Establecer los valores en la fila 0
+        System.out.println(p.nombre);
+        m.setValueAt(p.nombre, 0, 0);
+        m.setValueAt(p.descripcion, 0, 1);
+        m.setValueAt(p.stockMinimo, 0, 2);
+        m.setValueAt(p.codigoBarras, 0, 3);
+        m.setValueAt(p.idCategoria, 0, 4);
+        m.setValueAt(p.idProveedor, 0, 5);*/
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        String nombre=txtNombre.getText(), descripcion=txtDescripcion.getText(), stock=txtStock.getText(), 
+                codigoBarras=txtCodigoBarras.getText();
+        int categoria = cmbCategoria.getSelectedIndex();
+        int proveedor = cmbProveedor.getSelectedIndex();
+        Producto p = new Producto( nombre, 
+        descripcion,      Integer.parseInt(stock),categoria,
+    proveedor,codigoBarras);
+        if(bd.actualizarProductos(p)){
+            JOptionPane.showMessageDialog(this, "Actualizamos con exito");
+        }else{
+            JOptionPane.showMessageDialog(this, "Error al Actualizar");
+        }
+        
+                actualizarTabla();
+        
+        
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        String nombreBuscar = txtNombre.getText();
+        if (nombreBuscar.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Introduce un nombre para Borrar.");
+            return;
+        }
+        Producto p=new Producto();
+        p= bd.buscarProducto(nombreBuscar, p);
+        
+        if(bd.eliminarProducto(p.id+"")){
+            System.out.println("Borramos con exito");
+        }else{
+            System.out.println("Error");
+        }
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
 
     public static void main(String args[]) {
 
@@ -380,6 +459,14 @@ public class Inventario extends javax.swing.JFrame {
         for (String[] data: datos) {
             m.addRow(data);
         }   
+    }
+    public void limpiarCampo(){
+        txtNombre.setText("");
+       txtDescripcion.setText("");
+       txtStock.setText("");
+       txtCodigoBarras.setText("");
+        cmbCategoria.setSelectedIndex(0);
+        cmbProveedor.setSelectedIndex(0);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
