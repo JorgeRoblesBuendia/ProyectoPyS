@@ -383,11 +383,17 @@ public class Inventario extends javax.swing.JFrame {
         descripcion,      Integer.parseInt(stock),categoria,
     proveedor,codigoBarras);
         p=bd.buscarProducto(nombre, p);
-        if(bd.actualizarProductos(p)){
-            JOptionPane.showMessageDialog(this, "Actualizamos con exito");
+        if (p!=null) {
+            if(bd.actualizarProductos(p)){
+                JOptionPane.showMessageDialog(this, "Actualizamos con exito");
+            }else{
+                JOptionPane.showMessageDialog(this, "Error al Actualizar");
+            }
         }else{
-            JOptionPane.showMessageDialog(this, "Error al Actualizar");
+            JOptionPane.showMessageDialog(this, "Error Elproducto no exisste");
         }
+
+        
         
                 actualizarTabla();
         

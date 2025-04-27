@@ -331,14 +331,14 @@ public class Almacen extends javax.swing.JFrame {
                 String fechaFormateada = formatoFecha.format(fech);
 
                 System.out.println("Fecha formateada para inserción: " + fechaFormateada);
-                
-                if(bd.insertarProducto(p)){
+                AlmacenC a = new AlmacenC( 0, pro,      Integer.parseInt(cantidad),Float.parseFloat(precioC),Float.parseFloat(preciov),fechaFormateada);
+                if(bd.insertarAlmacen(a)){
                     JOptionPane.showMessageDialog(this, "Agregamos con exito");
                 }else{
                     JOptionPane.showMessageDialog(this, "Error al Registrar");
                 }
         
-                actualizarTabla();
+                //actualizarTabla();
                 
             }
         } else {
