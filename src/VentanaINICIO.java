@@ -84,7 +84,7 @@ public class VentanaINICIO extends javax.swing.JFrame {
  
     private void cerrarYMostrarLogin() {
         // Esperar 15 segundos (15000 ms) y luego abrir la ventana de login
-        Timer timer = new Timer(4000, e -> {
+        Timer timer = new Timer(5000, e -> {
             animacion.detenerAnimacion(); // Detiene los puntos animados
             dispose(); // Cierra la ventana actual
 

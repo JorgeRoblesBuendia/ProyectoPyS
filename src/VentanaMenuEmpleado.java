@@ -42,90 +42,113 @@ public class VentanaMenuEmpleado extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        NOMBRE_TITULO = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem_Consulta = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem_Caja = new javax.swing.JMenuItem();
+        jMenu11 = new javax.swing.JMenu();
+        jMenuItem_VentanaLogin = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Empleado");
-        setPreferredSize(new java.awt.Dimension(540, 410));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(255, 51, 51));
+        jPanel1.setMinimumSize(new java.awt.Dimension(860, 500));
+        jPanel1.setPreferredSize(new java.awt.Dimension(860, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setBackground(new java.awt.Color(102, 102, 255));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Consultar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        NOMBRE_TITULO.setFont(new java.awt.Font("Segoe UI", 3, 72)); // NOI18N
+        NOMBRE_TITULO.setForeground(new java.awt.Color(255, 255, 255));
+        NOMBRE_TITULO.setText("Bienvenido Empleado");
+        jPanel1.add(NOMBRE_TITULO, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, 80));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Powered by P&S");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 460, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, -1));
+
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/2124221_search_document_app_essential_icon.png"))); // NOI18N
+        jMenu1.setText("Consultar");
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jMenu1.setPreferredSize(new java.awt.Dimension(120, 30));
+
+        jMenuItem_Consulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/2124221_search_document_app_essential_icon.png"))); // NOI18N
+        jMenuItem_Consulta.setText("Gestionar Consulta");
+        jMenuItem_Consulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jMenuItem_ConsultaActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, -1, 20));
+        jMenu1.add(jMenuItem_Consulta);
 
-        jButton2.setBackground(new java.awt.Color(102, 102, 255));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Caja");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/17219_cash_cashbox_machine_payment_register_icon.png"))); // NOI18N
+        jMenu2.setText("Caja");
+        jMenu2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jMenu2.setPreferredSize(new java.awt.Dimension(90, 30));
+
+        jMenuItem_Caja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/17219_cash_cashbox_machine_payment_register_icon.png"))); // NOI18N
+        jMenuItem_Caja.setText("Gestionar Caja");
+        jMenuItem_Caja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jMenuItem_CajaActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, 90, 20));
+        jMenu2.add(jMenuItem_Caja);
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("P&S");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
+        jMenuBar1.add(jMenu2);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menu/istockphoto-1432473911-612x612.jpg"))); // NOI18N
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 410));
+        jMenu11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/353416_home_icon.png"))); // NOI18N
+        jMenu11.setText("Regresar");
+        jMenu11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jMenu11.setPreferredSize(new java.awt.Dimension(103, 30));
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("MS UI Gothic", 1, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("MENU");
-        jLabel1.setToolTipText("");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, -1, -1));
+        jMenuItem_VentanaLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/user2.png"))); // NOI18N
+        jMenuItem_VentanaLogin.setText("Ventana Login");
+        jMenuItem_VentanaLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_VentanaLoginActionPerformed(evt);
+            }
+        });
+        jMenu11.add(jMenuItem_VentanaLogin);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Powered by P&S");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 390, -1, -1));
+        jMenuBar1.add(jMenu11);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jMenuItem_ConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_ConsultaActionPerformed
         // TODO add your handling code here:
         VentanaConsultaEmpleado v=new VentanaConsultaEmpleado();
         v.bd=bd;
         v.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jMenuItem_ConsultaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jMenuItem_CajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_CajaActionPerformed
+        // TODO add your handling code here:
         VentanaCaja v=new VentanaCaja();
         v.bd=bd;
         v.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jMenuItem_CajaActionPerformed
+
+    private void jMenuItem_VentanaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_VentanaLoginActionPerformed
+        // TODO add your handling code here:
+        VentanaLogin v=new VentanaLogin();
+        v.bd=bd;
+        v.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem_VentanaLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,12 +186,15 @@ public class VentanaMenuEmpleado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel NOMBRE_TITULO;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu11;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem_Caja;
+    private javax.swing.JMenuItem jMenuItem_Consulta;
+    private javax.swing.JMenuItem jMenuItem_VentanaLogin;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

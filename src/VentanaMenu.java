@@ -96,10 +96,10 @@ public class VentanaMenu extends javax.swing.JFrame {
         jLabel2.setText("Powered by P&S");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 410, -1, -1));
 
-        NOMBRE_TITULO.setFont(new java.awt.Font("Segoe UI", 3, 92)); // NOI18N
+        NOMBRE_TITULO.setFont(new java.awt.Font("Segoe UI", 3, 72)); // NOI18N
         NOMBRE_TITULO.setForeground(new java.awt.Color(255, 255, 255));
-        NOMBRE_TITULO.setText("P&S");
-        jPanel1.add(NOMBRE_TITULO, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, -1, 80));
+        NOMBRE_TITULO.setText("Bienvenido Gerente");
+        jPanel1.add(NOMBRE_TITULO, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, 80));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, 6, 870, 460));
 
@@ -135,12 +135,12 @@ public class VentanaMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/reportes.png"))); // NOI18N
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/inventory.png"))); // NOI18N
         jMenu3.setText("Inventario");
         jMenu3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jMenu3.setPreferredSize(new java.awt.Dimension(120, 50));
 
-        jMenuItem_Inventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/reportes.png"))); // NOI18N
+        jMenuItem_Inventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/inventory.png"))); // NOI18N
         jMenuItem_Inventario.setText("Gestionar Inventario");
         jMenuItem_Inventario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,12 +151,12 @@ public class VentanaMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
-        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/usuario.png"))); // NOI18N
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/supplier.png"))); // NOI18N
         jMenu4.setText("Proveedores");
         jMenu4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jMenu4.setPreferredSize(new java.awt.Dimension(150, 50));
+        jMenu4.setPreferredSize(new java.awt.Dimension(140, 50));
 
-        jMenuItem_Proveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/usuario.png"))); // NOI18N
+        jMenuItem_Proveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/supplier.png"))); // NOI18N
         jMenuItem_Proveedores.setText("Gestionar Proveedores");
         jMenuItem_Proveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -183,12 +183,12 @@ public class VentanaMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
-        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/reporte1.png"))); // NOI18N
+        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/shopping-online.png"))); // NOI18N
         jMenu6.setText("Servicios");
         jMenu6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jMenu6.setPreferredSize(new java.awt.Dimension(110, 50));
 
-        jMenuItem_Servicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/reporte1.png"))); // NOI18N
+        jMenuItem_Servicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/shopping-online.png"))); // NOI18N
         jMenuItem_Servicios.setText("Gestionar Servicios");
         jMenuItem_Servicios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -199,7 +199,7 @@ public class VentanaMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu6);
 
-        jMenu11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/353416_home_icon.png"))); // NOI18N
+        jMenu11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/home.png"))); // NOI18N
         jMenu11.setText("Regresar");
         jMenu11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
