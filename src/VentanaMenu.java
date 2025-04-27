@@ -42,135 +42,182 @@ public class VentanaMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu7 = new javax.swing.JMenu();
+        jMenu8 = new javax.swing.JMenu();
+        jMenuBar3 = new javax.swing.JMenuBar();
+        jMenu9 = new javax.swing.JMenu();
+        jMenu10 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        btnEmpleados = new javax.swing.JButton();
-        btnProductos = new javax.swing.JButton();
-        btnProvedores = new javax.swing.JButton();
-        btnServicios = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        NOMBRE_TITULO = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem_Empleados = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem_Categoria = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem_Inventario = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem_Proveedores = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem_Almacen = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem_Servicios = new javax.swing.JMenuItem();
+        jMenu11 = new javax.swing.JMenu();
+        jMenuItem_VentanaLogin = new javax.swing.JMenuItem();
+
+        jMenu7.setText("File");
+        jMenuBar2.add(jMenu7);
+
+        jMenu8.setText("Edit");
+        jMenuBar2.add(jMenu8);
+
+        jMenu9.setText("File");
+        jMenuBar3.add(jMenu9);
+
+        jMenu10.setText("Edit");
+        jMenuBar3.add(jMenu10);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu");
+        setMinimumSize(new java.awt.Dimension(866, 550));
+        setPreferredSize(new java.awt.Dimension(860, 500));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(540, 410));
+        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel1.setMinimumSize(new java.awt.Dimension(840, 500));
+        jPanel1.setPreferredSize(new java.awt.Dimension(560, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setBackground(new java.awt.Color(51, 51, 255));
-        jLabel1.setFont(new java.awt.Font("MS UI Gothic", 1, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(102, 102, 255));
-        jLabel1.setText("MENU");
-        jLabel1.setToolTipText("");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, -1, -1));
-
-        btnEmpleados.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnEmpleados.setText("Empleados");
-        btnEmpleados.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEmpleadosActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, -1, -1));
-
-        btnProductos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnProductos.setText("Inventario");
-        btnProductos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProductosActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, -1, -1));
-
-        btnProvedores.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnProvedores.setText("Provedores");
-        btnProvedores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProvedoresActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnProvedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 260, -1, -1));
-
-        btnServicios.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnServicios.setText("Servicios");
-        btnServicios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnServiciosActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 180, -1, -1));
-
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setText("Categoria");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("P&S");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menu/istockphoto-1432473911-612x612.jpg"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 410));
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Powered by P&S");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 390, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 410, -1, -1));
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setText("Almacen");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        NOMBRE_TITULO.setFont(new java.awt.Font("Segoe UI", 3, 92)); // NOI18N
+        NOMBRE_TITULO.setForeground(new java.awt.Color(255, 255, 255));
+        NOMBRE_TITULO.setText("P&S");
+        jPanel1.add(NOMBRE_TITULO, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, -1, 80));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, 6, 870, 460));
+
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cliente.png"))); // NOI18N
+        jMenu1.setText("Empleados");
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jMenu1.setPreferredSize(new java.awt.Dimension(120, 50));
+
+        jMenuItem_Empleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cliente.png"))); // NOI18N
+        jMenuItem_Empleados.setText("Gestionar Empleados");
+        jMenuItem_Empleados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jMenuItem_EmpleadosActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 260, -1, -1));
+        jMenu1.add(jMenuItem_Empleados);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 848, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/categorias.png"))); // NOI18N
+        jMenu2.setText("Categoria");
+        jMenu2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jMenu2.setPreferredSize(new java.awt.Dimension(120, 50));
+
+        jMenuItem_Categoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/categorias.png"))); // NOI18N
+        jMenuItem_Categoria.setText("Gestionar Categoria");
+        jMenuItem_Categoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_CategoriaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem_Categoria);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/reportes.png"))); // NOI18N
+        jMenu3.setText("Inventario");
+        jMenu3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jMenu3.setPreferredSize(new java.awt.Dimension(120, 50));
+
+        jMenuItem_Inventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/reportes.png"))); // NOI18N
+        jMenuItem_Inventario.setText("Gestionar Inventario");
+        jMenuItem_Inventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_InventarioActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem_Inventario);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/usuario.png"))); // NOI18N
+        jMenu4.setText("Proveedores");
+        jMenu4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jMenu4.setPreferredSize(new java.awt.Dimension(150, 50));
+
+        jMenuItem_Proveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/usuario.png"))); // NOI18N
+        jMenuItem_Proveedores.setText("Gestionar Proveedores");
+        jMenuItem_Proveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_ProveedoresActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem_Proveedores);
+
+        jMenuBar1.add(jMenu4);
+
+        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/producto.png"))); // NOI18N
+        jMenu5.setText("Almacen");
+        jMenu5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jMenu5.setPreferredSize(new java.awt.Dimension(120, 50));
+
+        jMenuItem_Almacen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/producto.png"))); // NOI18N
+        jMenuItem_Almacen.setText("Gestionar Almacen");
+        jMenuItem_Almacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_AlmacenActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem_Almacen);
+
+        jMenuBar1.add(jMenu5);
+
+        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/reporte1.png"))); // NOI18N
+        jMenu6.setText("Servicios");
+        jMenu6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jMenu6.setPreferredSize(new java.awt.Dimension(110, 50));
+
+        jMenuItem_Servicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/reporte1.png"))); // NOI18N
+        jMenuItem_Servicios.setText("Gestionar Servicios");
+        jMenuItem_Servicios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_ServiciosActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem_Servicios);
+
+        jMenuBar1.add(jMenu6);
+
+        jMenu11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/353416_home_icon.png"))); // NOI18N
+        jMenu11.setText("Regresar");
+        jMenu11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        jMenuItem_VentanaLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/user2.png"))); // NOI18N
+        jMenuItem_VentanaLogin.setText("Ventana Login");
+        jMenuItem_VentanaLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_VentanaLoginActionPerformed(evt);
+            }
+        });
+        jMenu11.add(jMenuItem_VentanaLogin);
+
+        jMenuBar1.add(jMenu11);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnProvedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProvedoresActionPerformed
-        // TODO add your handling code here:
-            VentanaProveedor v=new VentanaProveedor();
-                v.bd=bd;
-                v.setVisible(true);
-                this.dispose();
-    }//GEN-LAST:event_btnProvedoresActionPerformed
-
-    private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-                                            
-             // TODO add your handling code here:
-        Inventario v =new Inventario();
-        v.bd=bd;
-        v.setVisible(true);
-        this.dispose();                            
-        
-    }//GEN-LAST:event_btnProductosActionPerformed
 public static void mostrarMenu() {
     java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
@@ -178,39 +225,61 @@ public static void mostrarMenu() {
         }
     });
 }
-    private void btnServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServiciosActionPerformed
+    private void jMenuItem_InventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_InventarioActionPerformed
+        // TODO add your handling code here:
+        Inventario v =new Inventario();
+        v.bd=bd;
+        v.setVisible(true);
+        this.dispose();   
+    }//GEN-LAST:event_jMenuItem_InventarioActionPerformed
+
+    private void jMenuItem_EmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_EmpleadosActionPerformed
+        // TODO add your handling code here:
+        VentanaConsultaEmpleado v = new VentanaConsultaEmpleado();
+        v.bd = bd;
+        v.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem_EmpleadosActionPerformed
+
+    private void jMenuItem_CategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_CategoriaActionPerformed
+        // TODO add your handling code here:
+         Inventario v =new Inventario();
+        v.bd=bd;
+        v.setVisible(true);
+        this.dispose();  
+    }//GEN-LAST:event_jMenuItem_CategoriaActionPerformed
+
+    private void jMenuItem_ProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_ProveedoresActionPerformed
+        // TODO add your handling code here:
+                VentanaProveedor v=new VentanaProveedor();
+                v.bd=bd;
+                v.setVisible(true);
+                this.dispose();
+    }//GEN-LAST:event_jMenuItem_ProveedoresActionPerformed
+
+    private void jMenuItem_AlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_AlmacenActionPerformed
+        // TODO add your handling code here:
+        Almacen v =new Almacen();
+        v.bd=bd;
+        v.setVisible(true);
+        this.dispose();  
+    }//GEN-LAST:event_jMenuItem_AlmacenActionPerformed
+
+    private void jMenuItem_ServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_ServiciosActionPerformed
         // TODO add your handling code here:
         VentanaAgregarServicio v=new VentanaAgregarServicio();
         v.bd=bd;
         v.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnServiciosActionPerformed
+    }//GEN-LAST:event_jMenuItem_ServiciosActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        VentanaGestionCategoria v=new VentanaGestionCategoria();
-                v.bd=bd;
-                v.setVisible(true);
-                this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
+    private void jMenuItem_VentanaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_VentanaLoginActionPerformed
         // TODO add your handling code here:
-        VentanaConsultaEmpleado v=new VentanaConsultaEmpleado();
+      VentanaLogin v=new VentanaLogin();
         v.bd=bd;
         v.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnEmpleadosActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        
-                                                 
-             // TODO add your handling code here:
-        Almacen v =new Almacen();
-        v.bd=bd;
-        v.setVisible(true);
-        this.dispose();  
-    }//GEN-LAST:event_jButton2ActionPerformed
+        this.dispose();   
+    }//GEN-LAST:event_jMenuItem_VentanaLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,16 +317,29 @@ public static void mostrarMenu() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEmpleados;
-    private javax.swing.JButton btnProductos;
-    private javax.swing.JButton btnProvedores;
-    private javax.swing.JButton btnServicios;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel NOMBRE_TITULO;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
+    private javax.swing.JMenu jMenu11;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuBar jMenuBar3;
+    private javax.swing.JMenuItem jMenuItem_Almacen;
+    private javax.swing.JMenuItem jMenuItem_Categoria;
+    private javax.swing.JMenuItem jMenuItem_Empleados;
+    private javax.swing.JMenuItem jMenuItem_Inventario;
+    private javax.swing.JMenuItem jMenuItem_Proveedores;
+    private javax.swing.JMenuItem jMenuItem_Servicios;
+    private javax.swing.JMenuItem jMenuItem_VentanaLogin;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
