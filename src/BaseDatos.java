@@ -1112,7 +1112,7 @@ public ArrayList<String[]> mostrarServicios() {
         int idRegistro = -1;
 
         try {
-            String SQL = "SELECT * FROM `Almacen` WHERE `idProducto` = " + idProducto;
+            String SQL = "SELECT * FROM `Almacen` WHERE `idRegistro` = " + idProducto;
             cursor = transaccion.executeQuery(SQL);
 
             if (cursor.next()) {
@@ -1124,18 +1124,18 @@ public ArrayList<String[]> mostrarServicios() {
         return idRegistro;
     }
 
-    public AlmacenC buscarAlmacen(int idProducto, AlmacenC a) {
+    public AlmacenC buscarAlmacen(int id, AlmacenC a) {
         try {
-            String SQL = "SELECT * FROM `Almacen` WHERE `idProducto` = " + idProducto;
+            String SQL = "SELECT * FROM `Almacen` WHERE `idRegistro` = " + id;
             cursor = transaccion.executeQuery(SQL);
 
             if (cursor.next()) {
                 a.idRegistro = cursor.getInt("idRegistro");
                 a.idProducto = cursor.getInt("idProducto");
                 a.stock = cursor.getInt("cantidad");
-                a.precioC = cursor.getDouble("precioC");
-                a.precioV = cursor.getDouble("precioV");
-                a.FechaCa = cursor.getString("FechaCa");
+                a.precioC = cursor.getDouble("precioCompra");
+                a.precioV = cursor.getDouble("precioVenta");
+                a.FechaCa = cursor.getString("FechaVencimiento");
             }
         } catch (SQLException ex) {
             Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, "Error al buscar en el almacén", ex);

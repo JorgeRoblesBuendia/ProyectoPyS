@@ -207,11 +207,21 @@ public class Almacen extends javax.swing.JFrame {
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setBackground(new java.awt.Color(102, 102, 255));
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnAgregar.setBackground(new java.awt.Color(102, 102, 255));
         btnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -344,6 +354,45 @@ public class Almacen extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String id = txtCantidadIngreso.getText();
+        if (id.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Introduce un id para buscar.");
+            return;
+        }
+        AlmacenC p=new AlmacenC();
+                p= bd.buscarAlmacen(Integer.parseInt(id), p);
+                txtPrecioC.setText(p.precioC+"");
+                txtPrecioV.setText(p.precioV+"");
+                txtCantidadIngreso.setText(p.stock+"");
+                java.util.Date fecha = null;
+                fecha = new java.util.Date(p.FechaCa);
+                if (fecha != null) {
+                    jdcFechaVencimiento.setDate(fecha);
+                }
+               
+              
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        
+        String nombreBuscar = txtCantidadIngreso.getText();
+        if (nombreBuscar.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Introduce un nombre para Borrar.");
+            return;
+        }
+        AlmacenC p=new AlmacenC();
+        p= bd.buscarAlmacen(Integer.parseInt(nombreBuscar), p);
+        
+        if(bd.eliminarProducto(p.idRegistro+"")){
+            System.out.println("Borramos con exito");
+        }else{
+            System.out.println("Error");
+        }
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
