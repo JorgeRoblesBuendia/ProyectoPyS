@@ -46,7 +46,6 @@ public class VentanaLogin extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnInISec = new javax.swing.JButton();
@@ -79,8 +78,6 @@ public class VentanaLogin extends javax.swing.JFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Powered by P&S...");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/carrito1.png"))); // NOI18N
-
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/carrito1.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -94,9 +91,6 @@ public class VentanaLogin extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(294, 294, 294)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -105,7 +99,7 @@ public class VentanaLogin extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(121, 121, 121)
                         .addComponent(jLabel5)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(144, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(109, 109, 109)
@@ -119,8 +113,6 @@ public class VentanaLogin extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(28, 28, 28)
                 .addComponent(jLabel9)
-                .addGap(33, 33, 33)
-                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(62, 62, 62)
@@ -246,11 +238,34 @@ public class VentanaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCrearUsuarioActionPerformed
 
     private void btnInISecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInISecActionPerformed
+
         String correo=txtCorreo.getText(), contrasena=txtCon.getText();
         if(correo.isBlank() || contrasena.isBlank()){
             mensajeError("ERROR: Campos vacios");
             //aaaaaaaaaaaa
         }else{
+           if (correo == null || !correo.contains("@") || !correo.contains(".")) {
+        javax.swing.JOptionPane.showMessageDialog(null, "Correo inválido: debe contener '@' y un dominio válido. Intenta de nuevo.");
+        limpiarCampos();
+        return;
+    }
+
+    if (!correo.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+        javax.swing.JOptionPane.showMessageDialog(null, "Formato de correo incorrecto. Intenta de nuevo.");
+        limpiarCampos();
+        return;
+    }
+    BaseDatos bd = new BaseDatos();
+    boolean loginCorrecto = bd.buscarLogin(correo, contrasena); // Usa tu método buscarLogin
+
+    if (loginCorrecto) {
+        javax.swing.JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
+        // Aquí puedes abrir la nueva ventana o hacer lo que necesites
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos. Intenta de nuevo.");
+        limpiarCampos();
+    }
+    
             if(bd.buscarLogin(correo,contrasena)){
                 mensajeError("SE ENCONTROOO");
                 System.out.println("pasamos a main");
@@ -266,8 +281,6 @@ public class VentanaLogin extends javax.swing.JFrame {
                     v.bd=bd;
                     v.setVisible(true);
                     this.dispose();
-                }else{
-                    mensajeError("Error: Login existente en la base de datos");
                 }
                 //mensajeError("Error: Login existente en la base de datos");
 
@@ -312,6 +325,11 @@ public class VentanaLogin extends javax.swing.JFrame {
     public void mensajeError(String cad){
         JOptionPane.showMessageDialog(this,cad);
     }
+           private void limpiarCampos() {
+    txtCorreo.setText("");
+    txtCon.setText("");
+    txtCorreo.requestFocus();
+} 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearUsuario;
@@ -319,7 +337,6 @@ public class VentanaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
