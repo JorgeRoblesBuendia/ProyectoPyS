@@ -515,13 +515,12 @@ public boolean actualizarProductos(Producto p) {
     
     //-----------------------------------ventaaaa
 
-        public boolean insertarVenta(Ventas v) {
+    public boolean insertarVenta(Ventas v) {
         try {
-            String SQL = "INSERT INTO `Ventas` ( `idCliente`, `idEmpleado`, `total`, `tipoPago`) " +
-                         "VALUES ( %IdCliente%, %IdEmpleado%, %Total%, '%TipoPago%')";
+            String SQL = "INSERT INTO `Ventas` ( `total`, `tipoPago`,`fechaHora`) " +
+                         "VALUES ( %Total%, '%TipoPago%', NOW())";
             //SQL = SQL.replaceAll("%FechaHora%", null);
-            SQL = SQL.replaceAll("%IdCliente%", String.valueOf(v.idCliente));
-            SQL = SQL.replaceAll("%IdEmpleado%", String.valueOf(v.idEmpleado));
+            //SQL = SQL.replaceAll("%IdEmpleado%", String.valueOf(v.idEmpleado));
             SQL = SQL.replaceAll("%Total%", String.valueOf(v.total));
             SQL = SQL.replaceAll("%TipoPago%", v.tipoPago);
             transaccion.execute(SQL);
@@ -551,6 +550,24 @@ public boolean actualizarProductos(Producto p) {
             System.out.println("Error al buscar venta: " + ex.getMessage());
         }
         return v;
+    }
+    public int buscarUltimaVenta() {
+        Ventas v = null;
+        try {
+            String SQL = "SELECT * FROM `Ventas` ORDER BY idVenta DESC LIMIT 1;";
+            cursor = transaccion.executeQuery(SQL);
+
+            if (cursor.next()) {
+                v = new Ventas();
+                v.id = cursor.getInt("idVenta");
+                v.idEmpleado = cursor.getInt("idEmpleado");
+                v.total = cursor.getDouble("total");
+                v.tipoPago = cursor.getString("tipoPago");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar venta: " + ex.getMessage());
+        }
+        return v.id;
     }
     public boolean actualizarVentaTotal(int idVenta, String tot) {
         try {
@@ -1140,6 +1157,24 @@ public ArrayList<String[]> mostrarServicios() {
         }
         return a;
     }
+    public AlmacenC buscarAlmacenP(int id, AlmacenC a) {
+        try {
+            String SQL = "SELECT * FROM `Almacen` WHERE `idProducto` = " + id;
+            cursor = transaccion.executeQuery(SQL);
+
+            if (cursor.next()) {
+                a.idRegistro = cursor.getInt("idRegistro");
+                a.idProducto = cursor.getInt("idProducto");
+                a.stock = cursor.getInt("cantidad");
+                a.precioC = cursor.getDouble("precioCompra");
+                a.precioV = cursor.getDouble("precioVenta");
+                a.FechaCa = cursor.getString("FechaVencimiento");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, "Error al buscar en el almacén", ex);
+        }
+        return a;
+    }
 
     public boolean eliminarAlmacen(int idRegistro) {
         try {
@@ -1340,6 +1375,13 @@ class Ventas {
     double total;
     String tipoPago;
 
+    public Ventas(int id, int idEmpleado, double total, String tipoPago) {
+        this.id = id;
+        this.idEmpleado = idEmpleado;
+        this.total = total;
+        this.tipoPago = tipoPago;
+    }
+
     public Ventas(int id, int idCliente, int idEmpleado, double total, String tipoPago) {
         this.id = id;
         this.idCliente = idCliente;
@@ -1348,9 +1390,7 @@ class Ventas {
         this.tipoPago = tipoPago;
     }
 
-    Ventas() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    Ventas() {}
 
     
 }
@@ -1476,12 +1516,24 @@ class AlmacenC{
 }
 
 class RegistroCaja{
+    String cb,nombre,descripcion;
+    
+    
     Producto producto;
     AlmacenC almacen;
     int cantidad;
-    double valorTotal;
+    double valorTotal,precioU;
 
     public RegistroCaja() {
+    }
+
+    public RegistroCaja(String cb, String nombre, String descripcion, int cantidad, double valorTotal, double precioU) {
+        this.cb = cb;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.cantidad = cantidad;
+        this.valorTotal = valorTotal;
+        this.precioU = precioU;
     }
 
     public RegistroCaja(Producto producto, AlmacenC almacen, int cantidad, double valorTotal) {
@@ -1490,6 +1542,10 @@ class RegistroCaja{
         this.cantidad = cantidad;
         this.valorTotal = valorTotal;
         
+    }
+    
+    public String[] ObteberArreglo(){
+        String[] a ={cb,nombre,descripcion,precioU+"",cantidad+"",valorTotal+""};return a;
     }
     
     
