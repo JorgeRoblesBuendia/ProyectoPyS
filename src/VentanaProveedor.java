@@ -370,7 +370,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
     }else{
         
                 bd.insertarProveedor(new Proveedores(0,nombre,"",telefono,direccion,correo));
-                           this.dispose();
+                           //this.dispose();
     }
     JOptionPane.showMessageDialog(this, "Proveedor agregado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     
