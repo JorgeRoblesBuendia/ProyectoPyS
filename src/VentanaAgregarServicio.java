@@ -31,6 +31,10 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
        
         
         bd=new BaseDatos();
+        String correoActual = VentanaLogin.correoUsuario;
+        System.out.println("Correo obtenido: " + correoActual);
+        JLabelCorreoMostrar.setText(VentanaLogin.correoUsuario);
+        
         try {
             if(bd.conexion.isClosed()){
                 System.out.println("Noo!!!. Se cerro");
@@ -53,24 +57,29 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        txtDescrip = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        btnAgregar = new javax.swing.JButton();
-        txtPrecio = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        btnEditar = new javax.swing.JButton();
-        cmbCategoria = new javax.swing.JComboBox<>();
-        tbnEliminar = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblServicios = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtDescrip = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtPrecio = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        cmbCategoria = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         txtDescrip1 = new javax.swing.JTextField();
         btnBuscar1 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        tbnEliminar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        JLabelCorreoMostrar = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -78,65 +87,16 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Agregar Servicios");
 
-        jPanel1.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Descripcion");
-
-        jLabel1.setFont(new java.awt.Font("MS UI Gothic", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 28)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Gestion de servicios");
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("GESTION DE SERVICIOS");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 16, 848, 32));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Precio");
-
-        btnAgregar.setBackground(new java.awt.Color(102, 102, 255));
-        btnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregar.setText("Agregar");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
-            }
-        });
-
-        btnBuscar.setBackground(new java.awt.Color(102, 102, 255));
-        btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Categoria");
-
-        btnEditar.setBackground(new java.awt.Color(102, 102, 255));
-        btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnEditar.setForeground(new java.awt.Color(255, 255, 255));
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-
-        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-
-        tbnEliminar.setBackground(new java.awt.Color(102, 102, 255));
-        tbnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        tbnEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        tbnEliminar.setText("Eliminar");
-        tbnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tbnEliminarActionPerformed(evt);
-            }
-        });
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         tblServicios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -148,17 +108,57 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblServicios);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Nombre");
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Codigo");
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, 550, 390));
 
-        btnBuscar1.setBackground(new java.awt.Color(102, 102, 255));
-        btnBuscar1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setText("Nombre:");
+
+        txtNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setText("Descripcion:");
+
+        txtDescrip.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setText("Precio:");
+
+        txtPrecio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setText("Categoria:");
+
+        cmbCategoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setText("Codigo:");
+
+        txtDescrip1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        btnBuscar1.setBackground(new java.awt.Color(204, 51, 0));
+        btnBuscar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnBuscar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search2.png"))); // NOI18N
         btnBuscar1.setText("Buscar");
         btnBuscar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,90 +166,115 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(327, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDescrip, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(cmbCategoria, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtPrecio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(31, 31, 31)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnEditar)
-                                    .addComponent(btnBuscar)
-                                    .addComponent(btnAgregar)
-                                    .addComponent(tbnEliminar)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDescrip1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(31, 31, 31)
-                                .addComponent(btnBuscar1)))
-                        .addGap(68, 68, 68))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(317, 317, 317))))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(402, Short.MAX_VALUE)))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgregar))
-                .addGap(30, 30, 30)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDescrip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditar))
-                .addGap(30, 30, 30)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tbnEliminar))
-                .addGap(60, 60, 60)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDescrip1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar1))
-                .addContainerGap(85, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(86, 86, 86)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(30, Short.MAX_VALUE)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescrip, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscar1))
+                    .addComponent(txtDescrip1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel2)
+                .addGap(10, 10, 10)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jLabel3)
+                .addComponent(txtDescrip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscar1)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDescrip1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 260, 390));
+
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tbnEliminar.setBackground(new java.awt.Color(204, 51, 0));
+        tbnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        tbnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        tbnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete.png"))); // NOI18N
+        tbnEliminar.setText("Eliminar");
+        tbnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbnEliminarActionPerformed(evt);
+            }
+        });
+        jPanel4.add(tbnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, -1, -1));
+
+        btnEditar.setBackground(new java.awt.Color(204, 51, 0));
+        btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnEditar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sync.png"))); // NOI18N
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, -1, -1));
+
+        btnBuscar.setBackground(new java.awt.Color(204, 51, 0));
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search2.png"))); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, -1, -1));
+
+        btnAgregar.setBackground(new java.awt.Color(204, 51, 0));
+        btnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/nuevo-producto.png"))); // NOI18N
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, -1, -1));
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 830, 50));
+
+        JLabelCorreoMostrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        JLabelCorreoMostrar.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(JLabelCorreoMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 24, 210, 20));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("GERENTE");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(775, 0, 70, 30));
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/2849812_menu_multimedia_bars_media_icon.png"))); // NOI18N
         jMenu1.setText("Menu");
@@ -277,9 +302,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
         );
 
         pack();
@@ -438,6 +461,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel JLabelCorreoMostrar;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnBuscar1;
@@ -449,10 +473,14 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblServicios;
     private javax.swing.JButton tbnEliminar;
