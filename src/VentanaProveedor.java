@@ -246,7 +246,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
                 System.out.println("el campo 'nombre' estar vacíos.");
                 return;
             }else{
-                if(bd.buscarServicio(nombre)!=-1){
+                if(bd.buscarProveedor(correo)!=-1){
                     p=bd.buscarProveedor(nombre, p);
                     txtNombre.setText(p.nombre);txtTelefono.setText(p.telefono);
                     txtCorreo.setText(p.email+""); txtDireccion.setText(p.direccion);
@@ -294,7 +294,8 @@ public class VentanaProveedor extends javax.swing.JFrame {
             }else{
                 
             }
-           bd.actualizarProveedor(new Proveedores(0,nombre,"",telf,direccion,correo),bd.buscarProveedor(correo));
+            int id= bd.buscarProveedor(correo);
+            bd.actualizarProveedor(new Proveedores(id,nombre,"",telf,direccion,correo),id);
              
         //vaciarTxt();
         permisoEditar=false;//actualizarTabla();
