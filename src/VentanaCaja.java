@@ -17,7 +17,8 @@ public class VentanaCaja extends javax.swing.JFrame {
     BaseDatos bd;
     DefaultTableModel m;
     int index=0;
-    Producto A[]=new Producto[100];
+    RegistroCaja r[]=new RegistroCaja[100];
+    
     /**
      * Creates new form VentanaCaja
      */
@@ -414,6 +415,9 @@ public class VentanaCaja extends javax.swing.JFrame {
             
         }
     }
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarLista;
     private javax.swing.JButton btnConsultar;
