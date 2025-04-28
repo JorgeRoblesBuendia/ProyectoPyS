@@ -275,11 +275,16 @@ public class VentanaProveedor extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar");
     } 
     
+    if(JOptionPane.showConfirmDialog(this, "¿seguro de querer borrar?")==0){
+        System.out.println("seco");
+        bd.eliminarProveedor(txtCorreo.getText());permisoBorrar=false;//actualizarTabla();
+        
+    }
      bd.eliminarProveedor(txtCorreo.getText());
         /*if(permisoBorrar){
             bd.eliminarProveedor(txtCorreo.getText());
         }*/
-        permisoBorrar=false;//actualizarTabla();
+        
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar1ActionPerformed
