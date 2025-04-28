@@ -1255,7 +1255,20 @@ public ArrayList<String[]> mostrarServicios() {
     }
 
 
-
+//-------------------------------------------no se funciones?-------------------------------------
+    public double obtenerSumatoriaDia(){
+        double sum=0;
+        try {
+            String SQL = "SELECT SUM(dv.subtotal) AS TotalVentasDelDia FROM DetallesVenta dv INNER JOIN Ventas v on dv.idVenta=v.idVenta WHERE DATE(v.fechaHora) = CURDATE();";
+            cursor = transaccion.executeQuery(SQL);
+            if (cursor.next()) {
+                sum= cursor.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar venta: " + ex.getMessage());
+        }
+        return sum;
+    }
 
 
 
