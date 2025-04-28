@@ -789,7 +789,7 @@ public ArrayList<String[]> mostrarDetallesVenta() {
         }
         return true;
     }
-    public boolean actualizarProveedor(Proveedores p,int n) {
+    public boolean actualizarProveedor(Proveedores p,int n) {//---
     try {
         String SQL = "UPDATE `Proveedores` SET " +
                      "`nombre` = '%NombreEmpresa%', " +
