@@ -21,8 +21,13 @@ public class VentanaMenu extends javax.swing.JFrame {
     public VentanaMenu() {
         initComponents();
         setLocationRelativeTo(null);
-
+        
         bd=new BaseDatos();
+        
+        String correoActual = VentanaLogin.correoUsuario;
+        System.out.println("Correo obtenido: " + correoActual);
+        JLabelCorreoMostrar.setText(VentanaLogin.correoUsuario);
+        
         try {
             if(bd.conexion.isClosed()){
                 System.out.println("Noo!!!. Se cerro");
@@ -51,6 +56,7 @@ public class VentanaMenu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         NOMBRE_TITULO = new javax.swing.JLabel();
+        JLabelCorreoMostrar = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem_Empleados = new javax.swing.JMenuItem();
@@ -99,7 +105,12 @@ public class VentanaMenu extends javax.swing.JFrame {
         NOMBRE_TITULO.setFont(new java.awt.Font("Segoe UI", 3, 72)); // NOI18N
         NOMBRE_TITULO.setForeground(new java.awt.Color(255, 255, 255));
         NOMBRE_TITULO.setText("Bienvenido Gerente");
-        jPanel1.add(NOMBRE_TITULO, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, 80));
+        jPanel1.add(NOMBRE_TITULO, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, 80));
+
+        JLabelCorreoMostrar.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
+        JLabelCorreoMostrar.setForeground(new java.awt.Color(255, 255, 255));
+        JLabelCorreoMostrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(JLabelCorreoMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 870, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, 6, 870, 460));
 
@@ -317,6 +328,7 @@ public static void mostrarMenu() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel JLabelCorreoMostrar;
     private javax.swing.JLabel NOMBRE_TITULO;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;

@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class VentanaLogin extends javax.swing.JFrame {
     BaseDatos bd;
+    public static String correoUsuario;
     /**
      * Creates new form VentanaLogin
      */
@@ -247,10 +248,12 @@ public class VentanaLogin extends javax.swing.JFrame {
         javax.swing.JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos. Intenta de nuevo.");
         limpiarCampos();
     }*/
+    VentanaLogin.correoUsuario = correo;
     
             if(bd.buscarLogin(correo,contrasena)){
                 mensajeError("SE ENCONTROOO");
                 System.out.println("pasamos a main");
+                VentanaLogin.correoUsuario = correo;
                 VentanaMenu v=new VentanaMenu();
                 v.bd=bd;
                 v.setVisible(true);
@@ -259,6 +262,7 @@ public class VentanaLogin extends javax.swing.JFrame {
                 if(bd.buscarLoginEmpleado(correo, contrasena)){
                     mensajeError("SE ENCONTRO el empleado");
                     System.out.println("pasamos a main");
+                    VentanaLogin.correoUsuario = correo;
                     VentanaMenuEmpleado v=new VentanaMenuEmpleado();
                     v.bd=bd;
                     v.setVisible(true);

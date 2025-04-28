@@ -281,7 +281,6 @@ public class Almacen extends javax.swing.JFrame {
             }
         });
 
-        txtId.setText("jTextField1");
         txtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdActionPerformed(evt);

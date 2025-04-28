@@ -23,6 +23,10 @@ public class VentanaMenuEmpleado extends javax.swing.JFrame {
         setLocationRelativeTo(null);
 
         bd=new BaseDatos();
+        String correoActual = VentanaLogin.correoUsuario;
+        System.out.println("Correo obtenido: " + correoActual);
+        JLabelCorreoMostrar.setText(VentanaLogin.correoUsuario);
+        
         try {
             if (bd.conexion.isClosed()) {
                 System.out.println("Nooo!!!. Se cerró");
@@ -44,6 +48,7 @@ public class VentanaMenuEmpleado extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         NOMBRE_TITULO = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        JLabelCorreoMostrar = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem_Consulta = new javax.swing.JMenuItem();
@@ -70,6 +75,11 @@ public class VentanaMenuEmpleado extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Powered by P&S");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 460, -1, -1));
+
+        JLabelCorreoMostrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        JLabelCorreoMostrar.setForeground(new java.awt.Color(255, 255, 255));
+        JLabelCorreoMostrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(JLabelCorreoMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 430, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, -1));
 
@@ -186,6 +196,7 @@ public class VentanaMenuEmpleado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel JLabelCorreoMostrar;
     private javax.swing.JLabel NOMBRE_TITULO;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;

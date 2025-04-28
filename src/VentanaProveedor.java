@@ -13,6 +13,10 @@ public class VentanaProveedor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
 
         bd = new BaseDatos();
+        String correoActual = VentanaLogin.correoUsuario;
+        System.out.println("Correo obtenido: " + correoActual);
+        JLabelCorreoMostrar.setText(VentanaLogin.correoUsuario);
+        
         try {
             if (bd.conexion.isClosed()) {
                 System.out.println("Noo!!!. Se cerro");
@@ -36,6 +40,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -53,6 +58,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         btnActualizar1 = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        JLabelCorreoMostrar = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -67,10 +73,17 @@ public class VentanaProveedor extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(860, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 35)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Proveedores");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, -1, -1));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("PROVEEDORES");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 860, -1));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("GERENTE");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 70, 30));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -94,7 +107,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 470, 310));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 70, 490, 330));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 490, 310));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -132,12 +145,12 @@ public class VentanaProveedor extends javax.swing.JFrame {
         jLabel2.setText("Nombre:");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 40, 70, -1));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 320, 330));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 320, 310));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnAgregar.setBackground(new java.awt.Color(102, 102, 255));
+        btnAgregar.setBackground(new java.awt.Color(204, 0, 0));
         btnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/plus.png"))); // NOI18N
@@ -149,7 +162,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
         });
         jPanel4.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 130, -1));
 
-        btnBuscar.setBackground(new java.awt.Color(102, 102, 255));
+        btnBuscar.setBackground(new java.awt.Color(204, 0, 0));
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search.png"))); // NOI18N
@@ -161,7 +174,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
         });
         jPanel4.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 110, -1));
 
-        btnActualizar1.setBackground(new java.awt.Color(102, 102, 255));
+        btnActualizar1.setBackground(new java.awt.Color(204, 0, 0));
         btnActualizar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnActualizar1.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sync.png"))); // NOI18N
@@ -173,7 +186,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
         });
         jPanel4.add(btnActualizar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, -1, -1));
 
-        btnEliminar.setBackground(new java.awt.Color(102, 102, 255));
+        btnEliminar.setBackground(new java.awt.Color(204, 51, 0));
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete.png"))); // NOI18N
@@ -186,6 +199,10 @@ public class VentanaProveedor extends javax.swing.JFrame {
         jPanel4.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, 140, -1));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 820, 50));
+
+        JLabelCorreoMostrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        JLabelCorreoMostrar.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(JLabelCorreoMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 30, 210, 20));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-3, 3, 880, -1));
 
@@ -448,6 +465,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel JLabelCorreoMostrar;
     private javax.swing.JButton btnActualizar1;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
@@ -457,6 +475,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
