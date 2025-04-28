@@ -243,7 +243,7 @@ public static void mostrarMenu() {
 
     private void jMenuItem_CategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_CategoriaActionPerformed
         // TODO add your handling code here:
-         Inventario v =new Inventario();
+         VentanaGestionCategoria v =new VentanaGestionCategoria();
         v.bd=bd;
         v.setVisible(true);
         this.dispose();  
