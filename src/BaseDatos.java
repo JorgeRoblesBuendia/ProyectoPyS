@@ -988,7 +988,7 @@ public ArrayList<String[]> mostrarServicios() {
 
         if (cursor.next()) {
             do {
-                String[] datos = {cursor.getString("nombre"), cursor.getString("descripcion"), 
+                String[] datos = {cursor.getString(1),cursor.getString("nombre"), cursor.getString("descripcion"), 
                                   cursor.getBigDecimal("precio").toString(), cursor.getString(10), 
                                   String.valueOf(cursor.getBoolean("activo"))};
                 resultado.add(datos);

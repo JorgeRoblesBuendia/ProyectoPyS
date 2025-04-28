@@ -103,7 +103,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Descripcion", "Precio", "Categoria"
+                "id", "Nombre", "Descripcion", "Precio", "Categoria"
             }
         ));
         jScrollPane1.setViewportView(tblServicios);
@@ -197,12 +197,15 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(jLabel3)
+                .addGap(0, 0, 0)
                 .addComponent(txtDescrip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jLabel4)
+                .addGap(0, 0, 0)
                 .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
+                .addGap(0, 0, 0)
                 .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)

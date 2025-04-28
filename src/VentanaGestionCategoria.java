@@ -1,23 +1,29 @@
 
+import java.awt.Image;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.sql.*;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author edwin
  */
 public class VentanaGestionCategoria extends javax.swing.JFrame {
+
     BaseDatos bd;
     DefaultTableModel m;
+
     /**
      * Creates new form VentanaGestionCategoria
      */
@@ -25,17 +31,30 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
 
-        bd=new BaseDatos();
+        setImagenEscalada(FONDO, "/imagenes/Fondo.jpg");
+
+        String correoActual = VentanaLogin.correoUsuario;
+        System.out.println("Correo obtenido: " + correoActual);
+        JLabelCorreoMostrar.setText(VentanaLogin.correoUsuario);
+
+        bd = new BaseDatos();
         try {
-            if(bd.conexion.isClosed()){
+            if (bd.conexion.isClosed()) {
                 System.out.println("Noo!!!. Se cerro");
             }
         } catch (SQLException ex) {
-            
+
             Logger.getLogger(VentanaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        m=(DefaultTableModel) tblCategorias.getModel();
+        m = (DefaultTableModel) tblCategorias.getModel();
         actualizarTabla();
+        cargarDatosDeTabla();
+    }
+
+    private void setImagenEscalada(JLabel label, String ruta) {
+        ImageIcon icon = new ImageIcon(getClass().getResource(ruta));
+        Image image = icon.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+        label.setIcon(new ImageIcon(image));
     }
 
     /**
@@ -54,14 +73,18 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         btnActualizar = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
+        JLabelCorreoMostrar = new javax.swing.JLabel();
         btnReFRess = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
-        txtDescripcion = new javax.swing.JTextField();
         txtBuscar = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtDescripcion = new javax.swing.JTextArea();
+        FONDO = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -70,7 +93,11 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         setTitle("Gestion Categoria");
 
         jPanel1.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tblCategorias.setBackground(new java.awt.Color(102, 102, 102));
+        tblCategorias.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        tblCategorias.setForeground(new java.awt.Color(255, 255, 255));
         tblCategorias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -82,7 +109,14 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
                 "No", "Nombre", "Descripcion"
             }
         ));
+        tblCategorias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCategoriasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblCategorias);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 850, 153));
 
         btnAgregar.setBackground(new java.awt.Color(102, 102, 255));
         btnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -93,6 +127,7 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, -1, -1));
 
         btnActualizar.setBackground(new java.awt.Color(102, 102, 255));
         btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -103,6 +138,7 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
                 btnActualizarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, -1, -1));
 
         btnBorrar.setBackground(new java.awt.Color(102, 102, 255));
         btnBorrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -113,6 +149,7 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
                 btnBorrarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, -1, -1));
 
         btnBuscar.setBackground(new java.awt.Color(102, 102, 255));
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -123,6 +160,11 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
                 btnBuscarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 200, -1, -1));
+
+        JLabelCorreoMostrar.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        JLabelCorreoMostrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(JLabelCorreoMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 50, 210, 20));
 
         btnReFRess.setBackground(new java.awt.Color(102, 102, 255));
         btnReFRess.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -133,114 +175,60 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
                 btnReFRessActionPerformed(evt);
             }
         });
+        jPanel1.add(btnReFRess, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 290, -1, -1));
 
+        txtNombre.setBackground(new java.awt.Color(102, 102, 102));
+        txtNombre.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        txtNombre.setForeground(new java.awt.Color(255, 255, 255));
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreActionPerformed(evt);
             }
         });
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 180, -1));
 
-        txtDescripcion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDescripcionActionPerformed(evt);
-            }
-        });
-
+        txtBuscar.setBackground(new java.awt.Color(102, 102, 102));
+        txtBuscar.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
         txtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBuscarActionPerformed(evt);
             }
         });
+        jPanel1.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, 200, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Nombre");
         jLabel1.setToolTipText("");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Descripcion");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 71, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Buscar");
+        jLabel3.setText("Tabla");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("MS UI Gothic", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("MS UI Gothic", 3, 24)); // NOI18N
         jLabel4.setText("Gestion de categoria");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, 230, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 878, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnAgregar)
-                        .addGap(55, 55, 55)
-                        .addComponent(btnActualizar)
-                        .addGap(58, 58, 58)
-                        .addComponent(btnBorrar)
-                        .addGap(65, 65, 65)
-                        .addComponent(btnBuscar)
-                        .addGap(66, 66, 66)
-                        .addComponent(btnReFRess)
-                        .addGap(93, 93, 93))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(320, 320, 320)
-                        .addComponent(jLabel4))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(402, 402, 402)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(298, 298, 298)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(394, 394, 394)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(408, 408, 408)
-                        .addComponent(jLabel3)))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(31, 31, 31)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregar)
-                    .addComponent(btnActualizar)
-                    .addComponent(btnBorrar)
-                    .addComponent(btnBuscar)
-                    .addComponent(btnReFRess))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setText("Buscar");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 180, -1, -1));
+
+        txtDescripcion.setBackground(new java.awt.Color(102, 102, 102));
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        txtDescripcion.setForeground(new java.awt.Color(255, 255, 255));
+        txtDescripcion.setRows(5);
+        jScrollPane2.setViewportView(txtDescripcion);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 450, -1));
+
+        FONDO.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 914, 500));
 
         jMenu1.setText("Menu");
 
@@ -275,53 +263,72 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void txtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDescripcionActionPerformed
-
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        String nombre=txtNombre.getText(), descripcion=txtDescripcion.getText();
-        
-        if(bd.insertarCategoria(new Categorias(0,nombre,descripcion))){
-            System.out.println("insercion exitosa");
+        if (!validarCampos()) {
+            JOptionPane.showMessageDialog(this, "Por favor completa correctamente los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        actualizarTabla();
+
+        String nombre = txtNombre.getText().trim();
+        String descripcion = txtDescripcion.getText().trim();
+
+        if (bd.insertarCategoria(new Categorias(0, nombre, descripcion))) {
+            JOptionPane.showMessageDialog(this, "Categoría agregada exitosamente.");
+            limpiarCampos();
+            actualizarTabla();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al agregar categoría.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        String nombre=txtNombre.getText(), descripcion=txtDescripcion.getText();
         int filaSeleccionada = tblCategorias.getSelectedRow();
-        if (filaSeleccionada >= 0) {
-            System.out.println(m.getValueAt(filaSeleccionada, 0));
-            int idProducto = Integer.parseInt( m.getValueAt(filaSeleccionada, 0).toString());
-            
-            if(bd.actualizarCategoria(new Categorias(idProducto,nombre,descripcion),idProducto)){
-                System.out.println("Actualizacion exitosa");
-            }else{
-                System.out.println("Algo salio mal");
-            }
+        if (filaSeleccionada < 0) {
+            JOptionPane.showMessageDialog(this, "Selecciona una fila para actualizar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
         }
-        actualizarTabla();
+
+        if (!validarCampos()) {
+            JOptionPane.showMessageDialog(this, "Por favor completa correctamente los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String nombre = txtNombre.getText().trim();
+        String descripcion = txtDescripcion.getText().trim();
+        int idCategoria = Integer.parseInt(m.getValueAt(filaSeleccionada, 0).toString());
+
+        if (bd.actualizarCategoria(new Categorias(idCategoria, nombre, descripcion), idCategoria)) {
+            JOptionPane.showMessageDialog(this, "Categoría actualizada correctamente.");
+            limpiarCampos();
+            actualizarTabla();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al actualizar categoría.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        String nombre=txtNombre.getText();
         int filaSeleccionada = tblCategorias.getSelectedRow();
-        if (!nombre.isEmpty()) {
-            //int idProducto = Integer.parseInt(m.getValueAt(filaSeleccionada, 0).toString());
-            if(bd.eliminarCategoria(nombre)){
-                System.out.println("Borramos con exito");
-            }else{
-                System.out.println("Error");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecciona un producto para eliminar.");
+        if (filaSeleccionada < 0) {
+            JOptionPane.showMessageDialog(this, "Selecciona una fila para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
         }
-        actualizarTabla();
+
+        int confirmar = JOptionPane.showConfirmDialog(this, "¿Estás seguro de eliminar esta categoría?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+
+        if (confirmar == JOptionPane.YES_OPTION) {
+            String nombre = m.getValueAt(filaSeleccionada, 1).toString();
+            if (bd.eliminarCategoria(nombre)) {
+                JOptionPane.showMessageDialog(this, "Categoría eliminada correctamente.");
+                limpiarCampos();
+                actualizarTabla();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al eliminar categoría.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -339,13 +346,10 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         m.setRowCount(0);
 
         // Agregar una nueva fila al modelo para evitar el error
-        m.addRow(new Object[] {p.id, p.nombre, p.descripcion}); // Añade una fila vacía
-
-        
-        
+        m.addRow(new Object[]{p.id, p.nombre, p.descripcion}); // Añade una fila vacía
 
         // Actualizar la tabla
-        
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnReFRessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReFRessActionPerformed
@@ -354,15 +358,63 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        
-                // TODO add your handling code here:
-            JOptionPane.showMessageDialog(null, "Regresando al menú principal...");
 
-                VentanaMenu v=new VentanaMenu();
-        v.bd=bd;
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Regresando al menú principal...");
+
+        VentanaMenu v = new VentanaMenu();
+        v.bd = bd;
         v.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void tblCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCategoriasMouseClicked
+        cargarDatosDeTabla();
+    }//GEN-LAST:event_tblCategoriasMouseClicked
+
+    private void cargarDatosDeTabla() {
+        int filaSeleccionada = tblCategorias.getSelectedRow();
+        if (filaSeleccionada >= 0) {
+            String nombre = m.getValueAt(filaSeleccionada, 1).toString(); // Columna 1 = Nombre
+            String descripcion = m.getValueAt(filaSeleccionada, 2).toString(); // Columna 2 = Descripción
+
+            txtNombre.setText(nombre);
+            txtDescripcion.setText(descripcion);
+
+            // Opcional: quitar colores de error si existieran
+            txtNombre.setBackground(new java.awt.Color(102, 102, 102));
+            txtDescripcion.setBackground(new java.awt.Color(102, 102, 102));
+        }
+    }
+
+    private boolean validarCampos() {
+        boolean validacion = true;
+
+        if (txtNombre.getText().trim().isEmpty()) {
+            txtNombre.setBackground(new java.awt.Color(255, 102, 102)); // Rojo claro
+            validacion = false;
+        } else {
+            txtNombre.setBackground(new java.awt.Color(102, 102, 102));
+        }
+
+        if (txtDescripcion.getText().trim().isEmpty()) {
+            txtDescripcion.setBackground(new java.awt.Color(255, 102, 102)); // Rojo claro
+            validacion = false;
+        } else {
+            txtDescripcion.setBackground(new java.awt.Color(102, 102, 102));
+        }
+
+        return validacion;
+    }
+
+    private void limpiarCampos() {
+        txtNombre.setText("");
+        txtDescripcion.setText("");
+        txtBuscar.setText("");
+
+        txtNombre.setBackground(new java.awt.Color(102, 102, 102));
+        txtDescripcion.setBackground(new java.awt.Color(102, 102, 102));
+    }
 
     /**
      * @param args the command line arguments
@@ -398,18 +450,23 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
             }
         });
     }
-    public void actualizarTabla(){
-        ArrayList<String[]>datos =bd.mostrarCategorias();
-        if(datos.size()==0)return;
-        int totalRenglones=m.getRowCount();
-        for (int i = 0; i <totalRenglones; i++) {
+
+    public void actualizarTabla() {
+        ArrayList<String[]> datos = bd.mostrarCategorias();
+        if (datos.size() == 0) {
+            return;
+        }
+        int totalRenglones = m.getRowCount();
+        for (int i = 0; i < totalRenglones; i++) {
             m.removeRow(0);
         }
-        for (String[] data: datos) {
+        for (String[] data : datos) {
             m.addRow(data);
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel FONDO;
+    private javax.swing.JLabel JLabelCorreoMostrar;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBorrar;
@@ -419,14 +476,16 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblCategorias;
     private javax.swing.JTextField txtBuscar;
-    private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
