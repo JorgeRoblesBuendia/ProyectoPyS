@@ -74,10 +74,10 @@ public class VentanaProveedor extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 35)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 28)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("PROVEEDORES");
+        jLabel1.setText("GESTION PROVEEDORES");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 860, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N

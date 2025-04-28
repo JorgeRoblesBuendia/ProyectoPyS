@@ -76,10 +76,10 @@ public class VentanaMenuEmpleado extends javax.swing.JFrame {
         jLabel3.setText("Powered by P&S");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 460, -1, -1));
 
-        JLabelCorreoMostrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        JLabelCorreoMostrar.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
         JLabelCorreoMostrar.setForeground(new java.awt.Color(255, 255, 255));
         JLabelCorreoMostrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(JLabelCorreoMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 430, 30));
+        jPanel1.add(JLabelCorreoMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 860, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, -1));
 

@@ -30,6 +30,10 @@ public class VentanaCaja extends javax.swing.JFrame {
         setLocationRelativeTo(null);
 
         bd=new BaseDatos();
+        String correoActual = VentanaLogin.correoUsuario;
+        System.out.println("Correo obtenido: " + correoActual);
+        JLabelCorreoMostrar.setText(VentanaLogin.correoUsuario);
+        
         try {
             if(bd.conexion.isClosed()){
                 System.out.println("Noo!!!. Se cerro");
@@ -51,26 +55,87 @@ public class VentanaCaja extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblProductos = new javax.swing.JTable();
         btnVender = new javax.swing.JButton();
-        txtCodigoBarra = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnAgregarLista = new javax.swing.JButton();
+        lblTotal = new javax.swing.JLabel();
+        NOMBRE_TITULO = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        JLabelCorreoMostrar = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblProductos = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
         chbManual = new javax.swing.JCheckBox();
         txtCantidad = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        lblTotal = new javax.swing.JLabel();
-        txtConsultar = new javax.swing.JTextField();
         btnConsultar = new javax.swing.JButton();
+        txtConsultar = new javax.swing.JTextField();
+        txtCodigoBarra = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Caja");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(204, 0, 0));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnVender.setBackground(new java.awt.Color(204, 0, 0));
+        btnVender.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnVender.setForeground(new java.awt.Color(255, 255, 255));
+        btnVender.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/payment-method.png"))); // NOI18N
+        btnVender.setText("VENDER");
+        btnVender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVenderActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnVender, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 570, 190, -1));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 30)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("VENTA EN CAJA");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 24, 860, -1));
+
+        btnAgregarLista.setBackground(new java.awt.Color(204, 0, 0));
+        btnAgregarLista.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAgregarLista.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregarLista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/nuevo-producto.png"))); // NOI18N
+        btnAgregarLista.setText("AGREGAR");
+        btnAgregarLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarListaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAgregarLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+
+        lblTotal.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        lblTotal.setForeground(new java.awt.Color(255, 255, 255));
+        lblTotal.setText("Total: 0");
+        jPanel1.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 530, 136, -1));
+
+        NOMBRE_TITULO.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+        NOMBRE_TITULO.setForeground(new java.awt.Color(255, 255, 255));
+        NOMBRE_TITULO.setText("P&S");
+        jPanel1.add(NOMBRE_TITULO, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, 50));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("EMPLEADO");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 10, 80, 30));
+
+        JLabelCorreoMostrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        JLabelCorreoMostrar.setForeground(new java.awt.Color(255, 255, 255));
+        JLabelCorreoMostrar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jPanel1.add(JLabelCorreoMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, 220, 20));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -82,132 +147,55 @@ public class VentanaCaja extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblProductos);
 
-        btnVender.setBackground(new java.awt.Color(102, 102, 255));
-        btnVender.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnVender.setForeground(new java.awt.Color(255, 255, 255));
-        btnVender.setText("Vender");
-        btnVender.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVenderActionPerformed(evt);
-            }
-        });
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 790, 330));
 
-        txtCodigoBarra.setForeground(new java.awt.Color(153, 153, 153));
-        txtCodigoBarra.setText("Ingresa el codigo de barras");
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 830, 350));
 
-        jLabel2.setFont(new java.awt.Font("MS UI Gothic", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Venta en caja");
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnAgregarLista.setBackground(new java.awt.Color(102, 102, 255));
-        btnAgregarLista.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnAgregarLista.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregarLista.setText("AGREGAR");
-        btnAgregarLista.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarListaActionPerformed(evt);
-            }
-        });
-
-        chbManual.setForeground(new java.awt.Color(255, 255, 255));
+        chbManual.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        chbManual.setForeground(new java.awt.Color(51, 51, 51));
         chbManual.setText("CantidadManual");
+        jPanel3.add(chbManual, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, -1, -1));
 
         txtCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCantidadActionPerformed(evt);
             }
         });
+        jPanel3.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 71, -1));
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Cantidad");
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 63, -1));
 
-        lblTotal.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblTotal.setForeground(new java.awt.Color(255, 255, 255));
-        lblTotal.setText("Total: 0");
-
-        txtConsultar.setForeground(new java.awt.Color(153, 153, 153));
-        txtConsultar.setText("Ingresa el codigo de barras");
-
-        btnConsultar.setBackground(new java.awt.Color(102, 102, 255));
-        btnConsultar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnConsultar.setBackground(new java.awt.Color(204, 0, 0));
+        btnConsultar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnConsultar.setForeground(new java.awt.Color(255, 255, 255));
+        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search2.png"))); // NOI18N
         btnConsultar.setText("CONSULTAR");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsultarActionPerformed(evt);
             }
         });
+        jPanel3.add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(351, 351, 351))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 865, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnAgregarLista)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCodigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(401, 537, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chbManual)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnConsultar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnVender, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel2)
-                .addGap(65, 65, 65)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregarLista)
-                    .addComponent(txtCodigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                        .addComponent(lblTotal)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnVender)
-                        .addGap(34, 34, 34))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(chbManual))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnConsultar)
-                            .addComponent(txtConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
+        txtConsultar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtConsultar.setText("Ingresa el codigo de barras");
+        jPanel3.add(txtConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, 260, 30));
 
+        txtCodigoBarra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtCodigoBarra.setText("Ingresa el codigo de barras");
+        jPanel3.add(txtCodigoBarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 210, 30));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 830, 80));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 610));
+
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/2849812_menu_multimedia_bars_media_icon.png"))); // NOI18N
         jMenu1.setText("Menu");
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenu1ActionPerformed(evt);
@@ -215,7 +203,8 @@ public class VentanaCaja extends javax.swing.JFrame {
         });
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem1.setText("Regresar al menu empleado");
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/353416_home_icon.png"))); // NOI18N
+        jMenuItem1.setText("Regresar");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -223,20 +212,18 @@ public class VentanaCaja extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/2124221_search_document_app_essential_icon.png"))); // NOI18N
+        jMenuItem2.setText("Consultar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -404,6 +391,14 @@ public class VentanaCaja extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnConsultarActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+     VentanaConsultaEmpleado v=new VentanaConsultaEmpleado();
+        v.bd=bd;
+        v.setVisible(true);
+        this.dispose();   
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -450,16 +445,22 @@ public class VentanaCaja extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel JLabelCorreoMostrar;
+    private javax.swing.JLabel NOMBRE_TITULO;
     private javax.swing.JButton btnAgregarLista;
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnVender;
     private javax.swing.JCheckBox chbManual;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JTable tblProductos;
