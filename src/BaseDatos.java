@@ -476,7 +476,7 @@ public boolean actualizarProductos(Producto p) {
                      "WHERE `Nombre` = '%Nomb%'";
 
         // Reemplazar los marcadores con los valores correspondientes
-        SQL = SQL.replaceAll("%Nombre%", nombre);
+        SQL = SQL.replaceAll("%Nomb%", nombre);
         SQL = SQL.replaceAll("%Email%", email);
         SQL = SQL.replaceAll("%con%", Contr);
 
@@ -493,13 +493,13 @@ public boolean actualizarProductos(Producto p) {
     public ArrayList<String[]> mostrarEmpleados() {
         ArrayList<String[]> resultado = new ArrayList<>();
         try {
-            String SQL = "SELECT * FROM `Empleados`";
+            String SQL = "SELECT e.nombre, e.email, e.contrasena FROM Empleados e;";
             cursor = transaccion.executeQuery(SQL);
 
             if (cursor.next()) {
                 do {
-                    String[] datos = {cursor.getString("Nombre"), cursor.getString("Direccion"), 
-                                      cursor.getString("Telefono"), cursor.getString("Email")};
+                    String[] datos = {cursor.getString("Nombre"), cursor.getString("email"), 
+                                      cursor.getString("contrasena")};
                     resultado.add(datos);
                 } while (cursor.next());
             }
