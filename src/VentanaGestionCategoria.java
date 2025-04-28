@@ -309,10 +309,11 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        String nombre=txtNombre.getText();
         int filaSeleccionada = tblCategorias.getSelectedRow();
-        if (filaSeleccionada >= 0) {
+        if (!nombre.isEmpty()) {
             //int idProducto = Integer.parseInt(m.getValueAt(filaSeleccionada, 0).toString());
-            if(bd.eliminarCategoria(m.getValueAt(filaSeleccionada, 2).toString())){
+            if(bd.eliminarCategoria(nombre)){
                 System.out.println("Borramos con exito");
             }else{
                 System.out.println("Error");

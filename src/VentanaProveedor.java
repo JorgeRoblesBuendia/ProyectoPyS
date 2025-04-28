@@ -262,25 +262,26 @@ public class VentanaProveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-      // Obtener el modelo de la tabla
-    DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+    if(JOptionPane.showConfirmDialog(this, "¿seguro de querer borrar?")==0){      
+        // Obtener el modelo de la tabla
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+
+        // Obtener el índice de la fila seleccionada 
+        int filaSeleccionada = jTable1.getSelectedRow();
+
+        // Verificar si se seleccionó una fila
+        if (filaSeleccionada >= 0) {
+            modelo.removeRow(filaSeleccionada); // Eliminar la fila
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar");
+        } 
     
-    // Obtener el índice de la fila seleccionada 
-    int filaSeleccionada = jTable1.getSelectedRow();
     
-    // Verificar si se seleccionó una fila
-    if (filaSeleccionada >= 0) {
-        modelo.removeRow(filaSeleccionada); // Eliminar la fila
-    } else {
-        JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar");
-    } 
-    
-    if(JOptionPane.showConfirmDialog(this, "¿seguro de querer borrar?")==0){
         System.out.println("seco");
         bd.eliminarProveedor(txtCorreo.getText());permisoBorrar=false;//actualizarTabla();
         
     }
-     bd.eliminarProveedor(txtCorreo.getText());
+     
         /*if(permisoBorrar){
             bd.eliminarProveedor(txtCorreo.getText());
         }*/
