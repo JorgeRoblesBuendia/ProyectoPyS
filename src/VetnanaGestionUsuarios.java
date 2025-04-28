@@ -149,17 +149,19 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
         btnAgrergar.setBackground(new java.awt.Color(204, 51, 0));
         btnAgrergar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnAgrergar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgrergar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/nuevo-producto.png"))); // NOI18N
         btnAgrergar.setText("Agregar");
         btnAgrergar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgrergarActionPerformed(evt);
             }
         });
-        jPanel3.add(btnAgrergar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 98, -1));
+        jPanel3.add(btnAgrergar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 130, -1));
 
         btnEditar.setBackground(new java.awt.Color(204, 51, 0));
         btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEditar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sync.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,24 +173,26 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
         btnBuscar.setBackground(new java.awt.Color(204, 51, 0));
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search2.png"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
-        jPanel3.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 80, 98, -1));
+        jPanel3.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(428, 80, 110, -1));
 
         btnEliminar.setBackground(new java.awt.Color(204, 51, 0));
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
             }
         });
-        jPanel3.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 92, -1));
+        jPanel3.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 120, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 810, 130));
 
