@@ -1196,18 +1196,19 @@ public ArrayList<String[]> mostrarServicios() {
     public ArrayList<String[]> mostrarAlmacen() {
         ArrayList<String[]> resultado = new ArrayList<>();
         try {
-            String SQL = "SELECT * FROM `Almacen`";
+            String SQL = "SELECT a.idRegistro,p.nombre,a.cantidad,a.precioCompra,a.precioVenta,a.FechaVencimiento  "
+                    + "FROM Almacen a inner JOIN Productos p on a.idProducto=p.idProducto";
             cursor = transaccion.executeQuery(SQL);
 
             if (cursor.next()) {
                 do {
                     String[] datos = {
                         cursor.getString("idRegistro"),  // ID del registro
-                        cursor.getString("idProducto"), // ID del producto
+                        cursor.getString("nombre"), // ID del producto
                         cursor.getString("cantidad"),      // Stock
-                        cursor.getString("precioC"),    // Precio de compra
-                        cursor.getString("precioV"),    // Precio de venta
-                        cursor.getString("FechaCa")     // Fecha de caducidad
+                        cursor.getString("precioCompra"),    // Precio de compra
+                        cursor.getString("precioVenta"),    // Precio de venta
+                        cursor.getString("FechaVencimiento")     // Fecha de caducidad
                     };
                     resultado.add(datos);
                 } while (cursor.next());

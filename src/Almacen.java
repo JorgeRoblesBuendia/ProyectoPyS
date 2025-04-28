@@ -1,6 +1,7 @@
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  * @author edwin
  */
 public class Almacen extends javax.swing.JFrame {
-    BaseDatos bd;
+    BaseDatos bd;DefaultTableModel m;
     boolean permisoEditar=false,permisoBorrar=false;
     /**
      * Creates new form Inventario
@@ -30,9 +31,9 @@ public class Almacen extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             Logger.getLogger(VentanaProveedor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } m=(DefaultTableModel) tblAlmacen.getModel();
         
-      //  actualizarTabla();
+      actualizarTabla();
       MostrarCmb();
 
     }
@@ -49,7 +50,7 @@ public class Almacen extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableInventario = new javax.swing.JTable();
+        tblAlmacen = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtCantidadIngreso = new javax.swing.JTextField();
@@ -82,7 +83,7 @@ public class Almacen extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 102, 102));
 
-        tableInventario.setModel(new javax.swing.table.DefaultTableModel(
+        tblAlmacen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -93,7 +94,7 @@ public class Almacen extends javax.swing.JFrame {
                 "Numero", "Producto", "Stock", "Precio compra", "PrecioVenta", "Caducidad"
             }
         ));
-        jScrollPane1.setViewportView(tableInventario);
+        jScrollPane1.setViewportView(tblAlmacen);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -494,7 +495,7 @@ public class Almacen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnBuscarOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarOActionPerformed
-        String id = txtCantidadIngreso.getText();
+        String id = txtId.getText();
         
         if (id.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Selecciona un producto para buscar.");
@@ -505,11 +506,12 @@ public class Almacen extends javax.swing.JFrame {
                 txtPrecioC.setText(p.precioC+"");
                 txtPrecioV.setText(p.precioV+"");
                 txtCantidadIngreso.setText(p.stock+"");
-                java.util.Date fecha = null;
-                fecha = new java.util.Date(p.FechaCa);
-                if (fecha != null) {
-                    jdcFechaVencimiento.setDate(fecha);
-                }
+                LocalDate f=LocalDate.parse(p.FechaCa);
+                int anio = f.getYear();
+                int mes = f.getMonthValue();
+                int dia = f.getDayOfMonth();
+                    jdcFechaVencimiento.setDate(new Date(anio,mes,dia));
+                
     }//GEN-LAST:event_btnBuscarOActionPerformed
 
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
@@ -564,6 +566,17 @@ public class Almacen extends javax.swing.JFrame {
             cmbProducto.addItem(data[0]); // data[0] es el nombre, código o lo que se necesite mostrar
         }
     }
+    public void actualizarTabla(){
+        ArrayList<String[]>datos =bd.mostrarAlmacen();
+        if(datos.size()==0)return;
+        int totalRenglones=m.getRowCount();
+        for (int i = 0; i <totalRenglones; i++) {//hh
+            m.removeRow(0);
+        }
+        for (String[] data: datos) {
+            m.addRow(data);
+        }   
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
@@ -588,7 +601,7 @@ public class Almacen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private com.toedter.calendar.JDateChooser jdcFechaVencimiento;
-    private javax.swing.JTable tableInventario;
+    private javax.swing.JTable tblAlmacen;
     private javax.swing.JTextField txtCantidadIngreso;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtPrecioC;
