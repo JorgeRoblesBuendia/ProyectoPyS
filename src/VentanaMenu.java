@@ -1,4 +1,5 @@
 
+
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -195,12 +196,12 @@ public class VentanaMenu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu5);
 
         jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/shopping-online.png"))); // NOI18N
-        jMenu6.setText("Servicios");
+        jMenu6.setText("Ganancias");
         jMenu6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jMenu6.setPreferredSize(new java.awt.Dimension(110, 50));
 
         jMenuItem_Servicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/shopping-online.png"))); // NOI18N
-        jMenuItem_Servicios.setText("Gestionar Servicios");
+        jMenuItem_Servicios.setText("Ganancias");
         jMenuItem_Servicios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem_ServiciosActionPerformed(evt);
@@ -278,7 +279,7 @@ public static void mostrarMenu() {
 
     private void jMenuItem_ServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_ServiciosActionPerformed
         // TODO add your handling code here:
-        VentanaAgregarServicio v=new VentanaAgregarServicio();
+        VentanaGanancias v=new VentanaGanancias();
         v.bd=bd;
         v.setVisible(true);
         this.dispose();
