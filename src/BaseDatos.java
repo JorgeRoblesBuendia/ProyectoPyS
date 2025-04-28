@@ -213,14 +213,29 @@ public class BaseDatos {
      * Si encuentra un resultado, asigna los valores correspondientes al objeto Producto proporcionado.
      */
     public Producto buscarProducto(String codigo, Producto p) {
-    //Producto producto = null; // Inicializamos el objeto como null.
-
-    try {
-        String SQL = "SELECT * FROM `Productos` WHERE CodigoBarras = '" + codigo+"' or nombre='" + codigo+"'";
+   try {
+        String SQL;
+        
+        // Intentar ver si el usuario escribió un número
+        boolean esNumero = false;
+        try {
+            Integer.parseInt(codigo);
+            esNumero = true;
+        } catch (NumberFormatException e) {
+            esNumero = false;
+        }
+        
+        if (esNumero) {
+            // Si es un número, buscamos también por idProducto
+            SQL = "SELECT * FROM `Productos` WHERE CodigoBarras = '" + codigo + "' OR Nombre = '" + codigo + "' OR idProducto = " + codigo;
+        } else {
+            // Si no es número, buscamos como antes
+            SQL = "SELECT * FROM `Productos` WHERE CodigoBarras = '" + codigo + "' OR Nombre = '" + codigo + "'";
+        }
+        
         cursor = transaccion.executeQuery(SQL);
 
         if (cursor.next()) {
-            //p = new Producto(); Articulo
             p.id = cursor.getInt("idProducto");
             p.nombre = cursor.getString("Nombre");
             p.descripcion = cursor.getString("Descripcion");
@@ -234,7 +249,7 @@ public class BaseDatos {
         Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, "Error al buscar el producto", ex);
     }
 
-        return p; 
+    return p;
     }
 
     public ArrayList<String[]> mostrarProductosCaja(){
