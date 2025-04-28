@@ -1270,6 +1270,58 @@ public ArrayList<String[]> mostrarServicios() {
         return sum;
     }
 
+public Producto buscarProductoPorId(int idProducto, Producto p) {
+    try {
+        String SQL = "SELECT * FROM Productos WHERE idProducto = " + idProducto;
+        cursor = transaccion.executeQuery(SQL);
+
+        if (cursor.next()) {
+            p.id = cursor.getInt("idProducto");
+            p.nombre = cursor.getString("nombre");
+            p.descripcion = cursor.getString("descripcion");
+            p.codigoBarras = cursor.getString("codigoBarras");
+            p.stockMinimo = cursor.getInt("stockMinimo");
+            p.idCategoria = cursor.getInt("idCategoria");
+            p.idProveedor = cursor.getInt("idProveedor");
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, "Error al buscar producto por ID", ex);
+    }
+    return p;
+}
+
+public int obtenerStockTotalProducto(int idProducto) {
+    int total = 0;
+    try {
+        String SQL = "SELECT SUM(cantidad) FROM Almacen WHERE idProducto = " + idProducto;
+        cursor = transaccion.executeQuery(SQL);
+        if (cursor.next()) {
+            total = cursor.getInt(1);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, "Error al obtener stock total", ex);
+    }
+    return total;
+}
+public Producto buscarProductoPorIdd(int idProducto, Producto p) {
+    try {
+        String SQL = "SELECT * FROM `Productos` WHERE idProducto = " + idProducto;
+        cursor = transaccion.executeQuery(SQL);
+
+        if (cursor.next()) {
+            p.id = cursor.getInt("idProducto");
+            p.nombre = cursor.getString("Nombre");
+            p.descripcion = cursor.getString("Descripcion");
+            p.codigoBarras = cursor.getString("CodigoBarras");
+            p.stockMinimo = cursor.getInt("StockMinimo");
+            p.idCategoria = cursor.getInt("IdCategoria");
+            p.idProveedor = cursor.getInt("IdProveedor");
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, "Error al buscar el producto por ID", ex);
+    }
+    return p;
+}
 
 
 
