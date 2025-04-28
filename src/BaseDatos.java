@@ -1172,9 +1172,9 @@ public ArrayList<String[]> mostrarServicios() {
             String SQL = "UPDATE `Almacen` SET " +
                          "`idProducto` = %IdProducto%, " +
                          "`cantidad` = %Stock%, " +
-                         "`precioC` = %PrecioC%, " +
-                         "`precioV` = %PrecioV%, " +
-                         "`FechaCa` = '%FechaCa%' " +
+                         "`precioCompra` = %PrecioC%, " +
+                         "`precioVenta` = %PrecioV%, " +
+                         "`FechaVencimiento` = '%FechaCa%' " +
                          "WHERE `idRegistro` = %IdRegistro%";
 
             SQL = SQL.replaceAll("%IdProducto%", String.valueOf(a.idProducto));
@@ -1472,5 +1472,27 @@ class AlmacenC{
 
     public AlmacenC() {
     }
+    
+}
+
+class RegistroCaja{
+    Producto producto;
+    AlmacenC almacen;
+    int cantidad;
+    double valorTotal;
+
+    public RegistroCaja() {
+    }
+
+    public RegistroCaja(Producto producto, AlmacenC almacen, int cantidad, double valorTotal) {
+        this.producto = producto;
+        this.almacen = almacen;
+        this.cantidad = cantidad;
+        this.valorTotal = valorTotal;
+        
+    }
+    
+    
+    
     
 }
