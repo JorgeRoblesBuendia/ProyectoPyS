@@ -159,12 +159,12 @@ public class AlmacenCellRenderer extends DefaultTableCellRenderer {
 
         JLabelCorreoMostrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         JLabelCorreoMostrar.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel4.add(JLabelCorreoMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 24, 210, 20));
+        jPanel4.add(JLabelCorreoMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 30, 210, 20));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("GERENTE");
-        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(775, 0, 70, 30));
+        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 0, 70, 30));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

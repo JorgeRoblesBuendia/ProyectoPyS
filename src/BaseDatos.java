@@ -319,14 +319,16 @@ public class BaseDatos {
     }
     
     public boolean eliminarProducto(String id){
-        try {
-            String SQL="DELETE FROM Productos WHERE `idProducto` ='%ID%' ";
-            SQL = SQL.replaceAll("%ID%", id);
-            transaccion.execute(SQL);
-        } catch (SQLException ex) {
-            return false;
-        }
-        return true;
+         try {
+        String SQL = "DELETE FROM Productos WHERE `idProducto` = '%ID%'";
+        SQL = SQL.replace("%ID%", id); // Usamos replace en vez de replaceAll
+        System.out.println("Consulta SQL ejecutada: " + SQL); // Imprimimos antes de ejecutar
+        transaccion.execute(SQL); // Ejecutamos la consulta
+    } catch (SQLException ex) {
+        System.out.println("Error al eliminar producto: " + ex.getMessage());
+        return false;
+    }
+    return true;
         
     }
     public boolean actualizarProductos(String codigoBarras, String nombre, String descripcion, String cantidad, String precio) {
