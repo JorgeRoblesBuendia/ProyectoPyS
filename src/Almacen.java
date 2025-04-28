@@ -510,7 +510,10 @@ public class Almacen extends javax.swing.JFrame {
                 int anio = f.getYear();
                 int mes = f.getMonthValue();
                 int dia = f.getDayOfMonth();
-                    jdcFechaVencimiento.setDate(new Date(anio,mes,dia));
+                System.out.println(p.FechaCa+"\n"+anio);
+                Date d=new Date(anio-1900,mes,dia);//d.setYear(125);
+                    jdcFechaVencimiento.setDate(d);
+                    //jdcFechaVencimiento.setDate(new Date(f));
                 
     }//GEN-LAST:event_btnBuscarOActionPerformed
 
