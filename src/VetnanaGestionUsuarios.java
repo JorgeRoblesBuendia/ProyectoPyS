@@ -255,7 +255,7 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
     }
 
     // Intentamos actualizar los datos del usuario en la base de datos
-    boolean actualizado = bd.actualizarEmpleado(email, nombre, contrasena);
+    boolean actualizado = bd.actualizarEmpleado(nombre, email, contrasena);
     if (actualizado) {
         mensaje("Usuario actualizado exitosamente.");
         limpiarCampos(); // Limpiamos los campos después de la actualización
