@@ -452,7 +452,45 @@ public class Almacen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
+        String id = txtId.getText();
+        Date fech=jdcFechaVencimiento.getDate();
+        
+        int pro=cmbProducto.getSelectedIndex();
+        String cantidad=txtCantidadIngreso.getText(),precioC=txtPrecioC.getText(),preciov=txtPrecioV.getText();
+        
+        if (id.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Selecciona un producto para Editar.");
+            return;
+        }
+        AlmacenC p=new AlmacenC();
+        p= bd.buscarAlmacen(Integer.parseInt(id), p);
+        
+        if (fech != null) {
+            System.out.println("Fecha seleccionada: " + fech);
+
+            // Validar si la fecha es anterior a la fecha actual
+            Date fechaActual = new Date();
+            if (fech.before(fechaActual)) {
+                System.out.println("La fecha seleccionada es anterior a la fecha actual.");
+            } else {
+                //formatoFecha.format(fech);
+                SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+                String fechaFormateada = formatoFecha.format(fech);
+
+                System.out.println("Fecha formateada para inserción: " + fechaFormateada);
+                AlmacenC a = new AlmacenC( Integer.parseInt(id), pro,      Integer.parseInt(cantidad),Float.parseFloat(precioC),Float.parseFloat(preciov),fechaFormateada);
+                if(bd.actualizarAlmacen(a, Integer.parseInt(id))){
+                    JOptionPane.showMessageDialog(this, "Actualizar con exito");
+                }else{
+                    JOptionPane.showMessageDialog(this, "Error al Actualizar");
+                }
+                //actualizarTabla();
+            }
+        } else {
+            System.out.println("No se ha seleccionado ninguna fecha.");
+        }
+        
+        
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnBuscarOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarOActionPerformed
