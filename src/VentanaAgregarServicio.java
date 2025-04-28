@@ -215,6 +215,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 260, 390));
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tbnEliminar.setBackground(new java.awt.Color(204, 51, 0));
