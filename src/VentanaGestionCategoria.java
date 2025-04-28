@@ -79,7 +79,7 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "No", "Nombre", "Descripcion"
             }
         ));
         jScrollPane1.setViewportView(tblCategorias);
@@ -311,8 +311,8 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         int filaSeleccionada = tblCategorias.getSelectedRow();
         if (filaSeleccionada >= 0) {
-            int idProducto = Integer.parseInt(m.getValueAt(filaSeleccionada, 0).toString());
-            if(bd.eliminarCategoria(idProducto+"")){
+            //int idProducto = Integer.parseInt(m.getValueAt(filaSeleccionada, 0).toString());
+            if(bd.eliminarCategoria(m.getValueAt(filaSeleccionada, 2).toString())){
                 System.out.println("Borramos con exito");
             }else{
                 System.out.println("Error");
