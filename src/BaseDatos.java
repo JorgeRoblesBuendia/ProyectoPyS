@@ -1088,7 +1088,7 @@ public ArrayList<String[]> mostrarServicios() {
     //-----------------------------------------ALMACEEEN----------------------------------
     public boolean insertarAlmacen(AlmacenC a) {
         try {
-            String SQL = "INSERT INTO `Almacen` (`idRegistro`, `idProducto`, `cantidad`, `precioCompra`, `precioVenta`, `FechaCa`) " +
+            String SQL = "INSERT INTO `Almacen` (`idRegistro`, `idProducto`, `cantidad`, `precioCompra`, `precioVenta`, `FechaVencimiento`) " +
                          "VALUES (NULL, %IdProducto%, %Stock%, %PrecioC%, %PrecioV%, '%FechaCa%');";
             SQL = SQL.replaceAll("%IdProducto%", String.valueOf(a.idProducto));
             SQL = SQL.replaceAll("%Stock%", String.valueOf(a.stock));

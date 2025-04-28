@@ -154,7 +154,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Descripcion");
+        jLabel6.setText("Codigo");
 
         btnBuscar1.setBackground(new java.awt.Color(102, 102, 255));
         btnBuscar1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
