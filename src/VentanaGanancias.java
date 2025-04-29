@@ -74,39 +74,63 @@ public class VentanaGanancias extends javax.swing.JFrame {
     }
 
     private void cargarGanancias() {
-        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tblGanancias.getModel();
-        modelo.setRowCount(0); // Limpiar tabla
-
-        double totalGanancias = 0.0;
-        int totalProductos = 0;
-
-        try {
-            String sql = "SELECT dv.idProducto, dv.cantidad, dv.subtotal, v.fechaHora "
-                    + "FROM DetallesVenta dv "
-                    + "INNER JOIN Ventas v ON dv.idVenta = v.idVenta";
-
-            java.sql.PreparedStatement pst = bd.conexion.prepareStatement(sql);
-            java.sql.ResultSet rs = pst.executeQuery();
-
-            while (rs.next()) {
-                int idProducto = rs.getInt("idProducto");
-                int cantidad = rs.getInt("cantidad");
-                double subtotal = rs.getDouble("subtotal");
-                java.sql.Timestamp fecha = rs.getTimestamp("fechaHora");
-
-                modelo.addRow(new Object[]{idProducto, cantidad, String.format("$%.2f", subtotal), fecha.toString()});
-
-                totalGanancias += subtotal;
-                totalProductos += cantidad;
-            }
-
-            lblTotalGanancias.setText(String.format("Ganancias Totales: $%.2f", totalGanancias));
-            lblTotalProductos.setText("Total Productos Vendidos: " + totalProductos);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(VentanaGanancias.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Error al cargar las ganancias: " + ex.getMessage());
+       javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(
+        new Object[][]{},
+        new String[]{
+            "ID Producto", "Cantidad", "Subtotal", "Precio Compra", "Ganancia/Unidad", "Ganancia Total", "Fecha Venta"
         }
+    );
+    tblGanancias.setModel(modelo);
+
+    double totalVendidos = 0.0;
+    double totalGanancias = 0.0;
+    int totalProductos = 0;
+
+    try {
+        String sql = "SELECT dv.idProducto, dv.cantidad, dv.subtotal, v.fechaHora, a.precioCompra " +
+                     "FROM DetallesVenta dv " +
+                     "INNER JOIN Ventas v ON dv.idVenta = v.idVenta " +
+                     "INNER JOIN Almacen a ON dv.idProducto = a.idProducto";
+
+        java.sql.PreparedStatement pst = bd.conexion.prepareStatement(sql);
+        java.sql.ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            int idProducto = rs.getInt("idProducto");
+            int cantidad = rs.getInt("cantidad");
+            double subtotal = rs.getDouble("subtotal");
+            double precioCompra = rs.getDouble("precioCompra");
+            java.sql.Timestamp fecha = rs.getTimestamp("fechaHora");
+
+            double gananciaUnidad = (subtotal / cantidad) - precioCompra;
+            double gananciaTotal = gananciaUnidad * cantidad;
+
+            modelo.addRow(new Object[]{
+                idProducto,
+                cantidad,
+                String.format("$%.2f", subtotal),
+                String.format("$%.2f", precioCompra),
+                String.format("$%.2f", gananciaUnidad),
+                String.format("$%.2f", gananciaTotal),
+                fecha.toString()
+            });
+
+            totalVendidos += subtotal;
+            totalGanancias += gananciaTotal;
+            totalProductos += cantidad;
+        }
+
+        // Mostramos por separado lo vendido y lo ganado
+        lblTotalGanancias.setText(String.format("Ganancias netas: $%.2f", totalGanancias));
+        lblTotalProductos.setText("Total productos vendidos: " + totalProductos);
+
+        // Puedes agregar un tercer JLabel si quieres mostrar esto por separado
+        JOptionPane.showMessageDialog(this, String.format("Total vendido (ingresos brutos): $%.2f", totalVendidos));
+
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaGanancias.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(this, "Error al cargar las ganancias: " + ex.getMessage());
+    }
     }
 
     private void setImagenEscalada(JLabel label, String ruta) {
