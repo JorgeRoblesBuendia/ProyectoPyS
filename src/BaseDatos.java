@@ -214,35 +214,28 @@ public class BaseDatos {
      */
     public Producto buscarProducto(String codigo, Producto p) {
    try {
-        String SQL;
-        
-        // Intentar ver si el usuario escribió un número
-        boolean esNumero = false;
-        try {
-            Integer.parseInt(codigo);
-            esNumero = true;
-        } catch (NumberFormatException e) {
-            esNumero = false;
-        }
-        
-        if (esNumero) {
-            // Si es un número, buscamos también por idProducto
-            SQL = "SELECT * FROM `Productos` WHERE CodigoBarras = '" + codigo + "' OR Nombre = '" + codigo + "' OR idProducto = " + codigo;
-        } else {
-            // Si no es número, buscamos como antes
-            SQL = "SELECT * FROM `Productos` WHERE CodigoBarras = '" + codigo + "' OR Nombre = '" + codigo + "'";
-        }
-        
+        // 1. Buscar en Productos
+        String SQL = "SELECT * FROM `Productos` WHERE CodigoBarras = '" + codigo + "'";
         cursor = transaccion.executeQuery(SQL);
 
         if (cursor.next()) {
             p.id = cursor.getInt("idProducto");
-            p.nombre = cursor.getString("Nombre");
-            p.descripcion = cursor.getString("Descripcion");
-            p.codigoBarras = cursor.getString("CodigoBarras");
-            p.stockMinimo = cursor.getInt("StockMinimo");
-            p.idCategoria = cursor.getInt("IdCategoria");
-            p.idProveedor = cursor.getInt("IdProveedor");
+            p.nombre = cursor.getString("nombre");
+            p.descripcion = cursor.getString("descripcion");
+            p.codigoBarras = cursor.getString("codigoBarras");
+            p.stockMinimo = cursor.getInt("stockMinimo");
+            p.idCategoria = cursor.getInt("idCategoria");
+            p.idProveedor = cursor.getInt("idProveedor");
+        } else {
+            return p; // No se encontró el producto
+        }
+
+        // 2. Buscar el precioVenta más reciente desde Almacen usando el idProducto
+        SQL = "SELECT precioVenta FROM Almacen WHERE idProducto = " + p.id + " ORDER BY FechaVencimiento DESC LIMIT 1";
+        cursor = transaccion.executeQuery(SQL);
+
+        if (cursor.next()) {
+            p.precioVenta = cursor.getDouble("precioVenta");
         }
 
     } catch (SQLException ex) {
@@ -395,45 +388,23 @@ public boolean actualizarProductos(Producto p) {
     
     
     //-----------------------------------------Empleado
-    public boolean insertarEmpleado(Empleado e) {
+    public boolean insertarEmpleado(String nombre, String email, String contraseña) {
         try {
-            /*
-            INSERT INTO `Empleados` (`idEmpleado`, `Nombre`, `Direccion`, `Telefono`, `Email`, `Puesto`) 
-            VALUES (NULL, 'Nombre', 'Direccion', 'Telefono', 'Email', 'Puesto');
-            */
-            String SQL = "INSERT INTO `Empleados` (`idEmpleado`, `Nombre`, `Direccion`, `Telefono`, `Email`, `Puesto`) "
-                       + "VALUES (NULL, '%Nombre%', '%Direccion%', '%Telefono%', '%Email%', '%Puesto%');";
+        String direccion = "";
+        String telefono = "";
+        String puesto = "Empleado"; // ← Puesto por defecto
 
-            SQL = SQL.replaceAll("%Nombre%", e.nombre);
-            SQL = SQL.replaceAll("%Direccion%", e.direccion);
-            SQL = SQL.replaceAll("%Telefono%", e.telefono);
-            SQL = SQL.replaceAll("%Email%", e.email);
-            SQL = SQL.replaceAll("%Puesto%", e.puesto);
+        String SQL = "INSERT INTO Empleados (idEmpleado, Nombre, Direccion, Telefono, Email, contrasena, Puesto) "
+                   + "VALUES (NULL, '" + nombre + "', '" + direccion + "', '" + telefono + "', '" + email + "', '" + contraseña + "', '" + puesto + "');";
 
-            transaccion.execute(SQL);
-            System.out.println(SQL);
-        } catch (SQLException ex) {
-            System.out.println("Error al insertar empleado: " + ex.getMessage());
-            return false;
-        }
+        transaccion.execute(SQL);
         System.out.println("Empleado insertado exitosamente");
-        return true;
-        }
-        public int buscarEmpleado(String email) { 
-        int id = 0;
-
-        try {
-            String SQL = "SELECT * FROM `Empleados` WHERE email = '" + email + "'";
-            cursor = transaccion.executeQuery(SQL);
-
-            if (cursor.next()) {
-                id = cursor.getInt("idEmpleado");
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return id;
+        System.out.println(SQL);
+    } catch (SQLException ex) {
+        System.out.println("Error al insertar empleado: " + ex.getMessage());
+        return false;
+    }
+    return true;
     }
     public Empleado buscarEmpleado(String email, Empleado e) {
         try {

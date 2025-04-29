@@ -70,6 +70,7 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        btnRefrescar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         JLabelCorreoMostrar = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -119,15 +120,15 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Nombre:");
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 4, -1, 20));
-        jPanel3.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 170, -1));
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, 20));
+        jPanel3.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 200, -1));
 
         txtCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCorreoActionPerformed(evt);
             }
         });
-        jPanel3.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 220, -1));
+        jPanel3.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 240, -1));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -139,12 +140,12 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
                 txtContraseñaActionPerformed(evt);
             }
         });
-        jPanel3.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 30, 190, -1));
+        jPanel3.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 30, 190, -1));
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Constraseña:");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, -1, -1));
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, -1, -1));
 
         btnAgrergar.setBackground(new java.awt.Color(204, 51, 0));
         btnAgrergar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -156,7 +157,7 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
                 btnAgrergarActionPerformed(evt);
             }
         });
-        jPanel3.add(btnAgrergar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 130, -1));
+        jPanel3.add(btnAgrergar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 120, -1));
 
         btnEditar.setBackground(new java.awt.Color(204, 51, 0));
         btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -168,7 +169,7 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
                 btnEditarActionPerformed(evt);
             }
         });
-        jPanel3.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 98, -1));
+        jPanel3.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 100, -1));
 
         btnBuscar.setBackground(new java.awt.Color(204, 51, 0));
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -180,7 +181,7 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
                 btnBuscarActionPerformed(evt);
             }
         });
-        jPanel3.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(428, 80, 110, -1));
+        jPanel3.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, 110, -1));
 
         btnEliminar.setBackground(new java.awt.Color(204, 51, 0));
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -192,7 +193,19 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
-        jPanel3.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 120, -1));
+        jPanel3.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 120, -1));
+
+        btnRefrescar.setBackground(new java.awt.Color(204, 51, 0));
+        btnRefrescar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRefrescar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh-data.png"))); // NOI18N
+        btnRefrescar.setText("Refrescar");
+        btnRefrescar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefrescarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnRefrescar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 80, 130, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 810, 130));
 
@@ -232,109 +245,119 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtContraseñaActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-            String email = txtCorreo.getText(); // Tomamos el correo para identificar al usuario a actualizar
+      String email = txtCorreo.getText().trim();
+    String nombre = txtNombre.getText().trim();
+    String contrasena = txtContraseña.getText().trim();
 
     if (email.isEmpty()) {
         mensaje("ERROR: El campo correo está vacío.");
         return;
     }
-
-    String nombre = txtNombre.getText();
-    //String tipoUsuario = txtTipoUsuario;
-    String contrasena = txtContraseña.getText();
 
     if (nombre.isEmpty() || contrasena.isEmpty()) {
         mensaje("ERROR: Todos los campos deben ser llenados.");
         return;
     }
 
-    // Intentamos actualizar los datos del usuario en la base de datos
-    boolean actualizado = bd.actualizarEmpleado(nombre, email, contrasena);
-    if (actualizado) {
+    Empleado e = new Empleado();
+    e = bd.buscarEmpleado(email, e); // ← buscas por correo
+
+    if (e == null || e.id == 0) {
+        mensaje("ERROR: No se encontró un usuario con ese correo.");
+        return;
+    }
+
+    // Ahora actualizas campos uno por uno
+    boolean nombreActualizado = bd.actualizarEmpleado(e, "Nombre", nombre);
+    boolean contrasenaActualizada = bd.actualizarEmpleado(e, "contrasena", contrasena);
+
+    if (nombreActualizado && contrasenaActualizada) {
         mensaje("Usuario actualizado exitosamente.");
-        limpiarCampos(); // Limpiamos los campos después de la actualización
+        limpiarCampos(); 
+        actualizarTabla(); // Refrescamos la tabla después de editar
     } else {
         mensaje("No se pudo actualizar el usuario.");
     }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-    String email = txtCorreo.getText(); // Tomamos el texto del campo txtCorreo
-    Empleado e=new Empleado();
+    String email = txtCorreo.getText().trim(); // Tomamos el texto del campo txtCorreo
+    Empleado e = new Empleado(); // Creamos un objeto vacío
+
     if (email.isEmpty()) {
         mensaje("ERROR: El campo correo está vacío.");
         return;
     }
-//----
+
     // Intentamos buscar al usuario en la base de datos usando el email
-    e= bd.buscarEmpleado(email,e); // Método de búsqueda de la base de datos
-    if (e!=null) {
-        // Si encontramos al usuario, mostramos sus datos en el área de texto
-        String nombre = e.nombre;
-        String correo = e.email;
-        String tipoUsuario = e.contr;
-        /*
-        m.setRowCount(0);
-        m.setValueAt(e.id, 1, 0);
-        m.setValueAt(e.nombre, 1, 1);
-        m.setValueAt(e.precioCompra, 1, 2);
-        m.setValueAt(e.precioVenta, 1, 3);
-        m.setValueAt(e.stock, 1, 4);
-        m.setValueAt(p.stockMinimo, 1, 5);
-        m.setValueAt(p.idCategoria, 1, 6);
-        m.setValueAt(p.idProveedor, 1, 7);
-        m.setValueAt(p.codigoBarras, 1, 8);*/
+    e = bd.buscarEmpleado(email, e); // Método de búsqueda de la base de datos
+
+    if (e != null && e.email != null && !e.email.isEmpty()) {
+        // Si encontramos al usuario, mostramos sus datos en los campos
+        txtNombre.setText(e.nombre);
+        txtCorreo.setText(e.email);
+        txtContraseña.setText(e.contr); // 👈 Aquí llenamos también el campo de contraseña
+
+        mensaje("Usuario encontrado.");
     } else {
         mensaje("No se encontró ningún usuario con ese correo.");
     }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgrergarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgrergarActionPerformed
-        
-        String nombre = txtNombre.getText();
-    //String direcciontxtCorreo.setText("");
-    String con = txtContraseña.getText();
-    String email = txtCorreo.getText();
+     String nombre = txtNombre.getText().trim();
+    String email = txtCorreo.getText().trim();
+    String contraseña = txtContraseña.getText().trim();
 
-    if (nombre.isEmpty() || email.isEmpty() || con.isEmpty()) {
+    if (nombre.isEmpty() || email.isEmpty() || contraseña.isEmpty()) {
         mensaje("ERROR: Campos vacíos");
         return;
     }
 
     try {
-        // Registrar empleado en la base de datos
-        if (bd.insertarEmpleado(new Empleado(0, nombre, email, con))) {
+        if (bd.insertarEmpleado(nombre, email, contraseña)) {
             mensaje("Empleado registrado exitosamente");
             limpiarCampos();
         } else {
-            mensaje("Error al registrar el empleado");
+            mensaje("Error al registrar el empleado. Verifica los datos.");
         }
-    } catch (Exception e) {
-        mensaje("ERROR: Ocurrió un problema al registrar el empleado");
+    } catch (Exception ex) {
+        mensaje("ERROR: " + ex.getMessage());
+        ex.printStackTrace();
     }
     }//GEN-LAST:event_btnAgrergarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        
-        String email = txtCorreo.getText(); // Capturar el email del empleado desde el formulario
+       String email = txtCorreo.getText().trim(); // Capturar el email del empleado desde el formulario
 
-        if (email.isEmpty()) {
-            mensaje("ERROR: Campo email vacío");
-            return;
-        }
+    if (email.isEmpty()) {
+        mensaje("ERROR: Campo email vacío");
+        return;
+    }
 
-        try {
-            // Llamar al método para eliminar al empleado
-            if (bd.eliminarEmpleado(email)) {
-                mensaje("Empleado eliminado exitosamente");
-                limpiarCampos(); // Limpiar los campos del formulario
-            } else {
-                mensaje("Error al eliminar el empleado");
-            }
-        } catch (Exception e) {
-            mensaje("ERROR: Ocurrió un problema al eliminar el empleado");
+    int confirmacion = JOptionPane.showConfirmDialog(
+        this,
+        "¿Seguro que quieres eliminar al empleado?",
+        "Confirmar eliminación",
+        JOptionPane.YES_NO_OPTION
+    );
+
+    if (confirmacion != JOptionPane.YES_OPTION) {
+        mensaje("Operación cancelada");
+        return;
+    }
+
+    try {
+        // Llamar al método para eliminar al empleado
+        if (bd.eliminarEmpleado(email)) {
+            mensaje("Empleado eliminado exitosamente");
+            limpiarCampos(); // Limpiar los campos del formulario
+        } else {
+            mensaje("Error al eliminar el empleado");
         }
-        
+    } catch (Exception e) {
+        mensaje("ERROR: Ocurrió un problema al eliminar el empleado");
+    }
         
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -352,6 +375,12 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
     private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCorreoActionPerformed
+
+    private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
+        // TODO add your handling code here:
+        actualizarTabla();
+        mensaje("Tabla actualizada.");
+    }//GEN-LAST:event_btnRefrescarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -414,6 +443,7 @@ JOptionPane.showMessageDialog(this, cad);
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnRefrescar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

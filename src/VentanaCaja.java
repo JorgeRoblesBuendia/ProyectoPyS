@@ -117,7 +117,7 @@ public class VentanaCaja extends javax.swing.JFrame {
         lblTotal.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         lblTotal.setForeground(new java.awt.Color(255, 255, 255));
         lblTotal.setText("Total: 0");
-        jPanel1.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 530, 136, -1));
+        jPanel1.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(676, 530, 170, -1));
 
         NOMBRE_TITULO.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
         NOMBRE_TITULO.setForeground(new java.awt.Color(255, 255, 255));
@@ -308,61 +308,67 @@ public class VentanaCaja extends javax.swing.JFrame {
 */
     index = 0;
     limpiarTabla();
+    
     }//GEN-LAST:event_btnVenderActionPerformed
+    private void actualizarTotal() {
+        double sum = 0;
+
+        for (int i = 0; i < m.getRowCount(); i++) {
+            Object valor = m.getValueAt(i, 5); // Columna 5 = ValorTotal
+            if (valor != null && !valor.toString().isEmpty()) {
+                sum += Double.parseDouble(valor.toString());
+            }
+        }
+
+        total = sum;
+        lblTotal.setText(String.format("Total: $%.2f", total));
+    }
 
     private void btnAgregarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarListaActionPerformed
-        Producto p =new Producto();AlmacenC almacen=new AlmacenC();
-        String codigo=txtCodigoBarra.getText();
-        double sum=0; 
-        boolean existe=false;
-        p=bd.buscarProducto(codigo, p);
-        almacen=bd.buscarAlmacenP(p.id, almacen);
-        System.out.println(p.nombre);
-        if(p.codigoBarras==null ||almacen.idRegistro==0   ){
-            System.out.println("---");//---
-            
-        }else{
-            
-            if(chbManual.isSelected()){
-                int c=Integer.parseInt(txtCantidad.getText());
-                r[index]=new RegistroCaja(p.codigoBarras,p.nombre,p.descripcion,c,almacen.precioV*c,almacen.precioV);
-                
-                m.addRow(r[index].ObteberArreglo());
-            }else{
-                for (int i = 0; i < index; i++) {
-                    if(m.getValueAt(i, 0).equals(p.codigoBarras)){
-                        int c=Integer.parseInt(m.getValueAt(i, 4)+"");
-                        double precioU=Double.parseDouble(m.getValueAt(i, 3)+"");
-                        m.setValueAt(c+1, i, 4);
-                        m.setValueAt((c+1)*precioU, i, 5);
-                        
-                        existe=true;
-                    }  
-                }
-                if(existe){
-                     for (int k = 0; k < index; k++) {
-                            sum=sum+Double.parseDouble(m.getValueAt(k, 5)+"");
-                        }
-                        lblTotal.setText("Total: "+sum);
-                        total=sum;
-                        existe=false;return;
-                }
-                r[index]=new RegistroCaja(p.codigoBarras,p.nombre,p.descripcion,1,almacen.precioV,almacen.precioV);
-                m.addRow(r[index].ObteberArreglo());
-            }
-                
-        }
-        
-        
-        
+      Producto p = new Producto();
+    AlmacenC almacen = new AlmacenC();
+    String codigo = txtCodigoBarra.getText().trim();
+    double sum = 0; 
+    boolean existe = false;
+
+    p = bd.buscarProducto(codigo, p);
+    almacen = bd.buscarAlmacenP(p.id, almacen);
+
+    if (p.codigoBarras == null || almacen.idRegistro == 0) {
+        System.out.println("Producto no encontrado o sin registro en almacén.");
+        return;
+    }
+
+    if (chbManual.isSelected()) {
+        int c = Integer.parseInt(txtCantidad.getText());
+        r[index] = new RegistroCaja(p.codigoBarras, p.nombre, p.descripcion, c, almacen.precioV * c, almacen.precioV);
+        m.addRow(r[index].ObteberArreglo());
+        index++; // 🔥 No olvides esto
+        actualizarTotal(); // 🔥 Actualiza total
+
+    } else {
         for (int i = 0; i < index; i++) {
-            int c=Integer.parseInt(m.getValueAt(i, 4)+"");
-            double precioU=Double.parseDouble(m.getValueAt(i, 3)+"");
-            sum=sum+(c*precioU);
+            if (m.getValueAt(i, 0).equals(p.codigoBarras)) {
+                int c = Integer.parseInt(m.getValueAt(i, 4) + "");
+                double precioU = Double.parseDouble(m.getValueAt(i, 3) + "");
+                m.setValueAt(c + 1, i, 4);
+                m.setValueAt((c + 1) * precioU, i, 5);
+                existe = true;
+                break;
+            }
         }
-        lblTotal.setText("Total: "+sum);total=sum;
-        
-        index++;existe=false;
+
+        if (existe) {
+            actualizarTotal(); // 🔥 También actualiza si solo aumentaste cantidad
+            return;
+        }
+
+        // Producto nuevo
+        r[index] = new RegistroCaja(p.codigoBarras, p.nombre, p.descripcion, 1, almacen.precioV, almacen.precioV);
+        m.addRow(r[index].ObteberArreglo());
+        index++; // 🔥 Muy importante
+        actualizarTotal(); // 🔥 Nuevamente actualiza el total
+    }
     }//GEN-LAST:event_btnAgregarListaActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -385,9 +391,17 @@ public class VentanaCaja extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCantidadActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        String cb=txtConsultar.getText();Producto p =new Producto();
-        p=bd.buscarProducto(cb, p);
-        JOptionPane.showMessageDialog(this, "El producto cuesta: "+p.precioVenta);
+        String cb = txtConsultar.getText().trim(); // código de barras
+    Producto p = new Producto();
+    p = bd.buscarProducto(cb, p);
+
+    if (p.precioVenta > 0) {
+        String mensaje = String.format("Producto: %s\nDescripción: %s\nPrecio: $%.2f MXN",
+                                        p.nombre, p.descripcion, p.precioVenta);
+        JOptionPane.showMessageDialog(this, mensaje);
+    } else {
+        JOptionPane.showMessageDialog(this, "Producto no encontrado o sin precio registrado en almacén.");
+    }
         
     }//GEN-LAST:event_btnConsultarActionPerformed
 
