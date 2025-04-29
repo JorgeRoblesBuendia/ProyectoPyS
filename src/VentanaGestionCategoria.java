@@ -121,6 +121,7 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         btnAgregar.setBackground(new java.awt.Color(102, 102, 255));
         btnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/nuevo-producto.png"))); // NOI18N
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,35 +133,38 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         btnActualizar.setBackground(new java.awt.Color(102, 102, 255));
         btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sync.png"))); // NOI18N
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, -1, -1));
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, -1, -1));
 
         btnBorrar.setBackground(new java.awt.Color(102, 102, 255));
         btnBorrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnBorrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete.png"))); // NOI18N
         btnBorrar.setText("Borrar");
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, -1, -1));
+        jPanel1.add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 100, -1));
 
         btnBuscar.setBackground(new java.awt.Color(102, 102, 255));
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search2.png"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 200, -1, -1));
+        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 190, -1, -1));
 
         JLabelCorreoMostrar.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         JLabelCorreoMostrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -169,13 +173,14 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         btnReFRess.setBackground(new java.awt.Color(102, 102, 255));
         btnReFRess.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnReFRess.setForeground(new java.awt.Color(255, 255, 255));
+        btnReFRess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh-data.png"))); // NOI18N
         btnReFRess.setText("Regrescar Tabla");
         btnReFRess.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReFRessActionPerformed(evt);
             }
         });
-        jPanel1.add(btnReFRess, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 290, -1, -1));
+        jPanel1.add(btnReFRess, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 280, -1, -1));
 
         txtNombre.setBackground(new java.awt.Color(102, 102, 102));
         txtNombre.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
@@ -195,7 +200,7 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
                 txtBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, 200, -1));
+        jPanel1.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 200, 200, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Nombre");
@@ -216,7 +221,7 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("Buscar");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 180, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, -1, -1));
 
         txtDescripcion.setBackground(new java.awt.Color(102, 102, 102));
         txtDescripcion.setColumns(20);
@@ -225,7 +230,7 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         txtDescripcion.setRows(5);
         jScrollPane2.setViewportView(txtDescripcion);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 450, -1));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 520, -1));
 
         FONDO.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 914, 500));
