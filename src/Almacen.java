@@ -32,6 +32,7 @@ public class Almacen extends javax.swing.JFrame {
      */
     public Almacen() {
         initComponents();
+        jMenuItem_Servicios.setText("<html><center>Reporte<br>de ventas</center></html>");
         btnCancelar.setVisible(false);
 
         setLocationRelativeTo(null);
@@ -153,6 +154,7 @@ public class AlmacenCellRenderer extends DefaultTableCellRenderer {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem_Servicios = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(860, 500));
@@ -351,6 +353,15 @@ public class AlmacenCellRenderer extends DefaultTableCellRenderer {
             }
         });
         jMenu1.add(jMenuItem2);
+
+        jMenuItem_Servicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sales.png"))); // NOI18N
+        jMenuItem_Servicios.setText("Reporte");
+        jMenuItem_Servicios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_ServiciosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem_Servicios);
 
         jMenuBar1.add(jMenu1);
 
@@ -657,6 +668,14 @@ private void mostrarLoading(String mensaje) {
         this.dispose();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jMenuItem_ServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_ServiciosActionPerformed
+        // TODO add your handling code here:
+        VentanaGanancias v=new VentanaGanancias();
+        v.bd=bd;
+        v.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem_ServiciosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -741,6 +760,7 @@ private void mostrarLoading(String mensaje) {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem_Servicios;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

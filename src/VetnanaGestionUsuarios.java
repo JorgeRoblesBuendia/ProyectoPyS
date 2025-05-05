@@ -24,6 +24,7 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
     public VetnanaGestionUsuarios() {
         
         initComponents();
+        jMenuItem_Servicios.setText("<html><center>Reporte<br>de ventas</center></html>");
         setLocationRelativeTo(null);
 
         
@@ -80,6 +81,7 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem_Servicios = new javax.swing.JMenuItem();
 
         jTextField2.setText("jTextField1");
 
@@ -273,6 +275,15 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem5);
 
+        jMenuItem_Servicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sales.png"))); // NOI18N
+        jMenuItem_Servicios.setText("Reporte");
+        jMenuItem_Servicios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_ServiciosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem_Servicios);
+
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -463,6 +474,14 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItem_ServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_ServiciosActionPerformed
+        // TODO add your handling code here:
+        VentanaGanancias v=new VentanaGanancias();
+        v.bd=bd;
+        v.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem_ServiciosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -538,6 +557,7 @@ JOptionPane.showMessageDialog(this, cad);
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem_Servicios;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

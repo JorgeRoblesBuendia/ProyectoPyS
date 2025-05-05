@@ -21,6 +21,8 @@ public class VentanaMenu extends javax.swing.JFrame {
      */
     public VentanaMenu() {
         initComponents();
+        jMenu6.setText("<html><center>Reporte<br>de ventas</center></html>");
+        jMenuItem_Servicios.setText("<html><center>Reporte<br>de ventas</center></html>");
         setLocationRelativeTo(null);
         
         bd=new BaseDatos();
@@ -195,13 +197,13 @@ public class VentanaMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
-        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/shopping-online.png"))); // NOI18N
-        jMenu6.setText("Ganancias");
+        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sales.png"))); // NOI18N
+        jMenu6.setText("Reporte");
         jMenu6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jMenu6.setPreferredSize(new java.awt.Dimension(110, 50));
 
-        jMenuItem_Servicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/shopping-online.png"))); // NOI18N
-        jMenuItem_Servicios.setText("Ganancias");
+        jMenuItem_Servicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sales.png"))); // NOI18N
+        jMenuItem_Servicios.setText("Reporte");
         jMenuItem_Servicios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem_ServiciosActionPerformed(evt);
@@ -216,7 +218,7 @@ public class VentanaMenu extends javax.swing.JFrame {
         jMenu11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         jMenuItem_VentanaLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/user2.png"))); // NOI18N
-        jMenuItem_VentanaLogin.setText("Ventana Login");
+        jMenuItem_VentanaLogin.setText("Login");
         jMenuItem_VentanaLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem_VentanaLoginActionPerformed(evt);

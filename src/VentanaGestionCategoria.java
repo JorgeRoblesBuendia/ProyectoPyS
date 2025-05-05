@@ -29,9 +29,9 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
      */
     public VentanaGestionCategoria() {
         initComponents();
+        jMenuItem_Servicios.setText("<html><center>Reporte<br>de ventas</center></html>");
         setLocationRelativeTo(null);
 
-        setImagenEscalada(FONDO, "/imagenes/Fondo.jpg");
 
         String correoActual = VentanaLogin.correoUsuario;
         System.out.println("Correo obtenido: " + correoActual);
@@ -84,7 +84,6 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
-        FONDO = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -92,16 +91,14 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem_Servicios = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestion Categoria");
 
-        jPanel1.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblCategorias.setBackground(new java.awt.Color(102, 102, 102));
-        tblCategorias.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        tblCategorias.setForeground(new java.awt.Color(255, 255, 255));
         tblCategorias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -122,7 +119,7 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 850, 153));
 
-        btnAgregar.setBackground(new java.awt.Color(102, 102, 255));
+        btnAgregar.setBackground(new java.awt.Color(204, 0, 0));
         btnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/nuevo-producto.png"))); // NOI18N
@@ -134,7 +131,7 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         });
         jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, -1, -1));
 
-        btnActualizar.setBackground(new java.awt.Color(102, 102, 255));
+        btnActualizar.setBackground(new java.awt.Color(204, 0, 0));
         btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sync.png"))); // NOI18N
@@ -146,7 +143,7 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         });
         jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, -1, -1));
 
-        btnBorrar.setBackground(new java.awt.Color(102, 102, 255));
+        btnBorrar.setBackground(new java.awt.Color(204, 0, 0));
         btnBorrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnBorrar.setForeground(new java.awt.Color(255, 255, 255));
         btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete.png"))); // NOI18N
@@ -158,7 +155,7 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         });
         jPanel1.add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 100, -1));
 
-        btnBuscar.setBackground(new java.awt.Color(102, 102, 255));
+        btnBuscar.setBackground(new java.awt.Color(204, 51, 0));
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search2.png"))); // NOI18N
@@ -168,13 +165,13 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
                 btnBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 190, -1, -1));
+        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 196, -1, -1));
 
         JLabelCorreoMostrar.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         JLabelCorreoMostrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel1.add(JLabelCorreoMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 50, 210, 20));
 
-        btnReFRess.setBackground(new java.awt.Color(102, 102, 255));
+        btnReFRess.setBackground(new java.awt.Color(204, 51, 0));
         btnReFRess.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnReFRess.setForeground(new java.awt.Color(255, 255, 255));
         btnReFRess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh-data.png"))); // NOI18N
@@ -186,9 +183,7 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         });
         jPanel1.add(btnReFRess, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 280, -1, -1));
 
-        txtNombre.setBackground(new java.awt.Color(102, 102, 102));
         txtNombre.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        txtNombre.setForeground(new java.awt.Color(255, 255, 255));
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreActionPerformed(evt);
@@ -196,15 +191,13 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         });
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 180, -1));
 
-        txtBuscar.setBackground(new java.awt.Color(102, 102, 102));
         txtBuscar.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
         txtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 200, 200, -1));
+        jPanel1.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 202, 200, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Nombre");
@@ -219,26 +212,24 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         jLabel3.setText("Tabla");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("MS UI Gothic", 3, 24)); // NOI18N
-        jLabel4.setText("Gestion de categoria");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, 230, -1));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 3, 30)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("GESTION DE CATEGORIA");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 910, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("Buscar");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, -1, -1));
 
-        txtDescripcion.setBackground(new java.awt.Color(102, 102, 102));
         txtDescripcion.setColumns(20);
         txtDescripcion.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        txtDescripcion.setForeground(new java.awt.Color(255, 255, 255));
         txtDescripcion.setRows(5);
         jScrollPane2.setViewportView(txtDescripcion);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 520, -1));
 
-        FONDO.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 914, 500));
-
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/2849812_menu_multimedia_bars_media_icon.png"))); // NOI18N
         jMenu1.setText("Menu");
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -287,6 +278,15 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem5);
 
+        jMenuItem_Servicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sales.png"))); // NOI18N
+        jMenuItem_Servicios.setText("Reporte");
+        jMenuItem_Servicios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_ServiciosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem_Servicios);
+
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -316,6 +316,11 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         if (!validarCampos()) {
             JOptionPane.showMessageDialog(this, "Por favor completa correctamente los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            // Timer para resetear el color después de 3 segundos
+            new javax.swing.Timer(3000, e -> {
+            txtNombre.setBackground(java.awt.Color.WHITE);
+            txtDescripcion.setBackground(java.awt.Color.WHITE);
+    }).start();
             return;
         }
 
@@ -379,10 +384,18 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String nombreBuscar = txtBuscar.getText().trim();
+
         if (nombreBuscar.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Introduce un nombre para buscar.");
-            return;
-        }
+        txtBuscar.setBackground(new java.awt.Color(255, 102, 102)); // Rojo claro
+        JOptionPane.showMessageDialog(null, "Introduce un nombre para buscar.");
+
+        // Restaurar el color después de 3 segundos
+        new javax.swing.Timer(3000, e -> {
+            txtBuscar.setBackground(java.awt.Color.WHITE); // o cambia por el color que desees
+        }).start();
+
+        return;
+    }
 
         // Buscar la categoría
         Categorias p = new Categorias();
@@ -391,10 +404,8 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         // Limpiar las filas de la tabla
         m.setRowCount(0);
 
-        // Agregar una nueva fila al modelo para evitar el error
-        m.addRow(new Object[]{p.id, p.nombre, p.descripcion}); // Añade una fila vacía
-
-        // Actualizar la tabla
+        // Agregar la fila encontrada
+        m.addRow(new Object[]{p.id, p.nombre, p.descripcion});
 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -458,6 +469,14 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem_ServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_ServiciosActionPerformed
+        // TODO add your handling code here:
+        VentanaGanancias v=new VentanaGanancias();
+        v.bd=bd;
+        v.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem_ServiciosActionPerformed
+
     private void cargarDatosDeTabla() {
         int filaSeleccionada = tblCategorias.getSelectedRow();
         if (filaSeleccionada >= 0) {
@@ -467,39 +486,34 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
             txtNombre.setText(nombre);
             txtDescripcion.setText(descripcion);
 
-            // Opcional: quitar colores de error si existieran
-            txtNombre.setBackground(new java.awt.Color(102, 102, 102));
-            txtDescripcion.setBackground(new java.awt.Color(102, 102, 102));
+           
         }
     }
 
-    private boolean validarCampos() {
-        boolean validacion = true;
+   private boolean validarCampos() {
+    boolean validacion = true;
 
-        if (txtNombre.getText().trim().isEmpty()) {
-            txtNombre.setBackground(new java.awt.Color(255, 102, 102)); // Rojo claro
-            validacion = false;
-        } else {
-            txtNombre.setBackground(new java.awt.Color(102, 102, 102));
-        }
-
-        if (txtDescripcion.getText().trim().isEmpty()) {
-            txtDescripcion.setBackground(new java.awt.Color(255, 102, 102)); // Rojo claro
-            validacion = false;
-        } else {
-            txtDescripcion.setBackground(new java.awt.Color(102, 102, 102));
-        }
-
-        return validacion;
+    if (txtNombre.getText().trim().isEmpty()) {
+        txtNombre.setBackground(new java.awt.Color(255, 102, 102)); // Rojo claro
+        validacion = false;
     }
+
+    if (txtDescripcion.getText().trim().isEmpty()) {
+        txtDescripcion.setBackground(new java.awt.Color(255, 102, 102)); // Rojo claro
+        validacion = false;
+    }
+
+    return validacion;
+}
+
+
 
     private void limpiarCampos() {
         txtNombre.setText("");
         txtDescripcion.setText("");
         txtBuscar.setText("");
 
-        txtNombre.setBackground(new java.awt.Color(102, 102, 102));
-        txtDescripcion.setBackground(new java.awt.Color(102, 102, 102));
+        
     }
 
     /**
@@ -551,7 +565,6 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel FONDO;
     private javax.swing.JLabel JLabelCorreoMostrar;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregar;
@@ -570,6 +583,7 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem_Servicios;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

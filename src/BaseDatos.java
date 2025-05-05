@@ -47,7 +47,20 @@ public class BaseDatos {
             Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    public boolean correoExiste(String correo) {
+        try {
+            String query = "SELECT * FROM Gerente WHERE correo = ?";
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setString(1, correo);
+            ResultSet rs = ps.executeQuery();
+            return rs.next(); // true si encontró un correo igual
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        }
+
+
     public boolean insertarLogin(String n,String cor,String c){
         try {
             String SQL="INSERT INTO `Gerente` (`Nombre`,`Correo`, `Contrasena`) VALUES ('%Nom%', '%COR%','%CON%');";
@@ -1069,26 +1082,26 @@ public ArrayList<String[]> mostrarServicios() {
     }
 
     public ArrayList<String[]> mostrarCategorias() {
-        ArrayList<String[]> resultado = new ArrayList<>();
-        try {
-            String SQL = "SELECT * FROM `Categorias`";
-            cursor = transaccion.executeQuery(SQL);
+    ArrayList<String[]> resultado = new ArrayList<>();
+    try {
+        String SQL = "SELECT * FROM `Categorias`";
+        cursor = transaccion.executeQuery(SQL);
 
-            if (cursor.next()) {
-                do {
-                    String[] datos = {
-                        cursor.getString("idCategoria"),  // ID de la categoría
-                        cursor.getString("nombre"),      // Nombre de la categoría
-                        cursor.getString("descripcion")  // Descripción de la categoría
-                    };
-                    resultado.add(datos);
-                } while (cursor.next());
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        while (cursor.next()) {
+            String[] datos = {
+                cursor.getString("idCategoria"),
+                cursor.getString("nombre"),
+                cursor.getString("descripcion")
+            };
+            resultado.add(datos);
         }
-        return resultado;
-    }   
+
+    } catch (SQLException ex) {
+        Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return resultado;
+}
+
     
     //-----------------------------------------ALMACEEEN----------------------------------
     public boolean insertarAlmacen(AlmacenC a) {

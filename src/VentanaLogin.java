@@ -24,6 +24,7 @@ public class VentanaLogin extends javax.swing.JFrame {
     public VentanaLogin() {
         initComponents();
         setLocationRelativeTo(null);
+        this.lblHide.setVisible(false);
         bd=new BaseDatos();
         try {
             if(bd.conexion.isClosed()){
@@ -62,6 +63,8 @@ public class VentanaLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtCon = new javax.swing.JPasswordField();
+        lblShow = new javax.swing.JLabel();
+        lblHide = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -96,6 +99,7 @@ public class VentanaLogin extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnInISec.setBackground(new java.awt.Color(102, 102, 255));
         btnInISec.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -105,6 +109,7 @@ public class VentanaLogin extends javax.swing.JFrame {
                 btnInISecActionPerformed(evt);
             }
         });
+        jPanel3.add(btnInISec, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 341, 279, 40));
 
         btnCrearUsuario.setBackground(new java.awt.Color(102, 102, 255));
         btnCrearUsuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -114,6 +119,7 @@ public class VentanaLogin extends javax.swing.JFrame {
                 btnCrearUsuarioActionPerformed(evt);
             }
         });
+        jPanel3.add(btnCrearUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 411, 279, 40));
 
         txtCorreo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtCorreo.addActionListener(new java.awt.event.ActionListener() {
@@ -126,14 +132,18 @@ public class VentanaLogin extends javax.swing.JFrame {
                 txtCorreoKeyPressed(evt);
             }
         });
+        jPanel3.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 209, 279, -1));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/user1.png"))); // NOI18N
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 34, 144, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/user2.png"))); // NOI18N
         jLabel1.setText("jLabel1");
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 203, 37, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/password.png"))); // NOI18N
         jLabel2.setText("jLabel2");
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 272, 37, -1));
 
         txtCon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtCon.addActionListener(new java.awt.event.ActionListener() {
@@ -146,49 +156,23 @@ public class VentanaLogin extends javax.swing.JFrame {
                 txtConKeyPressed(evt);
             }
         });
+        jPanel3.add(txtCon, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 278, 279, -1));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(20, 33, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtCorreo)
-                            .addComponent(btnInISec, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
-                            .addComponent(btnCrearUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtCon))
-                        .addGap(56, 56, 56))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(119, 119, 119))))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel10)
-                .addGap(41, 41, 41)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(43, 43, 43)
-                        .addComponent(txtCon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addComponent(btnInISec, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(btnCrearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77))
-        );
+        lblShow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/visible.png"))); // NOI18N
+        lblShow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblShowMouseClicked(evt);
+            }
+        });
+        jPanel3.add(lblShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 284, -1, 20));
+
+        lblHide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/close-eye.png"))); // NOI18N
+        lblHide.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblHideMouseClicked(evt);
+            }
+        });
+        jPanel3.add(lblHide, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 281, 37, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -197,7 +181,7 @@ public class VentanaLogin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,68 +197,84 @@ public class VentanaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCorreoActionPerformed
 
     private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed
+        javax.swing.Timer timer = new javax.swing.Timer(10000, e -> {
+        // Después de 10 segundos, se cierra automáticamente (si aún está esperando)
+        JOptionPane.getRootFrame().dispose();
+        });
+        timer.setRepeats(false);
+        timer.start();
 
-        VentanaCrearUsuario r= new VentanaCrearUsuario();
-        r.bd=bd;
+        String clave = JOptionPane.showInputDialog(this, "Introduce la clave de acceso:");
+        timer.stop(); // Detenemos el temporizador si ya ingresó algo
+
+        if (clave == null) {
+            return; // Canceló
+        }
+
+        if (clave.equals("2025")) {
+        JOptionPane.showMessageDialog(this, "✅ Clave correcta. Accediendo....");
+        VentanaCrearUsuario r = new VentanaCrearUsuario();
+        r.bd = bd;
         r.setVisible(true);
-        this.dispose();
+        this.dispose(); // Si prefieres mantener el login, cambia por setVisible(false)
+    } else {
+        JOptionPane.showMessageDialog(this, "❌ Clave incorrecta. Acceso denegado.");
+    }
     }//GEN-LAST:event_btnCrearUsuarioActionPerformed
 
     private void btnInISecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInISecActionPerformed
+        String correo = txtCorreo.getText(), contrasena = txtCon.getText();
 
-        String correo=txtCorreo.getText(), contrasena=txtCon.getText();
-        if(correo.isBlank() || contrasena.isBlank()){
-            mensajeError("ERROR: Campos vacios");
-            //aaaaaaaaaaaa
-        }else{
-           if (correo == null || !correo.contains("@") || !correo.contains(".")) {
-        javax.swing.JOptionPane.showMessageDialog(null, "Correo inválido: debe contener '@' y un dominio válido. Intenta de nuevo.");
-        limpiarCampos();
-        return;
-    }
+            if (correo.isBlank() || contrasena.isBlank()) {
+                mensajeError("ERROR: Campos vacíos");
 
-    if (!correo.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
-        javax.swing.JOptionPane.showMessageDialog(null, "Formato de correo incorrecto. Intenta de nuevo.");
-        limpiarCampos();
-        return;
-    }
-    //BaseDatos bd = new BaseDatos();
-    /*boolean loginCorrecto = bd.buscarLogin(correo, contrasena); // Usa tu método buscarLogin
+                if (correo.isBlank()) {
+                    txtCorreo.setBackground(new java.awt.Color(255, 102, 102)); // Rojo claro
+                    new javax.swing.Timer(3000, e -> {
+                        txtCorreo.setBackground(java.awt.Color.WHITE); // O el color original
+                    }).start();
+                }
 
-    if (loginCorrecto) {
-        javax.swing.JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
-        // Aquí puedes abrir la nueva ventana o hacer lo que necesites
-    } else {
-        javax.swing.JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos. Intenta de nuevo.");
-        limpiarCampos();
-    }*/
-    VentanaLogin.correoUsuario = correo;
-    
-            if(bd.buscarLogin(correo,contrasena)){
-                mensajeError("SE ENCONTROOO");
-                System.out.println("pasamos a main");
-                VentanaLogin.correoUsuario = correo;
-                VentanaMenu v=new VentanaMenu();
-                v.bd=bd;
+                if (contrasena.isBlank()) {
+                    txtCon.setBackground(new java.awt.Color(255, 102, 102));
+                    new javax.swing.Timer(3000, e -> {
+                        txtCon.setBackground(java.awt.Color.WHITE); // O el color original
+                    }).start();
+                }
+
+                return;
+            }
+
+            if (!correo.contains("@") || !correo.contains(".")) {
+                JOptionPane.showMessageDialog(null, "Correo inválido: debe contener '@' y un dominio válido. Intenta de nuevo.");
+                limpiarCampos();
+                return;
+            }
+
+            if (!correo.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+                JOptionPane.showMessageDialog(null, "Formato de correo incorrecto. Intenta de nuevo.");
+                limpiarCampos();
+                return;
+            }
+
+            VentanaLogin.correoUsuario = correo;
+
+            if (bd.buscarLogin(correo, contrasena)) {
+                JOptionPane.showMessageDialog(this, "¡Inicio de sesión como Gerente exitoso!");
+                VentanaMenu v = new VentanaMenu();
+                v.bd = bd;
                 v.setVisible(true);
                 this.dispose();
-            }else{
-                if(bd.buscarLoginEmpleado(correo, contrasena)){
-                    mensajeError("SE ENCONTRO el empleado");
-                    System.out.println("pasamos a main");
-                    VentanaLogin.correoUsuario = correo;
-                    VentanaMenuEmpleado v=new VentanaMenuEmpleado();
-                    v.bd=bd;
-                    v.setVisible(true);
-                    this.dispose();
-                    
-                }else{
-                    System.out.println("no se encontro ");
-                }
-                //mensajeError("Error: Login existente en la base de datos");
+            } else if (bd.buscarLoginEmpleado(correo, contrasena)) {
+                JOptionPane.showMessageDialog(this, "¡Inicio de sesión como Empleado exitoso!");
 
+                VentanaMenuEmpleado v = new VentanaMenuEmpleado();
+                v.bd = bd;
+                v.setVisible(true);
+                this.dispose();
+            } else {
+                mensajeError("Correo o contraseña incorrectos.");
             }
-        }
     }//GEN-LAST:event_btnInISecActionPerformed
 
     private void txtCorreoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyPressed
@@ -291,6 +291,20 @@ public class VentanaLogin extends javax.swing.JFrame {
     private void txtConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtConActionPerformed
+
+    private void lblShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblShowMouseClicked
+        // TODO add your handling code here:
+        txtCon.setEchoChar((char) 0); // Muestra la contraseña como texto
+        lblShow.setVisible(false);
+        lblHide.setVisible(true);
+    }//GEN-LAST:event_lblShowMouseClicked
+
+    private void lblHideMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHideMouseClicked
+        // TODO add your handling code here:
+        txtCon.setEchoChar('•'); // Vuelve a ocultar la contraseña
+        lblHide.setVisible(false);
+        lblShow.setVisible(true);
+    }//GEN-LAST:event_lblHideMouseClicked
 
     /**
      * @param args the command line arguments
@@ -348,6 +362,8 @@ public class VentanaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lblHide;
+    private javax.swing.JLabel lblShow;
     private javax.swing.JPasswordField txtCon;
     private javax.swing.JTextField txtCorreo;
     // End of variables declaration//GEN-END:variables

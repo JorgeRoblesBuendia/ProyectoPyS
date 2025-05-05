@@ -163,26 +163,67 @@ public class VentanaCrearUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed
-        
-        String nombre=txtNombre.getText(), contrasena=txtCon.getText(),correo=txtCorreo.getText();
-        
-        
-        System.out.println(txtNombre.getText()+"  - ");
-        mensaje(txtNombre.getText());
-        if(correo.isEmpty() || contrasena.isEmpty() || nombre.isEmpty()){
-            //aaaaaaaaaaaa
-            mensaje("ERROR: Campos vacios");
+       String nombre = txtNombre.getText().trim();
+    String correo = txtCorreo.getText().trim();
+    String contrasena = txtCon.getText().trim();
 
-        }else{
-            if(bd.buscarLogin(correo,contrasena)){
-                mensaje("Error: Login existente en la base de datos");
-            }else{
-                bd.insertarLogin(nombre,correo, contrasena);
-                VentanaMenu v=new VentanaMenu();
-                v.setVisible(true);
-            this.dispose();
-            }
-        }
+    boolean camposValidos = true;
+
+    // Validar campos vacíos
+    if (nombre.isEmpty()) {
+        txtNombre.setBackground(new java.awt.Color(255, 102, 102));
+        camposValidos = false;
+    } else {
+        txtNombre.setBackground(java.awt.Color.WHITE);
+    }
+
+    if (correo.isEmpty()) {
+        txtCorreo.setBackground(new java.awt.Color(255, 102, 102));
+        camposValidos = false;
+    } else {
+        txtCorreo.setBackground(java.awt.Color.WHITE);
+    }
+
+    if (contrasena.isEmpty()) {
+        txtCon.setBackground(new java.awt.Color(255, 102, 102));
+        camposValidos = false;
+    } else {
+        txtCon.setBackground(java.awt.Color.WHITE);
+    }
+
+    if (!camposValidos) {
+        new javax.swing.Timer(3000, e -> {
+            txtNombre.setBackground(java.awt.Color.WHITE);
+            txtCorreo.setBackground(java.awt.Color.WHITE);
+            txtCon.setBackground(java.awt.Color.WHITE);
+        }).start();
+        JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.", "Campos vacíos", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Validar formato de correo
+    if (!correo.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+        txtCorreo.setBackground(new java.awt.Color(255, 102, 102));
+        JOptionPane.showMessageDialog(this, "Formato de correo inválido.", "Correo inválido", JOptionPane.ERROR_MESSAGE);
+        new javax.swing.Timer(3000, e -> txtCorreo.setBackground(java.awt.Color.WHITE)).start();
+        return;
+    }
+
+    // Validar si ya existe el correo
+    if (bd.correoExiste(correo)) {
+        txtCorreo.setBackground(new java.awt.Color(255, 102, 102));
+        JOptionPane.showMessageDialog(this, "El correo ya está registrado. Usa uno diferente.", "Correo duplicado", JOptionPane.ERROR_MESSAGE);
+        new javax.swing.Timer(3000, e -> txtCorreo.setBackground(java.awt.Color.WHITE)).start();
+        return;
+    }
+
+    // Insertar nuevo usuario
+    bd.insertarLogin(nombre, correo, contrasena);
+    JOptionPane.showMessageDialog(this, "Gerente creado con éxito.");
+    
+    VentanaLogin v = new VentanaLogin();
+    v.setVisible(true);
+    this.dispose();
         
     }//GEN-LAST:event_btnCrearUsuarioActionPerformed
 
