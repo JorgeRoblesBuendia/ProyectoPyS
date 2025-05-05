@@ -9,10 +9,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import com.toedter.calendar.*;
 
 //Modificaciones de tabla 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.List;
 import java.util.HashMap;
 import java.util.ArrayList;
 import javax.swing.JTable;
@@ -34,7 +36,6 @@ public class Almacen extends javax.swing.JFrame {
         initComponents();
         jMenuItem_Servicios.setText("<html><center>Reporte<br>de ventas</center></html>");
         btnCancelar.setVisible(false);
-
         setLocationRelativeTo(null);
 
        bd = new BaseDatos();
@@ -54,6 +55,87 @@ public class Almacen extends javax.swing.JFrame {
       MostrarCmb();
 
     }
+    
+    /** Modificación de actualizarTabla para detectar caducidades */
+    public void actualizarTabla() {
+        ArrayList<String[]> datos = bd.mostrarAlmacen();
+        if (datos.isEmpty()) return;
+        m.setRowCount(0);
+        ArrayList<String> proximosACaducar = new ArrayList<>();
+        Date hoy = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(hoy);
+        cal.add(Calendar.DAY_OF_YEAR, 7); // dentro de 7 días
+        Date dentroDe7 = cal.getTime();
+
+        for (String[] data : datos) {
+            m.addRow(data);
+        }
+        
+        // Instalar renderer para caducidad
+        tblAlmacen.getColumnModel().getColumn(5).setCellRenderer(new CaducidadCellRenderer(dentroDe7, hoy));
+
+        // Generar aviso de caducados o próximos a caducar
+        for (String[] data : datos) {
+            String nombre = data[1];
+            try {
+                Date fechaCad = new SimpleDateFormat("yyyy-MM-dd").parse(data[5]);
+                if (fechaCad.before(hoy)) {
+                    proximosACaducar.add(nombre + " (CADUCADO)");
+                } else if (!fechaCad.after(dentroDe7)) {
+                    proximosACaducar.add(nombre + " (vence el " + data[5] + ")");
+                }
+            } catch (Exception e) { /* ignore */ }
+        }
+        if (!proximosACaducar.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                String.join("\n", proximosACaducar),
+                "Productos caducados o próximos a caducar",
+                JOptionPane.WARNING_MESSAGE);
+        }
+    }
+    
+    private static class CaducidadCellRenderer extends DefaultTableCellRenderer {
+        private final Date limiteProximo;
+        private final Date hoy;
+        private final SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+
+        CaducidadCellRenderer(Date limiteProximo, Date hoy) {
+            this.limiteProximo = limiteProximo;
+            this.hoy = hoy;
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                                                       boolean isSelected, boolean hasFocus,
+                                                       int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            if (value != null) {
+                try {
+                    Date fecha = fmt.parse(value.toString());
+                    if (fecha.before(hoy) || !fecha.after(limiteProximo)) {
+                        c.setBackground(Color.YELLOW);
+                    } else {
+                        c.setBackground(Color.WHITE);
+                    }
+                } catch (Exception e) {
+                    c.setBackground(Color.WHITE);
+                }
+            } else {
+                c.setBackground(Color.WHITE);
+            }
+            return c;
+        }
+    }
+
+    private static class p {
+
+        private static String FechaCa;
+
+        public p() {
+        }
+    }
+
     
 public class AlmacenCellRenderer extends DefaultTableCellRenderer {
     HashMap<String, Integer> stockMinimoProductos;
@@ -555,7 +637,19 @@ private void mostrarLoading(String mensaje) {
 }
 
     private void btnBuscarOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarOActionPerformed
-          String id = txtId.getText();
+        // ... búsqueda existente ...
+        try {
+            Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(p.FechaCa);
+            if (fecha.before(new Date())) {
+                jdcFechaVencimiento.setDate(null);
+            }
+        } catch (Exception e) {
+            jdcFechaVencimiento.setDate(null);
+        }
+        
+        
+        String id = txtId.getText();
+          
     
     if (id.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Introduce un ID para buscar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -723,19 +817,6 @@ private void mostrarLoading(String mensaje) {
             // Por ejemplo, usar el primer campo como elemento (puedes ajustarlo según la lógica necesaria)
             cmbProducto.addItem(data[0]); // data[0] es el nombre, código o lo que se necesite mostrar
         }
-    }
-    public void actualizarTabla(){
-        ArrayList<String[]>datos =bd.mostrarAlmacen();
-        if(datos.size()==0)return;
-        int totalRenglones=m.getRowCount();
-        for (int i = 0; i <totalRenglones; i++) {//hh
-            m.removeRow(0);
-        }
-        for (String[] data: datos) {
-            m.addRow(data);
-            tblAlmacen.getColumnModel().getColumn(1).setCellRenderer(new AlmacenCellRenderer(bd));
-
-        }   
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
