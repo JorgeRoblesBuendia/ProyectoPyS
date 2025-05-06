@@ -362,7 +362,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-    if(JOptionPane.showConfirmDialog(this, "¿seguro de querer borrar?")==0){      
+    if(JOptionPane.showConfirmDialog(this, "¿seguro de que quieres borrar este proveedor?")==0){      
         // Obtener el modelo de la tabla
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
 

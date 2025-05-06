@@ -464,86 +464,117 @@ public class AlmacenCellRenderer extends DefaultTableCellRenderer {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        Date fech=jdcFechaVencimiento.getDate();
-        
-        int pro=cmbProducto.getSelectedIndex();
-        String cantidad=txtCantidadIngreso.getText(),precioC=txtPrecioC.getText(),preciov=txtPrecioV.getText();
-        
-        //SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-         //   String fechaFormateada; 
-        if (fech != null) {
-            System.out.println("Fecha seleccionada: " + fech);
+         Date fech = jdcFechaVencimiento.getDate();
+    int pro = cmbProducto.getSelectedIndex();
+    String cantidad = txtCantidadIngreso.getText().trim();
+    String precioC = txtPrecioC.getText().trim();
+    String preciov = txtPrecioV.getText().trim();
 
-            // Validar si la fecha es anterior a la fecha actual
-            Date fechaActual = new Date();
-            if (fech.before(fechaActual)) {
-                System.out.println("La fecha seleccionada es anterior a la fecha actual.");
-            } else {
-                //formatoFecha.format(fech);
-                SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-                String fechaFormateada = formatoFecha.format(fech);
+    // Validación visual
+    boolean hayError = false;
 
-                System.out.println("Fecha formateada para inserción: " + fechaFormateada);
-                AlmacenC a = new AlmacenC( 0, pro,      Integer.parseInt(cantidad),Float.parseFloat(precioC),Float.parseFloat(preciov),fechaFormateada);
-                if(bd.insertarAlmacen(a)){
-                    JOptionPane.showMessageDialog(this, "Agregamos con exito");
-                    actualizarTabla();
-                }else{
-                    JOptionPane.showMessageDialog(this, "Error al Registrar");
-                }
-                //actualizarTabla();
-                 
-            }
+    // Reseteo de colores
+    txtCantidadIngreso.setBackground(Color.WHITE);
+    txtPrecioC.setBackground(Color.WHITE);
+    txtPrecioV.setBackground(Color.WHITE);
+    jdcFechaVencimiento.getComponent(1).setBackground(Color.WHITE);
+    cmbProducto.setBackground(Color.WHITE);
+
+    if (cantidad.isEmpty()) {
+        txtCantidadIngreso.setBackground(Color.red);
+        hayError = true;
+    }
+    if (precioC.isEmpty()) {
+        txtPrecioC.setBackground(Color.red);
+        hayError = true;
+    }
+    if (preciov.isEmpty()) {
+        txtPrecioV.setBackground(Color.red);
+        hayError = true;
+    }
+    if (fech == null) {
+        jdcFechaVencimiento.getComponent(1).setBackground(Color.red);
+        hayError = true;
+    }
+    if (pro <= 0) {
+        cmbProducto.setBackground(Color.red);
+        hayError = true;
+    }
+
+    if (hayError) {
+        JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos obligatorios.", "Campos requeridos", JOptionPane.WARNING_MESSAGE);
+
+        new javax.swing.Timer(3000, e -> {
+            txtCantidadIngreso.setBackground(Color.WHITE);
+            txtPrecioC.setBackground(Color.WHITE);
+            txtPrecioV.setBackground(Color.WHITE);
+            jdcFechaVencimiento.getComponent(1).setBackground(Color.WHITE);
+            cmbProducto.setBackground(Color.WHITE);
+        }).start();
+        return;
+    }
+
+    // Validar si la fecha es anterior a la actual
+    Date fechaActual = new Date();
+    if (fech.before(fechaActual)) {
+        JOptionPane.showMessageDialog(this, "La fecha seleccionada ya pasó. Selecciona una fecha válida.", "Fecha inválida", JOptionPane.ERROR_MESSAGE);
+        jdcFechaVencimiento.getComponent(1).setBackground(Color.PINK);
+
+        new javax.swing.Timer(3000, e -> {
+            jdcFechaVencimiento.getComponent(1).setBackground(Color.WHITE);
+        }).start();
+        return;
+    }
+
+    try {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaFormateada = formatoFecha.format(fech);
+
+        AlmacenC a = new AlmacenC(0, pro, Integer.parseInt(cantidad), Float.parseFloat(precioC), Float.parseFloat(preciov), fechaFormateada);
+        if (bd.insertarAlmacen(a)) {
+            JOptionPane.showMessageDialog(this, "Agregado con éxito.");
+            actualizarTabla();
         } else {
-            System.out.println("No se ha seleccionado ninguna fecha.");
+            JOptionPane.showMessageDialog(this, "Error al registrar.");
         }
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "Verifica que los valores numéricos estén correctamente escritos.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
         
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-        /*
-        String id = txtCantidadIngreso.getText();
-        
-        if (id.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecciona un producto para eliminar.");
-            return;
-        }
-        AlmacenC p=new AlmacenC();
-        p= bd.buscarAlmacen(Integer.parseInt(id), p);
-        
-        if(bd.eliminarProducto(p.idRegistro+"")){
-            System.out.println("Borramos con exito");
-             actualizarTabla();
-        }else{
-            System.out.println("Error");
-        }
-        */
-        
-        String idRegistroStr = txtId.getText();
-    
+       String idRegistroStr = txtId.getText().trim();
+
+    // Validación visual
     if (idRegistroStr.isEmpty()) {
+        txtId.setBackground(Color.PINK);
         JOptionPane.showMessageDialog(this, "Introduce el ID del registro que quieres eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+
+        new javax.swing.Timer(3000, e -> txtId.setBackground(Color.WHITE)).start();
         return;
     }
-    
+
     int idRegistro;
     try {
         idRegistro = Integer.parseInt(idRegistroStr);
     } catch (NumberFormatException e) {
+        txtId.setBackground(Color.PINK);
         JOptionPane.showMessageDialog(this, "ID inválido. Debe ser un número.", "Error", JOptionPane.ERROR_MESSAGE);
+
+        new javax.swing.Timer(3000, e2 -> txtId.setBackground(Color.WHITE)).start();
         return;
     }
-    
-    int confirm = JOptionPane.showConfirmDialog(this, 
-            "¿Estás seguro de que quieres eliminar el registro #" + idRegistro + "?", 
+
+    int confirm = JOptionPane.showConfirmDialog(this,
+            "¿Estás seguro de que quieres eliminar el registro #" + idRegistro + "?",
             "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
-    
+
     if (confirm == JOptionPane.YES_OPTION) {
         if (bd.eliminarAlmacen(idRegistro)) {
             JOptionPane.showMessageDialog(this, "Registro eliminado exitosamente del almacén.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             actualizarTabla();
-            limpiarCampos(); // 🔥 Aquí llamamos al método de limpiar campos
+            limpiarCampos(); // Limpieza después de eliminación
         } else {
             JOptionPane.showMessageDialog(this, "Error al eliminar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
         }
