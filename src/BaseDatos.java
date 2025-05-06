@@ -59,6 +59,20 @@ public class BaseDatos {
             return false;
         }
         }
+    public boolean empleadoExiste(String email) {
+        String sql = "SELECT COUNT(*) FROM Empleados WHERE email = ?";
+        try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
 
 
     public boolean insertarLogin(String n,String cor,String c){
@@ -421,22 +435,23 @@ public boolean actualizarProductos(Producto p) {
     }
     public Empleado buscarEmpleado(String email, Empleado e) {
         try {
-            String SQL = "SELECT * FROM `Empleados` WHERE email = '" + email + "'";
-            cursor = transaccion.executeQuery(SQL);
+        String SQL = "SELECT * FROM `Empleados` WHERE email = '" + email + "'";
+        cursor = transaccion.executeQuery(SQL);
 
-            if (cursor.next()) {
-                e.id = cursor.getInt("idEmpleado");
-                e.nombre = cursor.getString("Nombre");
-                e.direccion = cursor.getString("Direccion");
-                e.telefono = cursor.getString("Telefono");
-                e.email = cursor.getString("Email");
-                e.puesto = cursor.getString("Puesto");
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, "Error al buscar el empleado", ex);
+        if (cursor.next()) {
+            e.id = cursor.getInt("idEmpleado");
+            e.nombre = cursor.getString("Nombre");
+            e.direccion = cursor.getString("Direccion");
+            e.telefono = cursor.getString("Telefono");
+            e.email = cursor.getString("Email");
+            e.puesto = cursor.getString("Puesto");
+            e.contr = cursor.getString("contrasena"); // 👈 Aquí agregas esto
         }
-        return e;
+
+    } catch (SQLException ex) {
+        Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, "Error al buscar el empleado", ex);
+    }
+    return e;
     }
 
     public boolean eliminarEmpleado(String email) {

@@ -45,6 +45,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        comboOrdenar = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
@@ -59,6 +60,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         btnActualizar1 = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        btnRefrescar = new javax.swing.JButton();
         JLabelCorreoMostrar = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
@@ -111,7 +113,15 @@ public class VentanaProveedor extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 470, 310));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 470, 280));
+
+        comboOrdenar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ordenar A-Z", "Ordenar Z-A" }));
+        comboOrdenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboOrdenarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(comboOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 490, 310));
 
@@ -166,7 +176,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
-        jPanel4.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 130, -1));
+        jPanel4.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 130, -1));
 
         btnBuscar.setBackground(new java.awt.Color(204, 0, 0));
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -178,7 +188,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
                 btnBuscarActionPerformed(evt);
             }
         });
-        jPanel4.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 110, -1));
+        jPanel4.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 110, -1));
 
         btnActualizar1.setBackground(new java.awt.Color(204, 0, 0));
         btnActualizar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -190,7 +200,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
                 btnActualizar1ActionPerformed(evt);
             }
         });
-        jPanel4.add(btnActualizar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, -1, -1));
+        jPanel4.add(btnActualizar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, -1, -1));
 
         btnEliminar.setBackground(new java.awt.Color(204, 51, 0));
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -202,7 +212,19 @@ public class VentanaProveedor extends javax.swing.JFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
-        jPanel4.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, 140, -1));
+        jPanel4.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, 140, -1));
+
+        btnRefrescar.setBackground(new java.awt.Color(204, 51, 0));
+        btnRefrescar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRefrescar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh-data.png"))); // NOI18N
+        btnRefrescar.setText("Refrescar");
+        btnRefrescar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefrescarActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnRefrescar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, 130, -1));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 820, 50));
 
@@ -279,7 +301,7 @@ public class VentanaProveedor extends javax.swing.JFrame {
     
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-      DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+   DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
     boolean encontrado = false;
 
     // Obtener los valores ingresados en los campos de texto
@@ -287,6 +309,19 @@ public class VentanaProveedor extends javax.swing.JFrame {
     String telefono = txtTelefono.getText().trim();
     String correo = txtCorreo.getText().trim();
     String direccion = txtDireccion.getText().trim();
+
+    // Validar campo obligatorio: nombre
+    if (nombre.isEmpty()) {
+        txtNombre.setBackground(new java.awt.Color(255, 102, 102)); // Rojo claro
+        JOptionPane.showMessageDialog(this, "Por favor, ingresa el nombre del proveedor para buscar.");
+
+        // Restaurar color después de 3 segundos
+        new javax.swing.Timer(3000, e -> {
+            txtNombre.setBackground(java.awt.Color.WHITE);
+        }).start();
+
+        return;
+    }
 
     // Recorrer la tabla fila por fila
     for (int i = 0; i < modelo.getRowCount(); i++) {
@@ -308,21 +343,18 @@ public class VentanaProveedor extends javax.swing.JFrame {
 
     // Mostrar mensaje según el resultado
     if (encontrado) {
-        
-        Proveedores p=new Proveedores(0,"","","","","");
-        if (nombre.isEmpty()) {
-                System.out.println("el campo 'nombre' estar vacíos.");
-                return;
-            }else{
-                if(bd.buscarProveedor(correo)!=-1){
-                    p=bd.buscarProveedor(nombre, p);
-                    txtNombre.setText(p.nombre);txtTelefono.setText(p.telefono);
-                    txtCorreo.setText(p.email+""); txtDireccion.setText(p.direccion);
-                    permisoEditar=true;permisoBorrar=true;
-                }else{
-                    System.out.println("EL REGISTRO YA EXISTE");
-                }
-            }
+        Proveedores p = new Proveedores(0, "", "", "", "", "");
+        if (bd.buscarProveedor(correo) != -1) {
+            p = bd.buscarProveedor(nombre, p);
+            txtNombre.setText(p.nombre);
+            txtTelefono.setText(p.telefono);
+            txtCorreo.setText(p.email);
+            txtDireccion.setText(p.direccion);
+            permisoEditar = true;
+            permisoBorrar = true;
+        } else {
+            System.out.println("EL REGISTRO YA EXISTE");
+        }
         JOptionPane.showMessageDialog(this, "El proveedor SÍ se encuentra en la lista.", "Búsqueda", JOptionPane.INFORMATION_MESSAGE);
     } else {
         JOptionPane.showMessageDialog(this, "No se encontraron coincidencias.", "Búsqueda", JOptionPane.WARNING_MESSAGE);
@@ -357,36 +389,49 @@ public class VentanaProveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar1ActionPerformed
-       // Obtener el modelo de la tabla
-    DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-    String nombre=txtNombre.getText(), telf=txtTelefono.getText(), correo=txtCorreo.getText(), direccion=txtDireccion.getText();
-        
-        
-            if (nombre.isEmpty() || telf.isEmpty() || correo.isEmpty()) {
-                System.out.println("Los campos 'nombre', 'Telefono' y 'correo' no pueden estar vacíos.");
-                return;
-            }else{
-                
-            }
-            int id= bd.buscarProveedor(correo);
-            bd.actualizarProveedor(new Proveedores(id,nombre,"",telf,direccion,correo),id);
-             
-        //vaciarTxt();
-        permisoEditar=false;//actualizarTabla();
-    /*
-    // Obtener el índice de la fila seleccionada
-    int filaSeleccionada = jTable1.getSelectedRow();
-    
-    // Verificar si se seleccionó una fila
-    if (filaSeleccionada >= 0) {
-        modelo.setValueAt(txtNombre.getText(), filaSeleccionada, 0);
-        modelo.setValueAt(txtTelefono.getText(), filaSeleccionada, 1);
-        modelo.setValueAt(txtCorreo.getText(), filaSeleccionada, 2);
-        modelo.setValueAt(txtDireccion.getText(), filaSeleccionada, 3);
-        
-    } else {
-        JOptionPane.showMessageDialog(this, "Seleccione una fila para actualizar");
-    }*/
+   String nombre = txtNombre.getText().trim();
+    String telefono = txtTelefono.getText().trim();
+    String correo = txtCorreo.getText().trim();
+    String direccion = txtDireccion.getText().trim();
+
+    boolean error = false;
+
+    // Resetear colores
+    txtNombre.setBackground(java.awt.Color.WHITE);
+    txtTelefono.setBackground(java.awt.Color.WHITE);
+    txtCorreo.setBackground(java.awt.Color.WHITE);
+
+    // Validación de campos vacíos y formato
+    if (nombre.isEmpty()) {
+        txtNombre.setBackground(new java.awt.Color(255, 102, 102));
+        error = true;
+    }
+    if (telefono.isEmpty() || !telefono.matches("^\\d{10}$")) {
+        txtTelefono.setBackground(new java.awt.Color(255, 102, 102));
+        error = true;
+    }
+    if (correo.isEmpty()) {
+        txtCorreo.setBackground(new java.awt.Color(255, 102, 102));
+        error = true;
+    }
+
+    if (error) {
+        JOptionPane.showMessageDialog(this, "Por favor completa correctamente los campos obligatorios.\n- Teléfono debe tener 10 dígitos.", "Error", JOptionPane.ERROR_MESSAGE);
+
+        // Restaurar colores tras 3 segundos
+        new javax.swing.Timer(3000, e -> {
+            txtNombre.setBackground(java.awt.Color.WHITE);
+            txtTelefono.setBackground(java.awt.Color.WHITE);
+            txtCorreo.setBackground(java.awt.Color.WHITE);
+        }).start();
+        return;
+    }
+
+    int id = bd.buscarProveedor(correo);
+    bd.actualizarProveedor(new Proveedores(id, nombre, "", telefono, direccion, correo), id);
+
+    permisoEditar = false;
+    JOptionPane.showMessageDialog(this, "Proveedor actualizado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnActualizar1ActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -395,26 +440,61 @@ public class VentanaProveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-       DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+     // Limpiar colores
+    txtNombre.setBackground(java.awt.Color.WHITE);
+    txtTelefono.setBackground(java.awt.Color.WHITE);
+    txtCorreo.setBackground(java.awt.Color.WHITE);
+    txtDireccion.setBackground(java.awt.Color.WHITE);
 
-    // Obtener los valores de los campos de texto
+    // Obtener valores
     String nombre = txtNombre.getText().trim();
     String telefono = txtTelefono.getText().trim();
     String correo = txtCorreo.getText().trim();
     String direccion = txtDireccion.getText().trim();
 
-    // Validaciones
+    boolean error = false;
+
+    // Validación de campos vacíos
+    if (nombre.isEmpty()) {
+        txtNombre.setBackground(new java.awt.Color(255, 102, 102));
+        error = true;
+    }
+    if (telefono.isEmpty()) {
+        txtTelefono.setBackground(new java.awt.Color(255, 102, 102));
+        error = true;
+    }
+    if (correo.isEmpty()) {
+        txtCorreo.setBackground(new java.awt.Color(255, 102, 102));
+        error = true;
+    }
+    if (direccion.isEmpty()) {
+        txtDireccion.setBackground(new java.awt.Color(255, 102, 102));
+        error = true;
+    }
+
+    if (error) {
+        JOptionPane.showMessageDialog(this, "Por favor completa todos los campos obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+        new javax.swing.Timer(3000, e -> {
+            txtNombre.setBackground(java.awt.Color.WHITE);
+            txtTelefono.setBackground(java.awt.Color.WHITE);
+            txtCorreo.setBackground(java.awt.Color.WHITE);
+            txtDireccion.setBackground(java.awt.Color.WHITE);
+        }).start();
+        return;
+    }
+
+    // Validaciones específicas
     if (!nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$")) {
         JOptionPane.showMessageDialog(this, "El nombre solo puede contener letras y espacios.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    if (!telefono.matches("^[0-9]{10}$")) { // Asegura que el teléfono tenga 10 dígitos
-        JOptionPane.showMessageDialog(this, "El teléfono debe contener solo 10 números.", "Error", JOptionPane.ERROR_MESSAGE);
+    if (!telefono.matches("^[0-9]{10}$")) {
+        JOptionPane.showMessageDialog(this, "El teléfono debe contener exactamente 10 números.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    if (!correo.isEmpty() && !correo.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+    if (!correo.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
         JOptionPane.showMessageDialog(this, "Ingrese un correo electrónico válido.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
@@ -424,24 +504,26 @@ public class VentanaProveedor extends javax.swing.JFrame {
         return;
     }
 
-    // Agregar los datos a la tabla
+    // Verificar si el correo ya está en la base de datos
+    if (bd.buscarProveedor(correo) != -1) {
+        JOptionPane.showMessageDialog(this, "Este proveedor ya está registrado con ese correo.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Insertar en base de datos
+    bd.insertarProveedor(new Proveedores(0, nombre, "", telefono, direccion, correo));
+
+    // Agregar a tabla visual
+    DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
     modelo.addRow(new Object[]{nombre, telefono, correo, direccion});
 
-    // Limpiar los campos después de agregar
+    // Limpiar campos
     txtNombre.setText("");
     txtTelefono.setText("");
     txtCorreo.setText("");
     txtDireccion.setText("");
 
-    if(-1!=bd.buscarProveedor(correo)){
-                System.out.println("Error: Login existente en la base de datos");
-    }else{
-        
-                bd.insertarProveedor(new Proveedores(0,nombre,"",telefono,direccion,correo));
-                           //this.dispose();
-    }
     JOptionPane.showMessageDialog(this, "Proveedor agregado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-    
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -516,22 +598,52 @@ public class VentanaProveedor extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItem_ServiciosActionPerformed
 
+    private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
+        limpiarCampos(); // Limpia los campos de texto
+        actualizarTabla(); // Actualiza la tabla con los datos actuales
+        JOptionPane.showMessageDialog(this, "Tabla actualizada.");
+    }//GEN-LAST:event_btnRefrescarActionPerformed
+
+    private void comboOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboOrdenarActionPerformed
+        actualizarTabla(); // Llama a tu método para que aplique la lógica de ordenación
+    }//GEN-LAST:event_comboOrdenarActionPerformed
+
     /**
      * @param args the command line arguments
      */
     
-    public void actualizarTabla(){
-        DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
-        ArrayList<String[]>datos =bd.mostrarProveedores();
-        if(datos.size()==0)return;
-        int totalRenglones=m.getRowCount();
-        for (int i = 0; i <totalRenglones; i++) {
-            m.removeRow(0);
-        }
-        for (String[] data: datos) {
-            m.addRow(data);
+   public void actualizarTabla() {
+    DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+    ArrayList<String[]> datos = bd.mostrarProveedores();
+    
+    if (datos.size() == 0) return;
+
+    // Obtener el valor seleccionado en el combo box
+    String orden = (String) comboOrdenar.getSelectedItem();
+
+    // Ordenar los datos según la opción seleccionada
+    if (orden != null) {
+        if (orden.equals("Ordenar Z-A")) {
+            datos.sort((a, b) -> b[0].compareToIgnoreCase(a[0])); // Descendente
+        } else if (orden.equals("Ordenar A-Z")) {
+            datos.sort((a, b) -> a[0].compareToIgnoreCase(b[0])); // Ascendente
         }
     }
+
+    // Limpiar la tabla antes de llenarla de nuevo
+    int totalRenglones = modelo.getRowCount();
+    for (int i = 0; i < totalRenglones; i++) {
+        modelo.removeRow(0);
+    }
+
+    // Agregar los datos ordenados a la tabla
+    for (String[] fila : datos) {
+        modelo.addRow(fila);
+    }
+}
+
+
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -563,6 +675,13 @@ public class VentanaProveedor extends javax.swing.JFrame {
             }
         });
     }
+    private void limpiarCampos() {
+        txtNombre.setText("");
+        txtCorreo.setText("");
+        txtTelefono.setText("");
+        txtDireccion.setText("");
+       
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JLabelCorreoMostrar;
@@ -570,6 +689,8 @@ public class VentanaProveedor extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnRefrescar;
+    private javax.swing.JComboBox<String> comboOrdenar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

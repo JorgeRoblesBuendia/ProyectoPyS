@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -222,7 +223,8 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
 
         JLabelCorreoMostrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         JLabelCorreoMostrar.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(JLabelCorreoMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 30, 210, 20));
+        JLabelCorreoMostrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(JLabelCorreoMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 30, 180, 20));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 860, 470));
 
@@ -296,17 +298,43 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtContraseñaActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-      String email = txtCorreo.getText().trim();
+    String email = txtCorreo.getText().trim();
     String nombre = txtNombre.getText().trim();
     String contrasena = txtContraseña.getText().trim();
 
+    boolean error = false;
+
+    // Restaurar colores
+    txtNombre.setBackground(Color.white);
+    txtCorreo.setBackground(Color.white);
+    txtContraseña.setBackground(Color.white);
+
+    // Validaciones y marcación en rojo
     if (email.isEmpty()) {
-        mensaje("ERROR: El campo correo está vacío.");
-        return;
+        txtCorreo.setBackground(Color.red);
+        error = true;
+    }
+    if (nombre.isEmpty()) {
+        txtNombre.setBackground(Color.red);
+        error = true;
+    }
+    if (contrasena.isEmpty()) {
+        txtContraseña.setBackground(Color.red);
+        error = true;
     }
 
-    if (nombre.isEmpty() || contrasena.isEmpty()) {
-        mensaje("ERROR: Todos los campos deben ser llenados.");
+    if (error) {
+        mensaje("ERROR: Todos los campos deben estar llenos.");
+
+        // Temporizador para volver a blanco después de 3 segundos
+        new java.util.Timer().schedule(new java.util.TimerTask() {
+            @Override
+            public void run() {
+                txtNombre.setBackground(Color.white);
+                txtCorreo.setBackground(Color.white);
+                txtContraseña.setBackground(Color.white);
+            }
+        }, 3000);
         return;
     }
 
@@ -324,91 +352,170 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
 
     if (nombreActualizado && contrasenaActualizada) {
         mensaje("Usuario actualizado exitosamente.");
-        limpiarCampos(); 
-        actualizarTabla(); // Refrescamos la tabla después de editar
+        limpiarCampos();
+        actualizarTabla(); // Refrescar tabla
     } else {
         mensaje("No se pudo actualizar el usuario.");
     }
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-    String email = txtCorreo.getText().trim(); // Tomamos el texto del campo txtCorreo
-    Empleado e = new Empleado(); // Creamos un objeto vacío
+        String email = txtCorreo.getText().trim();
+        Empleado e = new Empleado();
 
-    if (email.isEmpty()) {
-        mensaje("ERROR: El campo correo está vacío.");
-        return;
-    }
+        // Restaurar color
+        txtCorreo.setBackground(Color.white);
 
-    // Intentamos buscar al usuario en la base de datos usando el email
-    e = bd.buscarEmpleado(email, e); // Método de búsqueda de la base de datos
+        // Validación
+        if (email.isEmpty()) {
+            txtCorreo.setBackground(Color.red);
+            mensaje("ERROR: El campo correo está vacío.");
 
-    if (e != null && e.email != null && !e.email.isEmpty()) {
-        // Si encontramos al usuario, mostramos sus datos en los campos
-        txtNombre.setText(e.nombre);
-        txtCorreo.setText(e.email);
-        txtContraseña.setText(e.contr); // 👈 Aquí llenamos también el campo de contraseña
+            // Restaurar color tras 3 segundos
+            new java.util.Timer().schedule(new java.util.TimerTask() {
+                @Override
+                public void run() {
+                    txtCorreo.setBackground(Color.white);
+                }
+            }, 3000);
+            return;
+        }
 
-        mensaje("Usuario encontrado.");
-    } else {
-        mensaje("No se encontró ningún usuario con ese correo.");
-    }
+        // Búsqueda
+        e = bd.buscarEmpleado(email, e);
+
+        if (e != null && e.email != null && !e.email.isEmpty()) {
+            txtNombre.setText(e.nombre);
+            txtCorreo.setText(e.email);
+            txtContraseña.setText(e.contr); // Mostrar contraseña
+            mensaje("Usuario encontrado.");
+        } else {
+            mensaje("No se encontró ningún usuario con ese correo.");
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgrergarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgrergarActionPerformed
-     String nombre = txtNombre.getText().trim();
+    String nombre = txtNombre.getText().trim();
     String email = txtCorreo.getText().trim();
     String contraseña = txtContraseña.getText().trim();
 
-    if (nombre.isEmpty() || email.isEmpty() || contraseña.isEmpty()) {
-        mensaje("ERROR: Campos vacíos");
+    boolean error = false;
+
+    // Restaurar colores antes de validar
+    txtNombre.setBackground(Color.white);
+    txtCorreo.setBackground(Color.white);
+    txtContraseña.setBackground(Color.white);
+
+    if (nombre.isEmpty()) {
+        txtNombre.setBackground(Color.red);
+        error = true;
+    }
+    if (email.isEmpty()) {
+        txtCorreo.setBackground(Color.red);
+        error = true;
+    }
+    if (contraseña.isEmpty()) {
+        txtContraseña.setBackground(Color.red);
+        error = true;
+    }
+
+    // Si hay campos vacíos, marcamos error y programamos el reset de color
+    if (error) {
+        mensaje("ERROR: Por favor completa todos los campos.");
+
+        new java.util.Timer().schedule(new java.util.TimerTask() {
+            @Override
+            public void run() {
+                txtNombre.setBackground(Color.white);
+                txtCorreo.setBackground(Color.white);
+                txtContraseña.setBackground(Color.white);
+            }
+        }, 3000);
         return;
     }
 
-    try {
-        if (bd.insertarEmpleado(nombre, email, contraseña)) {
-            mensaje("Empleado registrado exitosamente");
-            limpiarCampos();
-        } else {
-            mensaje("Error al registrar el empleado. Verifica los datos.");
-        }
-    } catch (Exception ex) {
-        mensaje("ERROR: " + ex.getMessage());
-        ex.printStackTrace();
+    // Validar formato de correo
+    if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+        txtCorreo.setBackground(Color.red);
+        mensaje("Correo inválido. Debe tener un formato válido como ejemplo@dominio.com");
+
+        new java.util.Timer().schedule(new java.util.TimerTask() {
+            @Override
+            public void run() {
+                txtCorreo.setBackground(Color.white);
+            }
+        }, 3000);
+        return;
+    }
+
+    // Validar si ya existe en la BD
+    if (bd.empleadoExiste(email)) {
+        txtCorreo.setBackground(Color.red);
+        mensaje("ERROR: Este correo ya está registrado.");
+
+        new java.util.Timer().schedule(new java.util.TimerTask() {
+            @Override
+            public void run() {
+                txtCorreo.setBackground(Color.white);
+            }
+        }, 3000);
+        return;
+    }
+
+    // Todo bien, insertamos
+    if (bd.insertarEmpleado(nombre, email, contraseña)) {
+        mensaje("Empleado registrado exitosamente");
+        limpiarCampos();
+        actualizarTabla();
+    } else {
+        mensaje("Error al registrar el empleado.");
     }
     }//GEN-LAST:event_btnAgrergarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-       String email = txtCorreo.getText().trim(); // Capturar el email del empleado desde el formulario
+        String email = txtCorreo.getText().trim();
 
-    if (email.isEmpty()) {
-        mensaje("ERROR: Campo email vacío");
-        return;
-    }
+        // Restaurar color inicial
+        txtCorreo.setBackground(Color.white);
 
-    int confirmacion = JOptionPane.showConfirmDialog(
-        this,
-        "¿Seguro que quieres eliminar al empleado?",
-        "Confirmar eliminación",
-        JOptionPane.YES_NO_OPTION
-    );
+        if (email.isEmpty()) {
+            txtCorreo.setBackground(Color.red);
+            mensaje("ERROR: Campo email vacío");
 
-    if (confirmacion != JOptionPane.YES_OPTION) {
-        mensaje("Operación cancelada");
-        return;
-    }
-
-    try {
-        // Llamar al método para eliminar al empleado
-        if (bd.eliminarEmpleado(email)) {
-            mensaje("Empleado eliminado exitosamente");
-            limpiarCampos(); // Limpiar los campos del formulario
-        } else {
-            mensaje("Error al eliminar el empleado");
+            // Restaurar color después de 3 segundos
+            new java.util.Timer().schedule(new java.util.TimerTask() {
+                @Override
+                public void run() {
+                    txtCorreo.setBackground(Color.white);
+                }
+            }, 3000);
+            return;
         }
-    } catch (Exception e) {
-        mensaje("ERROR: Ocurrió un problema al eliminar el empleado");
-    }
+
+        int confirmacion = JOptionPane.showConfirmDialog(
+            this,
+            "¿Seguro que quieres eliminar al empleado?",
+            "Confirmar eliminación",
+            JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacion != JOptionPane.YES_OPTION) {
+            mensaje("Operación cancelada");
+            return;
+        }
+
+        try {
+            if (bd.eliminarEmpleado(email)) {
+                mensaje("Empleado eliminado exitosamente");
+                limpiarCampos();
+                actualizarTabla();
+            } else {
+                mensaje("Error al eliminar el empleado");
+            }
+        } catch (Exception e) {
+            mensaje("ERROR: Ocurrió un problema al eliminar el empleado");
+        }
         
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -428,8 +535,8 @@ public class VetnanaGestionUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCorreoActionPerformed
 
     private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
-        // TODO add your handling code here:
-        actualizarTabla();
+        limpiarCampos(); // Limpia los campos de texto
+        actualizarTabla(); // Actualiza la tabla con los datos actuales
         mensaje("Tabla actualizada.");
     }//GEN-LAST:event_btnRefrescarActionPerformed
 

@@ -410,7 +410,9 @@ public class VentanaGestionCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnReFRessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReFRessActionPerformed
-        actualizarTabla();
+        limpiarCampos(); // ✅ Limpia los campos
+        actualizarTabla(); // ✅ Actualiza la tabla
+        JOptionPane.showMessageDialog(this, "Tabla actualizada.");
     }//GEN-LAST:event_btnReFRessActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
