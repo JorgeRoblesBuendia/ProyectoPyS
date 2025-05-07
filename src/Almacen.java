@@ -218,6 +218,7 @@ public class AlmacenCellRenderer extends DefaultTableCellRenderer {
         jLabel5 = new javax.swing.JLabel();
         cmbProducto = new javax.swing.JComboBox<>();
         jdcFechaVencimiento = new com.toedter.calendar.JDateChooser();
+        chbCaduca = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
@@ -283,6 +284,15 @@ public class AlmacenCellRenderer extends DefaultTableCellRenderer {
 
         jPanel1.add(cmbProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 28, 111, -1));
         jPanel1.add(jdcFechaVencimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 207, 129, -1));
+
+        chbCaduca.setSelected(true);
+        chbCaduca.setText("Caduca");
+        chbCaduca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbCaducaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(chbCaduca, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, -1, -1));
 
         jPanel4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 96, -1, 260));
 
@@ -492,7 +502,7 @@ public class AlmacenCellRenderer extends DefaultTableCellRenderer {
         txtPrecioV.setBackground(Color.red);
         hayError = true;
     }
-    if (fech == null) {
+    if (fech == null && chbCaduca.isSelected()) {
         jdcFechaVencimiento.getComponent(1).setBackground(Color.red);
         hayError = true;
     }
@@ -500,7 +510,9 @@ public class AlmacenCellRenderer extends DefaultTableCellRenderer {
         cmbProducto.setBackground(Color.red);
         hayError = true;
     }
-
+    
+        
+    
     if (hayError) {
         JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos obligatorios.", "Campos requeridos", JOptionPane.WARNING_MESSAGE);
 
@@ -513,8 +525,8 @@ public class AlmacenCellRenderer extends DefaultTableCellRenderer {
         }).start();
         return;
     }
-
-    // Validar si la fecha es anterior a la actual
+    if (chbCaduca.isSelected()) {
+        // Validar si la fecha es anterior a la actual
     Date fechaActual = new Date();
     if (fech.before(fechaActual)) {
         JOptionPane.showMessageDialog(this, "La fecha seleccionada ya pasó. Selecciona una fecha válida.", "Fecha inválida", JOptionPane.ERROR_MESSAGE);
@@ -543,6 +555,25 @@ public class AlmacenCellRenderer extends DefaultTableCellRenderer {
     } catch (NumberFormatException ex) {
         JOptionPane.showMessageDialog(this, "Verifica que los valores numéricos estén correctamente escritos.", "Error", JOptionPane.ERROR_MESSAGE);
     }
+            
+    }else{//-----------------------------------------
+         
+    try {
+        
+        Producto prod = new Producto();prod=bd.buscarProducto(cmbProducto.getItemAt(pro), prod,true);
+ 
+        AlmacenC a = new AlmacenC(0, prod.id, Integer.parseInt(cantidad), Float.parseFloat(precioC), Float.parseFloat(preciov), "");
+        if (bd.insertarAlmacenSinFecha(a)) {
+            JOptionPane.showMessageDialog(this, "Agregado con éxito.");
+            actualizarTabla();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al registrar.");
+        }
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "Verifica que los valores numéricos estén correctamente escritos.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }
+    
         
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -807,6 +838,10 @@ private void mostrarLoading(String mensaje) {
         this.dispose();
     }//GEN-LAST:event_jMenuItem_ServiciosActionPerformed
 
+    private void chbCaducaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbCaducaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chbCaducaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -863,6 +898,7 @@ private void mostrarLoading(String mensaje) {
     private javax.swing.JButton btnBuscarO;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JCheckBox chbCaduca;
     private javax.swing.JComboBox<String> cmbProducto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -1250,6 +1250,25 @@ public ArrayList<String[]> mostrarServicios() {
         System.out.println("Registro insertado exitosamente en el almacén.");
         return true;
     }
+    
+    public boolean insertarAlmacenSinFecha(AlmacenC a) {
+        try {
+            String SQL = "INSERT INTO `Almacen` (`idRegistro`, `idProducto`, `cantidad`, `precioCompra`, `precioVenta`) " +
+                         "VALUES (NULL, %IdProducto%, %Stock%, %PrecioC%, %PrecioV% );";
+            SQL = SQL.replaceAll("%IdProducto%", String.valueOf(a.idProducto));
+            SQL = SQL.replaceAll("%Stock%", String.valueOf(a.stock));
+            SQL = SQL.replaceAll("%PrecioC%", String.valueOf(a.precioC));
+            SQL = SQL.replaceAll("%PrecioV%", String.valueOf(a.precioV));
+
+            transaccion.execute(SQL);
+            System.out.println(SQL);
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar en el almacén: " + ex.getMessage());
+            return false;
+        }
+        System.out.println("Registro insertado exitosamente en el almacén.");
+        return true;
+    }
 
     public int buscarAlmacen(int idProducto) {
         int idRegistro = -1;
