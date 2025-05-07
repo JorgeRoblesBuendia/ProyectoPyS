@@ -72,6 +72,10 @@ public class VentanaCaja extends javax.swing.JFrame {
         btnConsultar = new javax.swing.JButton();
         txtConsultar = new javax.swing.JTextField();
         txtCodigoBarra = new javax.swing.JTextField();
+        btnReFRess = new javax.swing.JButton();
+        txtDinero = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -94,7 +98,7 @@ public class VentanaCaja extends javax.swing.JFrame {
                 btnVenderActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVender, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 570, 190, -1));
+        jPanel1.add(btnVender, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 570, 120, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 30)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -116,8 +120,9 @@ public class VentanaCaja extends javax.swing.JFrame {
 
         lblTotal.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         lblTotal.setForeground(new java.awt.Color(255, 255, 255));
+        lblTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTotal.setText("Total: 0");
-        jPanel1.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(676, 530, 170, -1));
+        jPanel1.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 540, 170, -1));
 
         NOMBRE_TITULO.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
         NOMBRE_TITULO.setForeground(new java.awt.Color(255, 255, 255));
@@ -182,14 +187,37 @@ public class VentanaCaja extends javax.swing.JFrame {
         jPanel3.add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, -1, -1));
 
         txtConsultar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtConsultar.setText("Ingresa el codigo de barras");
         jPanel3.add(txtConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, 260, 30));
 
         txtCodigoBarra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtCodigoBarra.setText("Ingresa el codigo de barras");
         jPanel3.add(txtCodigoBarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 210, 30));
 
+        btnReFRess.setBackground(new java.awt.Color(204, 51, 0));
+        btnReFRess.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnReFRess.setForeground(new java.awt.Color(255, 255, 255));
+        btnReFRess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh-data.png"))); // NOI18N
+        btnReFRess.setText("Regrescar Tabla");
+        btnReFRess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReFRessActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnReFRess, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 45, -1, -1));
+
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 830, 80));
+
+        txtDinero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDineroActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtDinero, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 570, 120, 30));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/dinero.png"))); // NOI18N
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(689, 570, -1, -1));
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 570, 170, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 610));
 
@@ -229,86 +257,86 @@ public class VentanaCaja extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-        if (index == 0) {
-            javax.swing.JOptionPane.showMessageDialog(this, "No hay productos agregados para vender.");
-            return; // No hacer nada si no hay productos
-        }
-        
-        if(bd.insertarVenta(new Ventas(0,0,0,total,""))){
-            Producto p=new Producto();
-            int idVentaU=bd.buscarUltimaVenta();
-        
-            for (int i = 0; i < m.getRowCount(); i++) {
-                p=bd.buscarProducto(r[i].cb, p);
-                int c=Integer.parseInt(m.getValueAt(i, 4)+"");
-                double precioU=Double.parseDouble(m.getValueAt(i, 3)+"");
-                double subTotal=Double.parseDouble(m.getValueAt(i, 5)+"");
-                
-                bd.insertarDetalleVenta(new DetallesVenta(0, idVentaU, p.id, c, precioU, subTotal));
-            }
-        }else{
-            JOptionPane.showMessageDialog(this, "Error al realizar venta"); return;
-        }
-        
-        
-        
-    /*      
-    double sum = 0;
-    for (int i = 0; i < index; i++) {
-        bd.insertarDetalleVenta(new DetallesVenta(0, 1, A[i].id, 1, A[i].precioVenta, A[i].precioVenta));
-        sum = sum + A[i].precioVenta;
-        bd.actualizarVentaTotal(1, sum + "");
+    if (index == 0) {
+        JOptionPane.showMessageDialog(this, "No hay productos agregados para vender.");
+        return;
     }
 
-    // ==============================
-    // Generar ticket de la venta
-    // ==============================
-
+    // Validar dinero suficiente
+    double dineroRecibido = 0;
     try {
-        // Crear nombre de archivo único
-        String nombreArchivo = "ticket_" + System.currentTimeMillis() + ".txt";
-        
-        java.io.FileWriter ticket = new java.io.FileWriter(nombreArchivo);
+        dineroRecibido = Double.parseDouble(txtDinero.getText().trim());
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Ingresa una cantidad válida en el campo de pago.");
+        return;
+    }
 
-        ticket.write("====================================\n");
-        ticket.write("            P&S\n");
-        ticket.write("         TICKET DE COMPRA\n");
-        ticket.write("====================================\n\n");
+    double cambio = dineroRecibido - total;
+    if (cambio < 0) {
+        JOptionPane.showMessageDialog(this, "El dinero ingresado NO cubre el total. Faltan $" + String.format("%.2f", -cambio));
+        return; // ⛔ NO continúa si el dinero es insuficiente
+    }
 
-        // Fecha y Hora actuales
-        java.time.LocalDateTime fechaHora = java.time.LocalDateTime.now();
-        ticket.write("Fecha: " + fechaHora.toLocalDate() + "\n");
-        ticket.write("Hora: " + fechaHora.toLocalTime().withNano(0) + "\n\n");
+    // ✅ Si pasa la validación, ahora sí se hace la venta
+    if (!bd.insertarVenta(new Ventas(0, 0, 0, total, ""))) {
+        JOptionPane.showMessageDialog(this, "Error al realizar venta");
+        return;
+    }
 
-        // Productos desde la tabla
-        ticket.write("Productos:\n");
+    Producto p = new Producto();
+    int idVentaU = bd.buscarUltimaVenta();
+
+    for (int i = 0; i < m.getRowCount(); i++) {
+        p = bd.buscarProducto(r[i].cb, p);
+        int c = Integer.parseInt(m.getValueAt(i, 4) + "");
+        double precioU = Double.parseDouble(m.getValueAt(i, 3) + "");
+        double subTotal = Double.parseDouble(m.getValueAt(i, 5) + "");
+
+        bd.insertarDetalleVenta(new DetallesVenta(0, idVentaU, p.id, c, precioU, subTotal));
+    }
+
+    // Preguntar si desea imprimir ticket
+    int opcion = JOptionPane.showConfirmDialog(this, "¿Deseas imprimir el ticket?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+    if (opcion == JOptionPane.YES_OPTION) {
+        StringBuilder ticket = new StringBuilder();
+        ticket.append("======== P&S ========\n");
+        ticket.append("   TICKET DE COMPRA\n");
+        ticket.append("======================\n");
+        ticket.append("Productos:\n");
+
         for (int i = 0; i < tblProductos.getRowCount(); i++) {
-            Object nombre = tblProductos.getValueAt(i, 1); // Columna 1 = Nombre
-            Object precio = tblProductos.getValueAt(i, 3); // Columna 3 = Precio
+            Object nombre = tblProductos.getValueAt(i, 1);
+            Object cantidad = tblProductos.getValueAt(i, 4);
+            Object precio = tblProductos.getValueAt(i, 3);
+            Object totalLinea = tblProductos.getValueAt(i, 5);
 
-            if (nombre != null && precio != null && !nombre.toString().isEmpty()) {
-                ticket.write("- " + nombre.toString() + " : $" + precio.toString() + "\n");
+            if (nombre != null && precio != null && cantidad != null && totalLinea != null) {
+                int c = Integer.parseInt(cantidad.toString());
+                double precioUnitario = Double.parseDouble(precio.toString());
+                double subtotal = c * precioUnitario;
+                ticket.append(String.format("- %s | %d x $%.2f = $%.2f\n", nombre, c, precioUnitario, subtotal));
             }
         }
 
-        ticket.write("\nTOTAL: $" + String.format("%.2f", sum) + "\n");
-        ticket.write("\n¡Gracias por su compra!\n");
+        ticket.append("\nTOTAL: $" + String.format("%.2f", total) + "\n");
+        ticket.append("PAGO:  $" + String.format("%.2f", dineroRecibido) + "\n");
+        ticket.append("CAMBIO:$" + String.format("%.2f", cambio) + "\n");
+        ticket.append("======================\n");
+        ticket.append("¡Gracias por su compra!");
 
-        ticket.close();
-
-        // Abrir automáticamente el ticket
-        java.awt.Desktop.getDesktop().open(new java.io.File(nombreArchivo));
-
-    } catch (Exception e) {
-        e.printStackTrace();
-        javax.swing.JOptionPane.showMessageDialog(this, "Error al generar o abrir el ticket.");
+        JOptionPane.showMessageDialog(this, ticket.toString(), "Ticket de Compra", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        JOptionPane.showMessageDialog(this, "Cambio: $" + String.format("%.2f", cambio));
     }
 
-    // ==============================
-*/
+    // Limpiar después de la venta
     index = 0;
     limpiarTabla();
-    
+    actualizarTotal();
+    txtDinero.setText("");
+
+
     }//GEN-LAST:event_btnVenderActionPerformed
     private void actualizarTotal() {
         double sum = 0;
@@ -340,11 +368,23 @@ public class VentanaCaja extends javax.swing.JFrame {
     }
 
     if (chbManual.isSelected()) {
-        int c = Integer.parseInt(txtCantidad.getText());
-        r[index] = new RegistroCaja(p.codigoBarras, p.nombre, p.descripcion, c, almacen.precioV * c, almacen.precioV);
-        m.addRow(r[index].ObteberArreglo());
-        index++; // 🔥 No olvides esto
-        actualizarTotal(); // 🔥 Actualiza total
+        int c = 0;
+    try {
+        c = Integer.parseInt(txtCantidad.getText().trim());
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "Ingresa una cantidad válida.");
+        return;
+    }
+
+    if (c <= 0) {
+        JOptionPane.showMessageDialog(this, "La cantidad debe ser mayor a cero para agregar el producto.");
+        return;
+    }
+
+    r[index] = new RegistroCaja(p.codigoBarras, p.nombre, p.descripcion, c, almacen.precioV * c, almacen.precioV);
+    m.addRow(r[index].ObteberArreglo());
+    index++;
+    actualizarTotal();
 
     } else {
         for (int i = 0; i < index; i++) {
@@ -413,6 +453,28 @@ public class VentanaCaja extends javax.swing.JFrame {
         this.dispose();   
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void btnReFRessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReFRessActionPerformed
+        limpiarCampos(); // ✅ Limpia los campos
+        actualizarTabla(); // ✅ Actualiza la tabla
+        JOptionPane.showMessageDialog(this, "Tabla actualizada.");
+    }//GEN-LAST:event_btnReFRessActionPerformed
+
+    private void txtDineroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDineroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDineroActionPerformed
+    private void limpiarCampos() {
+        txtCantidad.setText("");
+        txtCodigoBarra.setText("");
+        txtConsultar.setText("");
+        chbManual.setSelected(false);
+    }
+    private void actualizarTabla() {
+        limpiarTabla(); // Borra la tabla actual
+        index = 0;       // Reinicia el índice
+        total = 0;
+        lblTotal.setText("Total: $0.00");
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -447,14 +509,10 @@ public class VentanaCaja extends javax.swing.JFrame {
             }
         });
     }
-    private void limpiarTabla(){
-        for (int i = 0; i < m.getRowCount(); i++) {
-            for (int j = 0; j <m.getColumnCount(); j++) {
-                m.setValueAt("", i, j);
-            }
-            
-        }
-    }
+    private void limpiarTabla() {
+    m.setRowCount(0); // ✅ Elimina todas las filas de la tabla
+}
+
     
     
     
@@ -463,10 +521,12 @@ public class VentanaCaja extends javax.swing.JFrame {
     private javax.swing.JLabel NOMBRE_TITULO;
     private javax.swing.JButton btnAgregarLista;
     private javax.swing.JButton btnConsultar;
+    private javax.swing.JButton btnReFRess;
     private javax.swing.JButton btnVender;
     private javax.swing.JCheckBox chbManual;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
@@ -475,11 +535,13 @@ public class VentanaCaja extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JTable tblProductos;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtCodigoBarra;
     private javax.swing.JTextField txtConsultar;
+    private javax.swing.JTextField txtDinero;
     // End of variables declaration//GEN-END:variables
 }
