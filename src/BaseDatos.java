@@ -271,6 +271,38 @@ public class BaseDatos {
 
     return p;
     }
+        public Producto buscarProducto(String nombre, Producto p,boolean c) {
+   try {
+        // 1. Buscar en Productos
+        String SQL = "SELECT * FROM `Productos` WHERE nombre = '" + nombre + "'";
+        cursor = transaccion.executeQuery(SQL);
+
+        if (cursor.next()) {
+            p.id = cursor.getInt("idProducto");
+            p.nombre = cursor.getString("nombre");
+            p.descripcion = cursor.getString("descripcion");
+            p.codigoBarras = cursor.getString("codigoBarras");
+            p.stockMinimo = cursor.getInt("stockMinimo");
+            p.idCategoria = cursor.getInt("idCategoria");
+            p.idProveedor = cursor.getInt("idProveedor");
+        } else {
+            return p; // No se encontró el producto
+        }
+
+        // 2. Buscar el precioVenta más reciente desde Almacen usando el idProducto
+        SQL = "SELECT precioVenta FROM Almacen WHERE idProducto = " + p.id + " ORDER BY FechaVencimiento DESC LIMIT 1";
+        cursor = transaccion.executeQuery(SQL);
+
+        if (cursor.next()) {
+            p.precioVenta = cursor.getDouble("precioVenta");
+        }
+
+    } catch (SQLException ex) {
+        Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, "Error al buscar el producto", ex);
+    }
+
+    return p;
+    }
 
     public ArrayList<String[]> mostrarProductosCaja(){
         ArrayList <String[]> resultado= new ArrayList ();
@@ -777,6 +809,21 @@ public ArrayList<String[]> mostrarDetallesVenta() {
         }
         return id;
     }
+    public String buscarProveedor(int id) {
+         
+        String nom="";
+        try {
+            String SQL = "SELECT * FROM `Proveedores` WHERE `idProveedor` = '" + id + "'";
+            cursor = transaccion.executeQuery(SQL);
+
+            if (cursor.next()) {
+                nom = cursor.getString("nombre");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return nom;
+    }
 
     public Proveedores buscarProveedor(String email, Proveedores p) {
         try {
@@ -806,6 +853,21 @@ public ArrayList<String[]> mostrarDetallesVenta() {
             return false;
         }
         return true;
+    }
+    public Proveedores buscarProvedor(String nombre, Proveedores c) {
+        try {
+            String SQL = "SELECT * FROM `Proveedores` WHERE `nombre` = '" + nombre + "'";
+            cursor = transaccion.executeQuery(SQL);
+
+            if (cursor.next()) {
+                c.id = cursor.getInt("idProveedor");
+                c.nombre = cursor.getString("nombre");
+                c.email = cursor.getString("email");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, "Error al buscar la categoría", ex);
+        }
+        return c;
     }
 
     public boolean actualizarProveedor(Proveedores p, String campo, String nuevoValor) {
@@ -926,6 +988,41 @@ public Servicio buscarServicio(String nombre, Servicio s) {
     }
     return s;
 }
+public Servicio buscarServicio(int id, Servicio s) {
+    try {
+        String SQL = "SELECT * FROM `Servicios` WHERE `idServicio` = '" + id + "'";
+        cursor = transaccion.executeQuery(SQL);
+
+        if (cursor.next()) {
+            s.idServicio = cursor.getInt("idServicio");
+            s.nombre = cursor.getString("nombre");
+            s.descripcion = cursor.getString("descripcion");
+            s.precio = cursor.getDouble("precio");
+            s.categoriaServicio = cursor.getString("categoriaServicio");
+            s.activo = cursor.getInt("activo");
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, "Error al buscar el servicio", ex);
+    }
+    return s;
+}
+
+public String buscarServicio(int id) {
+    String nombre="";
+    try {
+        String SQL = "SELECT * FROM `Servicios` WHERE `idServicio` = '" + id + "'";
+        cursor = transaccion.executeQuery(SQL);
+
+        if (cursor.next()) {
+            
+            nombre = cursor.getString("nombre");
+             
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, "Error al buscar el servicio", ex);
+    }
+    return nombre;
+}
 
 public boolean eliminarServicio(String nombre) {
     try {
@@ -982,7 +1079,7 @@ public boolean actualizarServicio(Servicio s,int s2) {
 public ArrayList<String[]> mostrarServicios() {
     ArrayList<String[]> resultado = new ArrayList<>();
     try {
-        String SQL = "SELECT *,C.nombre FROM `Servicios`INNER JOIN `Categorias` C";
+        String SQL = "SELECT *,c.nombre FROM Servicios s INNER JOIN Categorias c where s.categoriaServicio=c.idCategoria  ";
         cursor = transaccion.executeQuery(SQL);
 
         if (cursor.next()) {
@@ -1031,10 +1128,25 @@ public ArrayList<String[]> mostrarServicios() {
         }
         return id;
     }
+    
+    public String buscarCategoria(int id) {
+        String nombre="";
+        try {
+            String SQL = "SELECT * FROM `Categorias` WHERE `idCategoria` = '" + id + "'";
+            cursor = transaccion.executeQuery(SQL);
 
+            if (cursor.next()) { 
+                nombre = cursor.getString("nombre"); 
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, "Error al buscar la categoría", ex);
+        }
+        return nombre;
+    }
+    
     public Categorias buscarCategoria(String nombre, Categorias c) {
         try {
-            String SQL = "SELECT * FROM `Categorias` WHERE `nombre` LIKE '" + nombre + "'";
+            String SQL = "SELECT * FROM `Categorias` WHERE `nombre` = '" + nombre + "'";
             cursor = transaccion.executeQuery(SQL);
 
             if (cursor.next()) {
@@ -1356,6 +1468,9 @@ public Producto buscarProductoPorIdd(int idProducto, Producto p) {
 class Proveedores {
     int id;
     String nombre,contacto,telefono,direccion,email;
+
+    public Proveedores() {
+    }
 
     public Proveedores(int id, String nombre, String contacto, String telefono, String direccion, String email) {
         this.id = id;

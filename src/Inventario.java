@@ -305,13 +305,22 @@ public class Inventario extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
+        
+        //locaaaaal
+        
         String nombre=txtNombre.getText(), descripcion=txtDescripcion.getText(), stock=txtStock.getText(), 
                 codigoBarras=txtCodigoBarras.getText();
         int categoria = cmbCategoria.getSelectedIndex();
         int proveedor = cmbProveedor.getSelectedIndex();
+        
+        Categorias c=new Categorias(); Proveedores pr=new Proveedores();
+        c=bd.buscarCategoria(cmbCategoria.getItemAt(categoria), c);
+        pr=bd.buscarProvedor(cmbProveedor.getItemAt(proveedor), pr);
+        
+        
         Producto p = new Producto( nombre, 
-        descripcion,      Integer.parseInt(stock),categoria,
-    proveedor,codigoBarras);
+        descripcion,      Integer.parseInt(stock),c.id,
+    pr.id,codigoBarras);
         if(bd.insertarProducto(p)){
             JOptionPane.showMessageDialog(this, "Agregamos con exito");
         }else{
@@ -322,30 +331,29 @@ public class Inventario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String nombreBuscar = txtNombre.getText();
+        String nombreBuscar = txtCodigoBarras.getText();
         if (nombreBuscar.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Introduce un nombre para buscar.");
             return;
         }
+        //LOCAAAAL
         Producto p=new Producto();
                 p= bd.buscarProducto(nombreBuscar, p);
                 txtNombre.setText(p.nombre);
                txtDescripcion.setText(p.descripcion);
                txtStock.setText(p.stockMinimo+"");
                txtCodigoBarras.setText(p.codigoBarras);
-        cmbCategoria.setSelectedIndex(p.idCategoria);cmbProveedor.setSelectedIndex(p.idProveedor);
-        // Configurar las filas correctamente
-        /*m.setRowCount(0); // Limpiar las filas existentes
-        m.setRowCount(1); // Crear una fila (índice 0)
-
-        // Establecer los valores en la fila 0
-        System.out.println(p.nombre);
-        m.setValueAt(p.nombre, 0, 0);
-        m.setValueAt(p.descripcion, 0, 1);
-        m.setValueAt(p.stockMinimo, 0, 2);
-        m.setValueAt(p.codigoBarras, 0, 3);
-        m.setValueAt(p.idCategoria, 0, 4);
-        m.setValueAt(p.idProveedor, 0, 5);*/
+               
+        for (int i = 0; i < cmbCategoria.getItemCount(); i++) { 
+            if(cmbCategoria.getItemAt(i).equals(bd.buscarCategoria(p.idCategoria))){
+                cmbCategoria.setSelectedIndex(i);
+            } 
+        }
+        for (int i = 0; i < cmbProveedor.getItemCount(); i++) {
+            if(cmbProveedor.getItemAt(i).equals(bd.buscarProveedor(p.idProveedor))){
+                cmbProveedor.setSelectedIndex(i);
+            }
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -353,16 +361,20 @@ public class Inventario extends javax.swing.JFrame {
                 codigoBarras=txtCodigoBarras.getText();
         int categoria = cmbCategoria.getSelectedIndex();
         int proveedor = cmbProveedor.getSelectedIndex();
+        
+        ///LOCAAAAL
+        
+        Categorias c=new Categorias(); Proveedores pr=new Proveedores();
+        c=bd.buscarCategoria(cmbCategoria.getItemAt(categoria), c);
+        pr=bd.buscarProvedor(cmbProveedor.getItemAt(proveedor), pr);
+        
         Producto p=new Producto();p=bd.buscarProducto(nombre, p);
         p.descripcion=descripcion;
         p.nombre=nombre;
         p.stockMinimo=Integer.parseInt(stock);
         p.codigoBarras=codigoBarras;
-        p.idCategoria=categoria; p.idProveedor=proveedor;
-        /*Producto p = new Producto( nombre, 
-        descripcion,      Integer.parseInt(stock),categoria,
-    proveedor,codigoBarras);
-        p=bd.buscarProducto(nombre, p);*/
+        p.idCategoria=c.id; p.idProveedor=pr.id;
+        
         if (p!=null) {
             if(bd.actualizarProductos(p)){
                 JOptionPane.showMessageDialog(this, "Actualizamos con exito");

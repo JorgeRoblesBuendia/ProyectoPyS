@@ -529,8 +529,11 @@ public class AlmacenCellRenderer extends DefaultTableCellRenderer {
     try {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         String fechaFormateada = formatoFecha.format(fech);
-
-        AlmacenC a = new AlmacenC(0, pro, Integer.parseInt(cantidad), Float.parseFloat(precioC), Float.parseFloat(preciov), fechaFormateada);
+        
+        Producto prod = new Producto();prod=bd.buscarProducto(cmbProducto.getItemAt(pro), prod,true);
+        System.out.println(prod.id);
+        
+        AlmacenC a = new AlmacenC(0, prod.id, Integer.parseInt(cantidad), Float.parseFloat(precioC), Float.parseFloat(preciov), fechaFormateada);
         if (bd.insertarAlmacen(a)) {
             JOptionPane.showMessageDialog(this, "Agregado con éxito.");
             actualizarTabla();
@@ -634,6 +637,9 @@ public void limpiarCampos() {
             SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
             String fechaFormateada = formatoFecha.format(jdcFechaVencimiento.getDate());
 
+            
+            
+            
             AlmacenC actualizado = new AlmacenC(idRegistro, idProductoSeleccionado, stock, precioCompra, precioVenta, fechaFormateada);
 
             if (bd.actualizarAlmacen(actualizado, idRegistro)) {

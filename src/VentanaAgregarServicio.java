@@ -71,7 +71,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         cmbCategoria = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        txtDescrip1 = new javax.swing.JTextField();
+        txtCodigo = new javax.swing.JTextField();
         btnBuscar1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         tbnEliminar = new javax.swing.JButton();
@@ -153,7 +153,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Codigo:");
 
-        txtDescrip1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtCodigo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         btnBuscar1.setBackground(new java.awt.Color(204, 51, 0));
         btnBuscar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -185,7 +185,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscar1))
-                    .addComponent(txtDescrip1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -212,7 +212,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
                     .addComponent(btnBuscar1)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDescrip1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
         );
 
@@ -316,6 +316,10 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
         // TODO add your handling code here:
         String nombre=txtNombre.getText(), descripcion=txtDescrip.getText(), tipo=cmbCategoria.getSelectedIndex()+"";
         double precio;
+        
+        Categorias c=new Categorias(); 
+        c=bd.buscarCategoria(cmbCategoria.getItemAt(Integer.parseInt(tipo)), c);
+        
         try {
             if (nombre.isEmpty() || descripcion.isEmpty() || tipo.isEmpty()) {
                 System.out.println("Los campos 'nombre', 'descripcion' y 'tipo' no pueden estar vacíos.");
@@ -327,7 +331,7 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
             if(bd.buscarServicio(nombre)!=-1){
                 System.out.println("EL REGISTRO YA EXISTE");
             }else{
-                bd.insertarServicio(new Servicio(0,nombre,descripcion,precio,tipo,1));
+                bd.insertarServicio(new Servicio(0,nombre,descripcion,precio,c.id+"",1));
             }
 
         } catch (NumberFormatException e) {
@@ -347,18 +351,29 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
             if(bd.buscarServicio(nombre)!=-1){
                 s=bd.buscarServicio(nombre, s);
                 txtNombre.setText(s.nombre);txtDescrip.setText(s.descripcion);
-                txtPrecio.setText(s.precio+""); cmbCategoria.setSelectedIndex(Integer.parseInt(s.categoriaServicio));
+                txtPrecio.setText(s.precio+""); 
+                for (int i = 0; i < cmbCategoria.getItemCount(); i++) { 
+                    if(cmbCategoria.getItemAt(i).equals(bd.buscarCategoria(s.categoriaServicio))){
+                        cmbCategoria.setSelectedIndex(i);
+                    } 
+                }
+                //cmbCategoria.setSelectedIndex(Integer.parseInt(s.categoriaServicio));
                 permisoEditar=true;permisoBorrar=true;
             }else{
                 System.out.println("EL REGISTRO YA EXISTE");
             }
         }
-        actualizarTabla();
+        actualizarTabla();//actaualiza
+        
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         String nombre=txtNombre.getText(), descripcion=txtDescrip.getText(),  tipo=cmbCategoria.getSelectedIndex()+"";
         double precio;
+        
+        Categorias c=new Categorias(); 
+        c=bd.buscarCategoria(cmbCategoria.getItemAt(Integer.parseInt(tipo)), c);
+        
         try {
             if (nombre.isEmpty() || descripcion.isEmpty() || tipo.isEmpty()) {
                 System.out.println("Los campos 'nombre', 'descripcion' y 'tipo' no pueden estar vacíos.");
@@ -367,9 +382,8 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
                 if ((precio = Double.parseDouble(txtPrecio.getText())) <= 0)
                 throw new NumberFormatException("El precio debe ser mayor a 0.");
             }
-            //s,new Servicio()
-            //if(permisoEditar)bd.insertarServicio(new Servicio(0,nombre,descripcion,precio,"",1));
-            if(permisoEditar)bd.actualizarServicio(new Servicio(0,nombre,descripcion,precio,tipo,1),bd.buscarServicio(nombre));
+             
+            if(permisoEditar)bd.actualizarServicio(new Servicio(0,nombre,descripcion,precio,c.id+"",1),bd.buscarServicio(nombre));
         } catch (NumberFormatException e) {
             System.out.println("Error en el campo 'precio': " + e.getMessage());
             return;
@@ -396,7 +410,31 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
-        // TODO add your handling code here:
+        String codigo=txtCodigo.getText();
+        Servicio s=new Servicio(0,"","",0.0,"",1);
+        if (codigo.isEmpty()) {
+            System.out.println("el campo 'nombre' estar vacíos.");
+            return;
+        }else{
+            
+                s=bd.buscarServicio(Integer.parseInt(codigo), s);
+                
+                
+                txtNombre.setText(s.nombre);txtDescrip.setText(s.descripcion);
+                txtPrecio.setText(s.precio+""); 
+                
+                
+                
+                for (int i = 0; i < cmbCategoria.getItemCount(); i++) { 
+                    if(cmbCategoria.getItemAt(i).equals(bd.buscarCategoria(Integer.parseInt(s.categoriaServicio)))){
+                        cmbCategoria.setSelectedIndex(i);
+                    } 
+                }
+                //cmbCategoria.setSelectedIndex(Integer.parseInt(s.categoriaServicio));
+                permisoEditar=true;permisoBorrar=true;
+            
+        }
+        actualizarTabla();
     }//GEN-LAST:event_btnBuscar1ActionPerformed
     
     public void vaciarTxt(){
@@ -488,8 +526,8 @@ public class VentanaAgregarServicio extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblServicios;
     private javax.swing.JButton tbnEliminar;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDescrip;
-    private javax.swing.JTextField txtDescrip1;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
