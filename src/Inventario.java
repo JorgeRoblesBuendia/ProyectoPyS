@@ -416,7 +416,6 @@ public class Inventario extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Regresando al menú principal...");
 
         VentanaGestionCategoria v=new VentanaGestionCategoria();
         v.bd=bd;
@@ -426,9 +425,7 @@ public class Inventario extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Regresando al menú principal...");
-
-        VentanaMenu v=new VentanaMenu();
+        VentanaProveedor v=new VentanaProveedor();
         v.bd=bd;
         v.setVisible(true);
         this.dispose();
@@ -436,7 +433,6 @@ public class Inventario extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Regresando al menú principal...");
 
         Almacen v=new Almacen();
         v.bd=bd;
@@ -446,7 +442,6 @@ public class Inventario extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Regresando al menú principal...");
 
         VetnanaGestionUsuarios v=new VetnanaGestionUsuarios();
         v.bd=bd;
