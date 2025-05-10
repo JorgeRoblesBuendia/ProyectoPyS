@@ -1,137 +1,157 @@
 
+import com.toedter.calendar.JDateChooser;
 import java.awt.Image;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class VentanaGanancias extends javax.swing.JFrame {
 
     BaseDatos bd;
     private javax.swing.JTable tblGanancias;
     private javax.swing.JScrollPane jScrollPane1;
+    private JDateChooser dateInicio, dateFin;
+    private JButton btnFiltrar;
+    private boolean filtroActivado = false;
 
-    public VentanaGanancias() {
+     public VentanaGanancias() {
         initComponents();
         bd = new BaseDatos();
         setLocationRelativeTo(null);
+
         try {
             if (bd.conexion.isClosed()) {
-                System.out.println("Noo!!!. Se cerro");
+                System.out.println("Noo!!!. Se cerró");
             }
         } catch (SQLException ex) {
-
             Logger.getLogger(VentanaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         setImagenEscalada(FONDO, "/imagenes/Fondo.jpg");
-        String correoActual = VentanaLogin.correoUsuario;
-        System.out.println("Correo obtenido: " + correoActual);
         JLabelCorreoMostrar.setText(VentanaLogin.correoUsuario);
 
-        tblGanancias = new javax.swing.JTable();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        lblTotalGanancias = new javax.swing.JLabel();
-        lblTotalProductos = new javax.swing.JLabel();
+        // Crear tabla y scroll
+        tblGanancias = new JTable();
+        jScrollPane1 = new JScrollPane(tblGanancias);
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 800, 250));
 
-// Configurar tabla
-        tblGanancias.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{},
-                new String[]{
-                    "ID Producto", "Cantidad", "Subtotal", "Fecha Venta"
-                }
-        ));
-        jScrollPane1.setViewportView(tblGanancias);
-
-// Agregar tabla a la ventana
-        
-
-// Label de productos
+        // Etiquetas de totales
         lblTotalProductos.setText("Total Productos Vendidos: 0");
-        
-
-// Label de ganancias
         lblTotalGanancias.setText("Ganancias Totales: $0.00");
-        
+        getContentPane().add(lblTotalProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, 400, 30));
+        getContentPane().add(lblTotalGanancias, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, 400, 30));
 
-        // 1. Agrega tabla y scrollpane
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 800, 250));
+        // Componentes del filtro
+        dateInicio = new JDateChooser();
+        dateFin = new JDateChooser();
+        btnFiltrar = new JButton("Filtrar");
 
-// 2. Agrega labels de ganancias y productos
-        getContentPane().add(lblTotalProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 400, 30));
-        getContentPane().add(lblTotalGanancias, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 400, 30));
+        getContentPane().add(dateInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 420, 150, 30));
+        getContentPane().add(dateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 420, 150, 30));
+        getContentPane().add(btnFiltrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 460, 150, 30));
 
-// 3. Hasta el FINAL, agrega el fondo
-        getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 914, 500));
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                cargarGanancias();
-            }
+        btnFiltrar.addActionListener(e -> {
+            filtroActivado = true;
+            cargarGanancias();
         });
 
-    }
+        getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 914, 500));
 
+        cargarGanancias(); // carga inicial
+    }
+   
     private void cargarGanancias() {
-       javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(
-        new Object[][]{},
-        new String[]{
-            "ID Producto", "Cantidad", "Subtotal de venta", "Precio Compra", "Ganancia/Unidad", "Ganancia Total", "Fecha Venta"
+        javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(
+            new Object[][]{},
+            new String[]{
+                "ID Producto", "Cantidad", "Subtotal de venta", "Precio Compra", "Ganancia/Unidad", "Ganancia Total", "Fecha Venta"
+            }
+        );
+        tblGanancias.setModel(modelo);
+
+        double totalVendidos = 0.0;
+        double totalGanancias = 0.0;
+        int totalProductos = 0;
+
+        try {
+            String sql = "SELECT dv.idProducto, dv.cantidad, dv.subtotal, v.fechaHora, a.precioCompra " +
+                         "FROM DetallesVenta dv " +
+                         "INNER JOIN Ventas v ON dv.idVenta = v.idVenta " +
+                         "INNER JOIN Almacen a ON dv.idProducto = a.idProducto";
+
+            java.sql.PreparedStatement pst;
+
+            if (filtroActivado) {
+                java.util.Date fechaIni = dateInicio.getDate();
+                java.util.Date fechaFin = dateFin.getDate();
+
+                if (fechaIni == null || fechaFin == null) {
+                    JOptionPane.showMessageDialog(this, "Selecciona ambas fechas para aplicar el filtro.");
+                    return;
+                }
+
+                sql += " WHERE v.fechaHora BETWEEN ? AND ?";
+                pst = bd.conexion.prepareStatement(sql);
+
+                java.util.Calendar calInicio = java.util.Calendar.getInstance();
+                calInicio.setTime(fechaIni);
+                calInicio.set(java.util.Calendar.HOUR_OF_DAY, 0);
+                calInicio.set(java.util.Calendar.MINUTE, 0);
+                calInicio.set(java.util.Calendar.SECOND, 0);
+                calInicio.set(java.util.Calendar.MILLISECOND, 0);
+
+                java.util.Calendar calFin = java.util.Calendar.getInstance();
+                calFin.setTime(fechaFin);
+                calFin.set(java.util.Calendar.HOUR_OF_DAY, 23);
+                calFin.set(java.util.Calendar.MINUTE, 59);
+                calFin.set(java.util.Calendar.SECOND, 59);
+                calFin.set(java.util.Calendar.MILLISECOND, 999);
+
+                Timestamp tsInicio = new Timestamp(calInicio.getTimeInMillis());
+                Timestamp tsFin = new Timestamp(calFin.getTimeInMillis());
+
+                pst.setTimestamp(1, tsInicio);
+                pst.setTimestamp(2, tsFin);
+            } else {
+                pst = bd.conexion.prepareStatement(sql);
+            }
+
+            java.sql.ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                int idProducto = rs.getInt("idProducto");
+                int cantidad = rs.getInt("cantidad");
+                double subtotal = rs.getDouble("subtotal");
+                double precioCompra = rs.getDouble("precioCompra");
+                Timestamp fecha = rs.getTimestamp("fechaHora");
+
+                double gananciaUnidad = (subtotal / cantidad) - precioCompra;
+                double gananciaTotal = gananciaUnidad * cantidad;
+
+                modelo.addRow(new Object[]{
+                    idProducto,
+                    cantidad,
+                    String.format("$%.2f", subtotal),
+                    String.format("$%.2f", precioCompra),
+                    String.format("$%.2f", gananciaUnidad),
+                    String.format("$%.2f", gananciaTotal),
+                    fecha.toString()
+                });
+
+                totalVendidos += subtotal;
+                totalGanancias += gananciaTotal;
+                totalProductos += cantidad;
+            }
+
+            lblTotalGanancias.setText(String.format("Ganancias netas: $%.2f", totalGanancias));
+            lblTotalProductos.setText("Total productos vendidos: " + totalProductos);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaGanancias.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al cargar las ganancias: " + ex.getMessage());
         }
-    );
-    tblGanancias.setModel(modelo);
-
-    double totalVendidos = 0.0;
-    double totalGanancias = 0.0;
-    int totalProductos = 0;
-
-    try {
-        String sql = "SELECT dv.idProducto, dv.cantidad, dv.subtotal, v.fechaHora, a.precioCompra " +
-                     "FROM DetallesVenta dv " +
-                     "INNER JOIN Ventas v ON dv.idVenta = v.idVenta " +
-                     "INNER JOIN Almacen a ON dv.idProducto = a.idProducto";
-
-        java.sql.PreparedStatement pst = bd.conexion.prepareStatement(sql);
-        java.sql.ResultSet rs = pst.executeQuery();
-
-        while (rs.next()) {
-            int idProducto = rs.getInt("idProducto");
-            int cantidad = rs.getInt("cantidad");
-            double subtotal = rs.getDouble("subtotal");
-            double precioCompra = rs.getDouble("precioCompra");
-            java.sql.Timestamp fecha = rs.getTimestamp("fechaHora");
-
-            double gananciaUnidad = (subtotal / cantidad) - precioCompra;
-            double gananciaTotal = gananciaUnidad * cantidad;
-
-            modelo.addRow(new Object[]{
-                idProducto,
-                cantidad,
-                String.format("$%.2f", subtotal),
-                String.format("$%.2f", precioCompra),
-                String.format("$%.2f", gananciaUnidad),
-                String.format("$%.2f", gananciaTotal),
-                fecha.toString()
-            });
-
-            totalVendidos += subtotal;
-            totalGanancias += gananciaTotal;
-            totalProductos += cantidad;
-        }
-
-        // Mostramos por separado lo vendido y lo ganado
-        lblTotalGanancias.setText(String.format("Ganancias netas: $%.2f", totalGanancias));
-        lblTotalProductos.setText("Total productos vendidos: " + totalProductos);
-
-        // Puedes agregar un tercer JLabel si quieres mostrar esto por separado
-        JOptionPane.showMessageDialog(this, String.format("Total vendido (ingresos brutos): $%.2f", totalVendidos));
-
-    } catch (SQLException ex) {
-        Logger.getLogger(VentanaGanancias.class.getName()).log(Level.SEVERE, null, ex);
-        JOptionPane.showMessageDialog(this, "Error al cargar las ganancias: " + ex.getMessage());
-    }
     }
 
     private void setImagenEscalada(JLabel label, String ruta) {
