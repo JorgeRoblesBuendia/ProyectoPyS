@@ -31,7 +31,7 @@ public class VentanaGanancias extends javax.swing.JFrame {
 
         setImagenEscalada(FONDO, "/imagenes/Fondo.jpg");
         JLabelCorreoMostrar.setText(VentanaLogin.correoUsuario);
-
+        
         // Crear tabla y scroll
         tblGanancias = new JTable();
         jScrollPane1 = new JScrollPane(tblGanancias);
@@ -47,6 +47,13 @@ public class VentanaGanancias extends javax.swing.JFrame {
         dateInicio = new JDateChooser();
         dateFin = new JDateChooser();
         btnFiltrar = new JButton("Filtrar");
+        //
+        JButton btnExportarPDF = new JButton("Exportar a PDF");
+        getContentPane().add(btnExportarPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 460, 130, 30));
+
+        btnExportarPDF.addActionListener(e -> {
+        exportarTablaGananciasAPDF();
+});
 
         getContentPane().add(dateInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 420, 150, 30));
         getContentPane().add(dateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 420, 150, 30));
@@ -328,6 +335,83 @@ public class VentanaGanancias extends javax.swing.JFrame {
         v.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+   private void exportarTablaGananciasAPDF() {
+    com.itextpdf.text.Document documento = new com.itextpdf.text.Document(
+        com.itextpdf.text.PageSize.A4, 36, 36, 36, 36 // márgenes: izquierda, derecha, arriba, abajo
+    );
+
+    try {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Guardar reporte como...");
+        chooser.setSelectedFile(new java.io.File("reporte_ganancias.pdf"));
+        int seleccion = chooser.showSaveDialog(this);
+
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            java.io.File archivo = chooser.getSelectedFile();
+            com.itextpdf.text.pdf.PdfWriter.getInstance(documento, new java.io.FileOutputStream(archivo));
+            documento.open();
+
+            // Fuentes
+            com.itextpdf.text.Font tituloFont = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 16, com.itextpdf.text.Font.BOLD);
+            com.itextpdf.text.Font encabezadoFont = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 10, com.itextpdf.text.Font.BOLD);
+            com.itextpdf.text.Font filaFont = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 9);
+
+            // Título
+            com.itextpdf.text.Paragraph titulo = new com.itextpdf.text.Paragraph("P&S - REPORTE DE GANANCIAS", tituloFont);
+            titulo.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+            documento.add(titulo);
+
+            documento.add(new com.itextpdf.text.Paragraph("Fecha de generación: " + new java.util.Date()));
+            documento.add(new com.itextpdf.text.Paragraph(" ")); // espacio
+
+            // Tabla PDF
+            com.itextpdf.text.pdf.PdfPTable tablaPDF = new com.itextpdf.text.pdf.PdfPTable(tblGanancias.getColumnCount());
+            tablaPDF.setWidthPercentage(100); // ocupa el 100% del ancho
+            tablaPDF.setSpacingBefore(10f);
+            tablaPDF.setSpacingAfter(10f);
+            tablaPDF.setWidths(new float[]{1.2f, 1f, 1.5f, 1.5f, 1.5f, 1.5f, 2.5f, 2f}); // ancho relativo por columna
+
+            // Encabezados
+            for (int i = 0; i < tblGanancias.getColumnCount(); i++) {
+                com.itextpdf.text.pdf.PdfPCell celda = new com.itextpdf.text.pdf.PdfPCell(new com.itextpdf.text.Phrase(tblGanancias.getColumnName(i), encabezadoFont));
+                celda.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+                celda.setPadding(5);
+                tablaPDF.addCell(celda);
+            }
+
+            // Filas + totales
+            double totalGanancia = 0.0;
+            int totalCantidad = 0;
+
+            for (int i = 0; i < tblGanancias.getRowCount(); i++) {
+                for (int j = 0; j < tblGanancias.getColumnCount(); j++) {
+                    Object valor = tblGanancias.getValueAt(i, j);
+                    com.itextpdf.text.pdf.PdfPCell celda = new com.itextpdf.text.pdf.PdfPCell(new com.itextpdf.text.Phrase(valor != null ? valor.toString() : "", filaFont));
+                    celda.setPadding(4);
+                    tablaPDF.addCell(celda);
+                }
+
+                try {
+                    totalCantidad += Integer.parseInt(tblGanancias.getValueAt(i, 1).toString());
+                    totalGanancia += Double.parseDouble(tblGanancias.getValueAt(i, 5).toString().replace("$", ""));
+                } catch (NumberFormatException e) {}
+            }
+
+            documento.add(tablaPDF);
+            documento.add(new com.itextpdf.text.Paragraph(" "));
+            documento.add(new com.itextpdf.text.Paragraph("Total productos vendidos: " + totalCantidad, filaFont));
+            documento.add(new com.itextpdf.text.Paragraph(String.format("Ganancias netas: $%.2f", totalGanancia), filaFont));
+
+            documento.close();
+            JOptionPane.showMessageDialog(this, "PDF exportado correctamente.");
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al exportar a PDF: " + e.getMessage());
+    }
+}
+
+
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
