@@ -63,96 +63,98 @@ public class VentanaGanancias extends javax.swing.JFrame {
     }
    
     private void cargarGanancias() {
-        javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(
-            new Object[][]{},
-            new String[]{
-                "ID Producto", "Cantidad", "Subtotal de venta", "Precio Compra", "Ganancia/Unidad", "Ganancia Total", "Fecha Venta"
-            }
-        );
-        tblGanancias.setModel(modelo);
-
-        double totalVendidos = 0.0;
-        double totalGanancias = 0.0;
-        int totalProductos = 0;
-
-        try {
-            String sql = "SELECT dv.idProducto, dv.cantidad, dv.subtotal, v.fechaHora, a.precioCompra " +
-                         "FROM DetallesVenta dv " +
-                         "INNER JOIN Ventas v ON dv.idVenta = v.idVenta " +
-                         "INNER JOIN Almacen a ON dv.idProducto = a.idProducto";
-
-            java.sql.PreparedStatement pst;
-
-            if (filtroActivado) {
-                java.util.Date fechaIni = dateInicio.getDate();
-                java.util.Date fechaFin = dateFin.getDate();
-
-                if (fechaIni == null || fechaFin == null) {
-                    JOptionPane.showMessageDialog(this, "Selecciona ambas fechas para aplicar el filtro.");
-                    return;
-                }
-
-                sql += " WHERE v.fechaHora BETWEEN ? AND ?";
-                pst = bd.conexion.prepareStatement(sql);
-
-                java.util.Calendar calInicio = java.util.Calendar.getInstance();
-                calInicio.setTime(fechaIni);
-                calInicio.set(java.util.Calendar.HOUR_OF_DAY, 0);
-                calInicio.set(java.util.Calendar.MINUTE, 0);
-                calInicio.set(java.util.Calendar.SECOND, 0);
-                calInicio.set(java.util.Calendar.MILLISECOND, 0);
-
-                java.util.Calendar calFin = java.util.Calendar.getInstance();
-                calFin.setTime(fechaFin);
-                calFin.set(java.util.Calendar.HOUR_OF_DAY, 23);
-                calFin.set(java.util.Calendar.MINUTE, 59);
-                calFin.set(java.util.Calendar.SECOND, 59);
-                calFin.set(java.util.Calendar.MILLISECOND, 999);
-
-                Timestamp tsInicio = new Timestamp(calInicio.getTimeInMillis());
-                Timestamp tsFin = new Timestamp(calFin.getTimeInMillis());
-
-                pst.setTimestamp(1, tsInicio);
-                pst.setTimestamp(2, tsFin);
-            } else {
-                pst = bd.conexion.prepareStatement(sql);
-            }
-
-            java.sql.ResultSet rs = pst.executeQuery();
-
-            while (rs.next()) {
-                int idProducto = rs.getInt("idProducto");
-                int cantidad = rs.getInt("cantidad");
-                double subtotal = rs.getDouble("subtotal");
-                double precioCompra = rs.getDouble("precioCompra");
-                Timestamp fecha = rs.getTimestamp("fechaHora");
-
-                double gananciaUnidad = (subtotal / cantidad) - precioCompra;
-                double gananciaTotal = gananciaUnidad * cantidad;
-
-                modelo.addRow(new Object[]{
-                    idProducto,
-                    cantidad,
-                    String.format("$%.2f", subtotal),
-                    String.format("$%.2f", precioCompra),
-                    String.format("$%.2f", gananciaUnidad),
-                    String.format("$%.2f", gananciaTotal),
-                    fecha.toString()
-                });
-
-                totalVendidos += subtotal;
-                totalGanancias += gananciaTotal;
-                totalProductos += cantidad;
-            }
-
-            lblTotalGanancias.setText(String.format("Ganancias netas: $%.2f", totalGanancias));
-            lblTotalProductos.setText("Total productos vendidos: " + totalProductos);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(VentanaGanancias.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Error al cargar las ganancias: " + ex.getMessage());
+    javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(
+        new Object[][]{},
+        new String[]{
+            "ID Producto", "Cantidad", "Subtotal de venta", "Precio Compra", "Ganancia/Unidad", "Ganancia Total", "Fecha Venta", "Empleado"
         }
+    );
+    tblGanancias.setModel(modelo);
+
+    double totalVendidos = 0.0;
+    double totalGanancias = 0.0;
+    int totalProductos = 0;
+
+    try {
+        String sql = "SELECT dv.idProducto, dv.cantidad, dv.subtotal, v.fechaHora, a.precioCompra, v.correoEmpleado " +
+                     "FROM DetallesVenta dv " +
+                     "INNER JOIN Ventas v ON dv.idVenta = v.idVenta " +
+                     "INNER JOIN Almacen a ON dv.idProducto = a.idProducto";
+
+        java.sql.PreparedStatement pst;
+
+        if (filtroActivado) {
+            java.util.Date fechaIni = dateInicio.getDate();
+            java.util.Date fechaFin = dateFin.getDate();
+
+            if (fechaIni == null || fechaFin == null) {
+                JOptionPane.showMessageDialog(this, "Selecciona ambas fechas para aplicar el filtro.");
+                return;
+            }
+
+            java.util.Calendar calInicio = java.util.Calendar.getInstance();
+            calInicio.setTime(fechaIni);
+            calInicio.set(java.util.Calendar.HOUR_OF_DAY, 0);
+            calInicio.set(java.util.Calendar.MINUTE, 0);
+            calInicio.set(java.util.Calendar.SECOND, 0);
+            calInicio.set(java.util.Calendar.MILLISECOND, 0);
+
+            java.util.Calendar calFin = java.util.Calendar.getInstance();
+            calFin.setTime(fechaFin);
+            calFin.set(java.util.Calendar.HOUR_OF_DAY, 23);
+            calFin.set(java.util.Calendar.MINUTE, 59);
+            calFin.set(java.util.Calendar.SECOND, 59);
+            calFin.set(java.util.Calendar.MILLISECOND, 999);
+
+            java.sql.Timestamp tsInicio = new java.sql.Timestamp(calInicio.getTimeInMillis());
+            java.sql.Timestamp tsFin = new java.sql.Timestamp(calFin.getTimeInMillis());
+
+            sql += " WHERE v.fechaHora BETWEEN ? AND ?";
+            pst = bd.conexion.prepareStatement(sql);
+            pst.setTimestamp(1, tsInicio);
+            pst.setTimestamp(2, tsFin);
+        } else {
+            pst = bd.conexion.prepareStatement(sql);
+        }
+
+        java.sql.ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            int idProducto = rs.getInt("idProducto");
+            int cantidad = rs.getInt("cantidad");
+            double subtotal = rs.getDouble("subtotal");
+            double precioCompra = rs.getDouble("precioCompra");
+            java.sql.Timestamp fecha = rs.getTimestamp("fechaHora");
+            String correoEmpleado = rs.getString("correoEmpleado");
+
+            double gananciaUnidad = (subtotal / cantidad) - precioCompra;
+            double gananciaTotal = gananciaUnidad * cantidad;
+
+            modelo.addRow(new Object[]{
+                idProducto,
+                cantidad,
+                String.format("$%.2f", subtotal),
+                String.format("$%.2f", precioCompra),
+                String.format("$%.2f", gananciaUnidad),
+                String.format("$%.2f", gananciaTotal),
+                fecha.toString(),
+                correoEmpleado
+            });
+
+            totalVendidos += subtotal;
+            totalGanancias += gananciaTotal;
+            totalProductos += cantidad;
+        }
+
+        lblTotalGanancias.setText(String.format("Ganancias netas: $%.2f", totalGanancias));
+        lblTotalProductos.setText("Total productos vendidos: " + totalProductos);
+
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaGanancias.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(this, "Error al cargar las ganancias: " + ex.getMessage());
     }
+}
+
 
     private void setImagenEscalada(JLabel label, String ruta) {
         ImageIcon icon = new ImageIcon(getClass().getResource(ruta));

@@ -564,21 +564,25 @@ public boolean actualizarProductos(Producto p) {
     //-----------------------------------ventaaaa
 
     public boolean insertarVenta(Ventas v) {
-        try {
-            String SQL = "INSERT INTO `Ventas` ( `total`, `tipoPago`,`fechaHora`) " +
-                         "VALUES ( %Total%, '%TipoPago%', NOW())";
-            //SQL = SQL.replaceAll("%FechaHora%", null);
-            //SQL = SQL.replaceAll("%IdEmpleado%", String.valueOf(v.idEmpleado));
-            SQL = SQL.replaceAll("%Total%", String.valueOf(v.total));
-            SQL = SQL.replaceAll("%TipoPago%", v.tipoPago);
-            transaccion.execute(SQL);
-            System.out.println(SQL);
-        } catch (SQLException ex) {
-            System.out.println("Error al insertar venta: " + ex.getMessage());
-            return false;
-        }
-        return true;
+    try {
+        String correoEmpleado = VentanaLogin.correoUsuario;  // ← Aquí obtenemos el correo del empleado
+
+        String SQL = "INSERT INTO `Ventas` (`total`, `tipoPago`, `fechaHora`, `correoEmpleado`) " +
+                     "VALUES (%Total%, '%TipoPago%', NOW(), '%Correo%')";
+
+        SQL = SQL.replaceAll("%Total%", String.valueOf(v.total));
+        SQL = SQL.replaceAll("%TipoPago%", v.tipoPago);
+        SQL = SQL.replaceAll("%Correo%", correoEmpleado);
+
+        transaccion.execute(SQL);
+        System.out.println(SQL);
+    } catch (SQLException ex) {
+        System.out.println("Error al insertar venta: " + ex.getMessage());
+        return false;
     }
+    return true;
+}
+
 
     public Ventas buscarVenta(int idVenta) {
         Ventas v = null;
