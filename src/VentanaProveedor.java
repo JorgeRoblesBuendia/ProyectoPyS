@@ -362,24 +362,29 @@ public class VentanaProveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-    if(JOptionPane.showConfirmDialog(this, "¿seguro de que quieres borrar este proveedor?")==0){      
-        // Obtener el modelo de la tabla
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-
-        // Obtener el índice de la fila seleccionada 
+    if(JOptionPane.showConfirmDialog(this, "¿Seguro de que quieres borrar este proveedor?")==0){      
         int filaSeleccionada = jTable1.getSelectedRow();
 
-        // Verificar si se seleccionó una fila
         if (filaSeleccionada >= 0) {
-            modelo.removeRow(filaSeleccionada); // Eliminar la fila
+            String correo = jTable1.getValueAt(filaSeleccionada, 2).toString(); // columna del correo
+            int idProveedor = bd.buscarProveedor(correo);
+
+            boolean eliminado = bd.eliminarProveedor(correo); // intenta eliminar
+
+            if (eliminado) {
+                ((DefaultTableModel) jTable1.getModel()).removeRow(filaSeleccionada);
+                JOptionPane.showMessageDialog(this, "Proveedor eliminado correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(this, 
+                    "No se puede eliminar el proveedor porque está vinculado a uno o más productos.", 
+                    "Error de eliminación", 
+                    JOptionPane.ERROR_MESSAGE);
+            }
+
         } else {
-            JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar");
+            JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar.");
         } 
-    
-    
-        System.out.println("seco");
-        bd.eliminarProveedor(txtCorreo.getText());permisoBorrar=false;//actualizarTabla();
-        
+
     }
      
         /*if(permisoBorrar){
