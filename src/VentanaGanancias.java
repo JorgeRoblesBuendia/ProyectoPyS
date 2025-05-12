@@ -69,11 +69,11 @@ public class VentanaGanancias extends javax.swing.JFrame {
         cargarGanancias(); // carga inicial
     }
    
-    private void cargarGanancias() {
+private void cargarGanancias() {
     javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(
         new Object[][]{},
         new String[]{
-            "ID Producto", "Cantidad", "Subtotal de venta", "Precio Compra", "Ganancia/Unidad", "Ganancia Total", "Fecha Venta", "Empleado"
+            "Nombre Producto", "Cantidad", "Subtotal de venta", "Precio Compra", "Ganancia/Unidad", "Ganancia Total", "Fecha Venta", "Empleado"
         }
     );
     tblGanancias.setModel(modelo);
@@ -83,10 +83,11 @@ public class VentanaGanancias extends javax.swing.JFrame {
     int totalProductos = 0;
 
     try {
-        String sql = "SELECT dv.idProducto, dv.cantidad, dv.subtotal, v.fechaHora, a.precioCompra, v.correoEmpleado " +
+        String sql = "SELECT p.nombre AS nombreProducto, dv.cantidad, dv.subtotal, v.fechaHora, a.precioCompra, v.correoEmpleado " +
                      "FROM DetallesVenta dv " +
                      "INNER JOIN Ventas v ON dv.idVenta = v.idVenta " +
-                     "INNER JOIN Almacen a ON dv.idProducto = a.idProducto";
+                     "INNER JOIN Almacen a ON dv.idProducto = a.idProducto " +
+                     "INNER JOIN Productos p ON dv.idProducto = p.idProducto";
 
         java.sql.PreparedStatement pst;
 
@@ -127,7 +128,7 @@ public class VentanaGanancias extends javax.swing.JFrame {
         java.sql.ResultSet rs = pst.executeQuery();
 
         while (rs.next()) {
-            int idProducto = rs.getInt("idProducto");
+            String nombreProducto = rs.getString("nombreProducto");
             int cantidad = rs.getInt("cantidad");
             double subtotal = rs.getDouble("subtotal");
             double precioCompra = rs.getDouble("precioCompra");
@@ -138,7 +139,7 @@ public class VentanaGanancias extends javax.swing.JFrame {
             double gananciaTotal = gananciaUnidad * cantidad;
 
             modelo.addRow(new Object[]{
-                idProducto,
+                nombreProducto,
                 cantidad,
                 String.format("$%.2f", subtotal),
                 String.format("$%.2f", precioCompra),
@@ -161,6 +162,7 @@ public class VentanaGanancias extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Error al cargar las ganancias: " + ex.getMessage());
     }
 }
+
 
 
     private void setImagenEscalada(JLabel label, String ruta) {
@@ -193,7 +195,7 @@ public class VentanaGanancias extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 3, 30)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("REPORTE DE VENTAS");
+        jLabel4.setText("REPORTE");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 920, -1));
 
         JLabelCorreoMostrar.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
@@ -329,15 +331,14 @@ public class VentanaGanancias extends javax.swing.JFrame {
         v.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItem6ActionPerformed
-   private void exportarTablaGananciasAPDF() {
-    com.itextpdf.text.Document documento = new com.itextpdf.text.Document(
-        com.itextpdf.text.PageSize.A4, 36, 36, 36, 36 // márgenes: izquierda, derecha, arriba, abajo
+  private void exportarTablaGananciasAPDF() {
+   com.itextpdf.text.Document documento = new com.itextpdf.text.Document(
+    com.itextpdf.text.PageSize.A4.rotate(), 36, 36, 36, 36
     );
-
     try {
         JFileChooser chooser = new JFileChooser();
         chooser.setDialogTitle("Guardar reporte como...");
-        chooser.setSelectedFile(new java.io.File("reporte_ganancias.pdf"));
+        chooser.setSelectedFile(new java.io.File("reporte_pys.pdf"));
         int seleccion = chooser.showSaveDialog(this);
 
         if (seleccion == JFileChooser.APPROVE_OPTION) {
@@ -351,7 +352,7 @@ public class VentanaGanancias extends javax.swing.JFrame {
             com.itextpdf.text.Font filaFont = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 9);
 
             // Título
-            com.itextpdf.text.Paragraph titulo = new com.itextpdf.text.Paragraph("P&S - REPORTE DE GANANCIAS", tituloFont);
+            com.itextpdf.text.Paragraph titulo = new com.itextpdf.text.Paragraph("P&S - REPORTE", tituloFont);
             titulo.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
             documento.add(titulo);
 
@@ -360,27 +361,29 @@ public class VentanaGanancias extends javax.swing.JFrame {
 
             // Tabla PDF
             com.itextpdf.text.pdf.PdfPTable tablaPDF = new com.itextpdf.text.pdf.PdfPTable(tblGanancias.getColumnCount());
-            tablaPDF.setWidthPercentage(100); // ocupa el 100% del ancho
+            tablaPDF.setWidthPercentage(100);
             tablaPDF.setSpacingBefore(10f);
             tablaPDF.setSpacingAfter(10f);
-            tablaPDF.setWidths(new float[]{1.2f, 1f, 1.5f, 1.5f, 1.5f, 1.5f, 2.5f, 2f}); // ancho relativo por columna
+            tablaPDF.setWidths(new float[]{2.5f, 1f, 1.5f, 1.5f, 1.5f, 1.5f, 2.5f, 2f}); // ajustado para texto largo
 
             // Encabezados
             for (int i = 0; i < tblGanancias.getColumnCount(); i++) {
-                com.itextpdf.text.pdf.PdfPCell celda = new com.itextpdf.text.pdf.PdfPCell(new com.itextpdf.text.Phrase(tblGanancias.getColumnName(i), encabezadoFont));
+                com.itextpdf.text.pdf.PdfPCell celda = new com.itextpdf.text.pdf.PdfPCell(
+                    new com.itextpdf.text.Phrase(tblGanancias.getColumnName(i), encabezadoFont));
                 celda.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
                 celda.setPadding(5);
                 tablaPDF.addCell(celda);
             }
 
-            // Filas + totales
+            // Filas y totales
             double totalGanancia = 0.0;
             int totalCantidad = 0;
 
             for (int i = 0; i < tblGanancias.getRowCount(); i++) {
                 for (int j = 0; j < tblGanancias.getColumnCount(); j++) {
                     Object valor = tblGanancias.getValueAt(i, j);
-                    com.itextpdf.text.pdf.PdfPCell celda = new com.itextpdf.text.pdf.PdfPCell(new com.itextpdf.text.Phrase(valor != null ? valor.toString() : "", filaFont));
+                    com.itextpdf.text.pdf.PdfPCell celda = new com.itextpdf.text.pdf.PdfPCell(
+                        new com.itextpdf.text.Phrase(valor != null ? valor.toString() : "", filaFont));
                     celda.setPadding(4);
                     tablaPDF.addCell(celda);
                 }
@@ -388,7 +391,9 @@ public class VentanaGanancias extends javax.swing.JFrame {
                 try {
                     totalCantidad += Integer.parseInt(tblGanancias.getValueAt(i, 1).toString());
                     totalGanancia += Double.parseDouble(tblGanancias.getValueAt(i, 5).toString().replace("$", ""));
-                } catch (NumberFormatException e) {}
+                } catch (NumberFormatException e) {
+                    // Ignorar si hay error
+                }
             }
 
             documento.add(tablaPDF);
@@ -397,13 +402,14 @@ public class VentanaGanancias extends javax.swing.JFrame {
             documento.add(new com.itextpdf.text.Paragraph(String.format("Ganancias netas: $%.2f", totalGanancia), filaFont));
 
             documento.close();
-            JOptionPane.showMessageDialog(this, "PDF exportado correctamente.");
+            JOptionPane.showMessageDialog(this, "✅ PDF exportado correctamente.");
         }
 
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Error al exportar a PDF: " + e.getMessage());
+        JOptionPane.showMessageDialog(this, "❌ Error al exportar a PDF: " + e.getMessage());
     }
 }
+
 
 
 

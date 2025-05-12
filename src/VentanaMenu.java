@@ -21,8 +21,6 @@ public class VentanaMenu extends javax.swing.JFrame {
      */
     public VentanaMenu() {
         initComponents();
-        jMenu6.setText("<html><center>Reporte<br>de ventas</center></html>");
-        jMenuItem_Servicios.setText("<html><center>Reporte<br>de ventas</center></html>");
         setLocationRelativeTo(null);
         
         bd=new BaseDatos();
