@@ -1,10 +1,16 @@
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.IOException;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -23,9 +29,11 @@ public class VentanaLogin extends javax.swing.JFrame {
      */
     public VentanaLogin() {
         initComponents();
+        cargarUltimoCorreo();
         setLocationRelativeTo(null);
         this.lblHide.setVisible(false);
         bd=new BaseDatos();
+        
         try {
             if(bd.conexion.isClosed()){
                 System.out.println("Noo!!!. Se cerro");
@@ -71,38 +79,40 @@ public class VentanaLogin extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 102, 102));
         setIconImage(getIconImage());
 
-        jPanel2.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel2.setBackground(new java.awt.Color(30, 58, 138));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setPreferredSize(new java.awt.Dimension(350, 500));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(241, 245, 249));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Sistema de Venta");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 122, 425, -1));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 440, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setForeground(new java.awt.Color(203, 213, 225));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("© Tigres Maiden");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(157, 365, -1, -1));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 440, -1));
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 356, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setForeground(new java.awt.Color(203, 213, 225));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Powered by P&S...");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 497, 179, -1));
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/carrito1.png"))); // NOI18N
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(157, 204, 152, -1));
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/online-store (1).png"))); // NOI18N
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 270, -1));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(249, 250, 251));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnInISec.setBackground(new java.awt.Color(102, 102, 255));
+        btnInISec.setBackground(new java.awt.Color(59, 130, 246));
         btnInISec.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnInISec.setForeground(new java.awt.Color(255, 255, 255));
         btnInISec.setText("Iniciar Sesion");
         btnInISec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,8 +121,9 @@ public class VentanaLogin extends javax.swing.JFrame {
         });
         jPanel3.add(btnInISec, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 341, 279, 40));
 
-        btnCrearUsuario.setBackground(new java.awt.Color(102, 102, 255));
+        btnCrearUsuario.setBackground(new java.awt.Color(59, 130, 246));
         btnCrearUsuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCrearUsuario.setForeground(new java.awt.Color(255, 255, 255));
         btnCrearUsuario.setText("Crear usuario");
         btnCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,12 +271,14 @@ public class VentanaLogin extends javax.swing.JFrame {
             VentanaLogin.correoUsuario = correo;
 
             if (bd.buscarLogin(correo, contrasena)) {
+                guardarUltimoCorreo(correo); // << AQUI
                 JOptionPane.showMessageDialog(this, "¡Inicio de sesión como Gerente exitoso!");
                 VentanaMenu v = new VentanaMenu();
                 v.bd = bd;
                 v.setVisible(true);
                 this.dispose();
             } else if (bd.buscarLoginEmpleado(correo, contrasena)) {
+                guardarUltimoCorreo(correo); // << AQUI
                 JOptionPane.showMessageDialog(this, "¡Inicio de sesión como Empleado exitoso!");
 
                 VentanaMenuEmpleado v = new VentanaMenuEmpleado();
@@ -286,6 +299,9 @@ public class VentanaLogin extends javax.swing.JFrame {
 
     private void txtConKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConKeyPressed
         // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        btnInISec.doClick(); // Simula un clic en "Iniciar Sesión"
+    }
     }//GEN-LAST:event_txtConKeyPressed
 
     private void txtConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConActionPerformed
@@ -348,6 +364,25 @@ public class VentanaLogin extends javax.swing.JFrame {
     txtCon.setText("");
     txtCorreo.requestFocus();
 } 
+private void cargarUltimoCorreo() {
+    try {
+        Path path = Paths.get("ultimo_correo.txt");
+        if (Files.exists(path)) {
+            String correoGuardado = Files.readString(path).trim();
+            txtCorreo.setText(correoGuardado);
+        }
+    } catch (IOException e) {
+        System.out.println("No se pudo cargar el correo anterior.");
+    }
+}
+
+private void guardarUltimoCorreo(String correo) {
+    try {
+        Files.write(Paths.get("ultimo_correo.txt"), correo.getBytes());
+    } catch (IOException e) {
+        System.out.println("No se pudo guardar el correo.");
+    }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearUsuario;
