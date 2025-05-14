@@ -11,6 +11,8 @@ public class VentanaGanancias extends javax.swing.JFrame {
 
     BaseDatos bd;
     private javax.swing.JTable tblGanancias;
+    private JTextField txtBuscar;
+    private TableRowSorter<javax.swing.table.DefaultTableModel> sorter;
     private javax.swing.JScrollPane jScrollPane1;
     private JDateChooser dateInicio, dateFin;
     private JButton btnFiltrar;
@@ -64,9 +66,48 @@ public class VentanaGanancias extends javax.swing.JFrame {
             cargarGanancias();
         });
 
-        getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 914, 500));
+        // Campo de búsqueda
+txtBuscar = new JTextField("Buscar producto o empleado...");
+txtBuscar.setFont(new java.awt.Font("Segoe UI", java.awt.Font.ITALIC, 14));
+txtBuscar.setForeground(java.awt.Color.GRAY);
+
+// Al enfocar, borra el texto guía
+txtBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+    public void focusGained(java.awt.event.FocusEvent e) {
+        if (txtBuscar.getText().equals("Buscar producto o empleado...")) {
+            txtBuscar.setText("");
+            txtBuscar.setForeground(java.awt.Color.BLACK);
+        }
+    }
+
+    public void focusLost(java.awt.event.FocusEvent e) {
+        if (txtBuscar.getText().isEmpty()) {
+            txtBuscar.setForeground(java.awt.Color.GRAY);
+            txtBuscar.setText("Buscar...");
+        }
+    }
+});
+
+// Escucha para filtrar en tiempo real
+txtBuscar.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+    public void insertUpdate(javax.swing.event.DocumentEvent e) {
+        filtrarTabla();
+    }
+
+    public void removeUpdate(javax.swing.event.DocumentEvent e) {
+        filtrarTabla();
+    }
+
+    public void changedUpdate(javax.swing.event.DocumentEvent e) {
+        filtrarTabla();
+    }
+});
+
+getContentPane().add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 300, 32));
 
         cargarGanancias(); // carga inicial
+        getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 914, 500));
+
     }
    
 private void cargarGanancias() {
@@ -77,7 +118,7 @@ private void cargarGanancias() {
         }
     );
     tblGanancias.setModel(modelo);
-    TableRowSorter<javax.swing.table.DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+    sorter = new TableRowSorter<>(modelo); // asignamos al global
     tblGanancias.setRowSorter(sorter);
 
     double totalVendidos = 0.0;
@@ -411,6 +452,46 @@ private void cargarGanancias() {
         JOptionPane.showMessageDialog(this, "❌ Error al exportar a PDF: " + e.getMessage());
     }
 }
+private void filtrarTabla() {
+    String texto = txtBuscar.getText().trim();
+
+    if (sorter == null) return;
+
+    if (texto.equals("") || texto.equals("Buscar...")) {
+        sorter.setRowFilter(null);
+        return;
+    }
+
+    // Validación: solo permite letras, números, espacios, @, punto, guión y signo $
+    boolean contieneSimbolosInvalidos = texto.matches(".*[^\\p{L}0-9@.\\-\\s\\$:].*");
+
+    if (contieneSimbolosInvalidos) {
+        SwingUtilities.invokeLater(() -> {
+            JOptionPane.showMessageDialog(this,
+                "❌ Entrada inválida.\nPuedes buscar por nombres, correos, fechas (2025-05) o montos como $45.",
+                "Búsqueda no válida",
+                JOptionPane.WARNING_MESSAGE);
+            txtBuscar.setText("");
+        });
+        sorter.setRowFilter(null);
+        return;
+    }
+
+    // Filtro seguro (Pattern.quote evita errores con símbolos como $)
+    sorter.setRowFilter(javax.swing.RowFilter.regexFilter("(?i)" + java.util.regex.Pattern.quote(texto)));
+
+    // Mensaje si no se encuentra ninguna coincidencia
+    if (tblGanancias.getRowCount() == 0) {
+        JOptionPane.showMessageDialog(this,
+            "⚠️ No se encontraron resultados para: \"" + texto + "\"",
+            "Sin coincidencias",
+            JOptionPane.INFORMATION_MESSAGE);
+    }
+}
+
+
+
+
 
 
 
