@@ -2,6 +2,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -166,7 +167,7 @@ public class BaseDatos {
     /**
      * Inserta un producto en la base de datos.
      * 
-     * @param p Producto que se desea insertar. Debe contener los valores necesarios
+     * @param  Producto que se desea insertar. Debe contener los valores necesarios
      *          como nombre, descripción, código de barras, precio de compra, precio de venta,
      *          stock, stock mínimo, id de categoría y id de proveedor.
      * @return true si la operación fue exitosa, false en caso de error (por ejemplo, una SQLException).
@@ -174,6 +175,66 @@ public class BaseDatos {
      * Este método construye una consulta SQL basada en los atributos del objeto Producto
      * proporcionado, reemplazando los valores correspondientes en la consulta y ejecutándola.
      */
+    public ArrayList<String[]> mostrarProductosPorCategoria(String nombreCategoria) {
+    ArrayList<String[]> datos = new ArrayList<>();
+    try {
+        String consulta = "SELECT p.nombre, p.descripcion, p.stockMinimo, p.codigoBarras, c.nombre AS categoria, pr.nombre AS proveedor " +
+                          "FROM Productos p " +
+                          "JOIN Categorias c ON p.idCategoria = c.idCategoria " +
+                          "JOIN Proveedores pr ON p.idProveedor = pr.idProveedor " +
+                          "WHERE c.nombre = ?";
+        PreparedStatement pst = conexion.prepareStatement(consulta);
+        pst.setString(1, nombreCategoria);
+        ResultSet rs = pst.executeQuery();
+        while (rs.next()) {
+            String[] fila = new String[6];
+            fila[0] = rs.getString("nombre");
+            fila[1] = rs.getString("descripcion");
+            fila[2] = rs.getString("stockMinimo");
+            fila[3] = rs.getString("codigoBarras");
+            fila[4] = rs.getString("categoria");
+            fila[5] = rs.getString("proveedor");
+            datos.add(fila);
+        }
+        rs.close();
+        pst.close();
+    } catch (SQLException ex) {
+        Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(null, "Error al filtrar productos por categoría.\n" + ex.getMessage());
+    }
+    return datos;
+}
+public ArrayList<String[]> mostrarProductosPorProveedor(String nombreProveedor) {
+    ArrayList<String[]> datos = new ArrayList<>();
+    try {
+        String consulta = "SELECT p.nombre, p.descripcion, p.stockMinimo, p.codigoBarras, c.nombre AS categoria, pr.nombre AS proveedor " +
+                          "FROM Productos p " +
+                          "JOIN Categorias c ON p.idCategoria = c.idCategoria " +
+                          "JOIN Proveedores pr ON p.idProveedor = pr.idProveedor " +
+                          "WHERE pr.nombre = ?";
+        PreparedStatement pst = conexion.prepareStatement(consulta);
+        pst.setString(1, nombreProveedor);
+        ResultSet rs = pst.executeQuery();
+        while (rs.next()) {
+            String[] fila = new String[6];
+            fila[0] = rs.getString("nombre");
+            fila[1] = rs.getString("descripcion");
+            fila[2] = rs.getString("stockMinimo");
+            fila[3] = rs.getString("codigoBarras");
+            fila[4] = rs.getString("categoria");
+            fila[5] = rs.getString("proveedor");
+            datos.add(fila);
+        }
+        rs.close();
+        pst.close();
+    } catch (SQLException ex) {
+        Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(null, "Error al filtrar productos por proveedor.\n" + ex.getMessage());
+    }
+    return datos;
+}
+
+
     public boolean insertarProducto(Producto p) {
         try {
             /*

@@ -1,4 +1,4 @@
-
+import javax.swing.table.TableRowSorter;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -77,6 +77,8 @@ private void cargarGanancias() {
         }
     );
     tblGanancias.setModel(modelo);
+    TableRowSorter<javax.swing.table.DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+    tblGanancias.setRowSorter(sorter);
 
     double totalVendidos = 0.0;
     double totalGanancias = 0.0;

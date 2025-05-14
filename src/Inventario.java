@@ -177,6 +177,11 @@ public class Inventario extends javax.swing.JFrame {
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
         cmbProveedor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cmbProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbProveedorActionPerformed(evt);
+            }
+        });
         jPanel4.add(cmbProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 190, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -440,6 +445,26 @@ public class Inventario extends javax.swing.JFrame {
 
     private void cmbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoriaActionPerformed
         // TODO add your handling code here:
+        int index = cmbCategoria.getSelectedIndex();
+    if (index <= 0) {
+        // Si selecciona "Selecciona una Categoria" o no hay nada válido, mostrar todo
+        actualizarTabla();
+        return;
+    }
+
+    String categoriaSeleccionada = cmbCategoria.getItemAt(index);
+    ArrayList<String[]> datos = bd.mostrarProductosPorCategoria(categoriaSeleccionada);
+
+    // Limpiar la tabla
+    int totalRenglones = m.getRowCount();
+    for (int i = 0; i < totalRenglones; i++) {
+        m.removeRow(0);
+    }
+
+    // Agregar los productos filtrados
+    for (String[] fila : datos) {
+        m.addRow(fila);
+    }
     }//GEN-LAST:event_cmbCategoriaActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -485,6 +510,30 @@ public class Inventario extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItem_ServiciosActionPerformed
 
+    private void cmbProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProveedorActionPerformed
+        // TODO add your handling code here:
+        String proveedor = cmbProveedor.getSelectedItem().toString();
+
+    // Evitar aplicar el filtro si es la opción inicial
+    if (proveedor.equals("Selecciona un Provedoor") || proveedor.contains("datos disponibles")) {
+        actualizarTabla(); // Muestra todo
+    } else {
+        filtrarPorProveedor(proveedor);
+    } 
+    }//GEN-LAST:event_cmbProveedorActionPerformed
+
+    public void filtrarPorProveedor(String proveedorSeleccionado) {
+    ArrayList<String[]> datos = bd.mostrarProductosPorProveedor(proveedorSeleccionado);
+
+    int totalRenglones = m.getRowCount();
+    for (int i = 0; i < totalRenglones; i++) {
+        m.removeRow(0);
+    }
+
+    for (String[] fila : datos) {
+        m.addRow(fila);
+    }
+}
 
     public static void main(String args[]) {
 
