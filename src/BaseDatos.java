@@ -1832,3 +1832,25 @@ class RegistroCaja{
     
     
 }
+
+class Caja{
+    int idCaja , idEmpleado;
+    String fechaApertura;
+    double saldoInicial ,totalVentas, diferencia;
+    String observaciones;
+
+    public Caja() {
+    }
+
+    public Caja(int idCaja, int idEmpleado, String fechaApertura, double saldoInicial, double totalVentas, double diferencia, String observaciones) {
+        this.idCaja = idCaja;
+        this.idEmpleado = idEmpleado;
+        this.fechaApertura = fechaApertura;
+        this.saldoInicial = saldoInicial;
+        this.totalVentas = totalVentas;
+        this.diferencia = diferencia;
+        this.observaciones = observaciones;
+    }
+    
+
+}
