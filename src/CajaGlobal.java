@@ -8,7 +8,7 @@
  * @author g_ste
  */
 public class CajaGlobal {
-    public static double dineroInicial = 0.0;
-    public static double dineroAcumulado = 0.0;
+    public static double dineroInicial  ;
+    public static double dineroAcumulado ;
     
 }

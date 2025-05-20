@@ -1535,10 +1535,41 @@ public Producto buscarProductoPorIdd(int idProducto, Producto p) {
     return p;
 }
 
+public boolean AbirCaja(String idEm, double inicio) {
+        try {
+            String SQL = "INSERT INTO `Caja`( `idEmpleado`, `fechaApertura`, `saldoInicial`, `totalVentas`, `diferencia`, `dineroActual`)"
+                    + " VALUES ( %idE%,Now(),%si%,0,0,%si%);";
+            SQL = SQL.replaceAll("%idE%", String.valueOf(idEm));
+            SQL = SQL.replaceAll("%si%", String.valueOf(inicio)); 
+
+            transaccion.execute(SQL);
+            System.out.println(SQL);
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar La caja: " + ex.getMessage());
+            return false;
+        }
+        System.out.println("Registro insertado caja");
+        return true;
+    }
 
 
+//UPDATE `Caja` SET `totalVentas`=1 ,`dineroActual`= dineroActual+5 WHERE LAST_INSERT_ID();
 
+public boolean actualizarCantidadCaja(Double d) {
+        try {
+            String SQL = "UPDATE `Caja` SET `totalVentas`=totalVentas+1 ,`dineroActual`= dineroActual+%din% "
+                    + "WHERE LAST_INSERT_ID();";
 
+            SQL = SQL.replaceAll("%din%", String.valueOf(d)); 
+
+            transaccion.execute(SQL);
+            System.out.println(SQL);
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar la cajaV: " + ex.getMessage());
+            return false;
+        }
+        return true;
+    }
     
     
     

@@ -261,7 +261,7 @@ public class VentanaCaja extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "No hay productos agregados para vender.");
         return;
     }
-
+    
     // Validar dinero suficiente
     double dineroRecibido = 0;
     try {
@@ -282,7 +282,10 @@ public class VentanaCaja extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Error al realizar venta");
         return;
     }
-
+    //Codigo de la caja
+    
+    CajaGlobal.dineroAcumulado+=total;
+    
     Producto p = new Producto();
     int idVentaU = bd.buscarUltimaVenta();
 
@@ -293,8 +296,9 @@ public class VentanaCaja extends javax.swing.JFrame {
         double subTotal = Double.parseDouble(m.getValueAt(i, 5) + "");
 
         bd.insertarDetalleVenta(new DetallesVenta(0, idVentaU, p.id, c, precioU, subTotal));
+        
     }
-
+    bd.actualizarCantidadCaja(total);
     // Preguntar si desea imprimir ticket
     int opcion = JOptionPane.showConfirmDialog(this, "¿Deseas imprimir el ticket?", "Confirmación", JOptionPane.YES_NO_OPTION);
 

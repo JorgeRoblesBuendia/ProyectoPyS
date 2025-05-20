@@ -54,6 +54,7 @@ public class VentanaMenuEmpleado extends javax.swing.JFrame {
         jMenuItem_Consulta = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem_Caja = new javax.swing.JMenuItem();
+        jMenuItem_Caja1 = new javax.swing.JMenuItem();
         jMenu11 = new javax.swing.JMenu();
         jMenuItem_VentanaLogin = new javax.swing.JMenuItem();
 
@@ -113,6 +114,15 @@ public class VentanaMenuEmpleado extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem_Caja);
 
+        jMenuItem_Caja1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/17219_cash_cashbox_machine_payment_register_icon.png"))); // NOI18N
+        jMenuItem_Caja1.setText("Conf Caja");
+        jMenuItem_Caja1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_Caja1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem_Caja1);
+
         jMenuBar1.add(jMenu2);
 
         jMenu11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/353416_home_icon.png"))); // NOI18N
@@ -160,6 +170,13 @@ public class VentanaMenuEmpleado extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItem_VentanaLoginActionPerformed
 
+    private void jMenuItem_Caja1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_Caja1ActionPerformed
+        VentanaCaja_Abrir v=new VentanaCaja_Abrir();
+        v.bd=bd;
+        v.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem_Caja1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -204,6 +221,7 @@ public class VentanaMenuEmpleado extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem_Caja;
+    private javax.swing.JMenuItem jMenuItem_Caja1;
     private javax.swing.JMenuItem jMenuItem_Consulta;
     private javax.swing.JMenuItem jMenuItem_VentanaLogin;
     private javax.swing.JPanel jPanel1;

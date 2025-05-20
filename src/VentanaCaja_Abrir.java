@@ -4,6 +4,7 @@ import javax.swing.event.ChangeListener;
 public class VentanaCaja_Abrir extends javax.swing.JFrame {
 
     BaseDatos bd;
+    String correo="";
 
     public VentanaCaja_Abrir() {
         initComponents();
@@ -26,6 +27,10 @@ public class VentanaCaja_Abrir extends javax.swing.JFrame {
         JPN200.setEnabled(false);
         JPN500.setEnabled(false);
         JPN1000.setEnabled(false);
+        
+        String correoActual = VentanaLogin.correoUsuario;
+        System.out.println("Correo obtenido: " + correoActual);
+        correo=VentanaLogin.correoUsuario;
 
     }
 
@@ -77,6 +82,10 @@ public class VentanaCaja_Abrir extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         JLEstatus = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
+        btnAbrirC = new javax.swing.JButton();
+        txtI = new javax.swing.JTextField();
+        btnCerrarC = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -256,6 +265,21 @@ public class VentanaCaja_Abrir extends javax.swing.JFrame {
         jLabel22.setText("ESTATUS:");
         jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 110, 30));
 
+        btnAbrirC.setText("Abrir");
+        btnAbrirC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbrirCActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAbrirC, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, -1, -1));
+        jPanel1.add(txtI, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 270, -1));
+
+        btnCerrarC.setText("Cerrar");
+        jPanel1.add(btnCerrarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 460, -1, -1));
+
+        jLabel14.setText("jLabel14");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 420, 100, 40));
+
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/2849812_menu_multimedia_bars_media_icon.png"))); // NOI18N
         jMenu1.setText("Menu");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -296,7 +320,7 @@ public class VentanaCaja_Abrir extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
         );
 
         pack();
@@ -372,6 +396,15 @@ public class VentanaCaja_Abrir extends javax.swing.JFrame {
         JPN1000.setEnabled(false);
 
     }//GEN-LAST:event_BtnCerrarCajaMouseClicked
+
+    private void btnAbrirCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirCActionPerformed
+        // TODO add your handling code here:
+        Empleado em=new Empleado();
+        em=bd.buscarEmpleado(correo, em);
+        
+        bd.AbirCaja(em.id+"", Double.parseDouble(txtI.getText()));
+        
+    }//GEN-LAST:event_btnAbrirCActionPerformed
 
     // Método que configura los listeners
     public void configurarSpinners() {
@@ -474,11 +507,14 @@ public class VentanaCaja_Abrir extends javax.swing.JFrame {
     private javax.swing.JSpinner JPN_50;
     private javax.swing.JLabel JlabelIniciarCaja;
     private javax.swing.JLabel NOMBRE_TITULO;
+    private javax.swing.JButton btnAbrirC;
+    private javax.swing.JButton btnCerrarC;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -502,5 +538,6 @@ public class VentanaCaja_Abrir extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField txtI;
     // End of variables declaration//GEN-END:variables
 }
