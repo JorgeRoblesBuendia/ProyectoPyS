@@ -1,13 +1,28 @@
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.event.ChangeListener;
 
 public class VentanaCaja_Abrir extends javax.swing.JFrame {
 
     BaseDatos bd;
     String correo="";
-
+    boolean e=false;
+    
     public VentanaCaja_Abrir() {
         initComponents();
+        bd=new BaseDatos();
+        
+        try {
+            if(bd.conexion.isClosed()){
+                System.out.println("Noo!!!. Se cerro");
+            }
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(VentanaLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
         configurarSpinners();
         JlabelIniciarCaja.setText("$" + CajaGlobal.dineroInicial);
 
@@ -31,7 +46,7 @@ public class VentanaCaja_Abrir extends javax.swing.JFrame {
         String correoActual = VentanaLogin.correoUsuario;
         System.out.println("Correo obtenido: " + correoActual);
         correo=VentanaLogin.correoUsuario;
-
+        e=bd.ObtenerEstado();
     }
 
     @SuppressWarnings("unchecked")
@@ -275,6 +290,11 @@ public class VentanaCaja_Abrir extends javax.swing.JFrame {
         jPanel1.add(txtI, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 270, -1));
 
         btnCerrarC.setText("Cerrar");
+        btnCerrarC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarCActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnCerrarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 460, -1, -1));
 
         jLabel14.setText("jLabel14");
@@ -399,12 +419,29 @@ public class VentanaCaja_Abrir extends javax.swing.JFrame {
 
     private void btnAbrirCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirCActionPerformed
         // TODO add your handling code here:
+        
         Empleado em=new Empleado();
         em=bd.buscarEmpleado(correo, em);
+        if(e){
+            JOptionPane.showMessageDialog(this, "El estado es Verdadero existe caja");
+        }else{
+            bd.AbirCaja(em.id+"", Double.parseDouble(txtI.getText()));
+            JOptionPane.showMessageDialog(this, "Exito");
+            e=!e;
+        }
         
-        bd.AbirCaja(em.id+"", Double.parseDouble(txtI.getText()));
         
     }//GEN-LAST:event_btnAbrirCActionPerformed
+
+    private void btnCerrarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarCActionPerformed
+        if(e){
+            bd.CerrarCaja();
+            JOptionPane.showMessageDialog(this, "Exito");
+            e=!e;
+        }else{
+            JOptionPane.showMessageDialog(this, "No hay caja abierta");
+        }
+    }//GEN-LAST:event_btnCerrarCActionPerformed
 
     // Método que configura los listeners
     public void configurarSpinners() {

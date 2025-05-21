@@ -1537,8 +1537,8 @@ public Producto buscarProductoPorIdd(int idProducto, Producto p) {
 
 public boolean AbirCaja(String idEm, double inicio) {
         try {
-            String SQL = "INSERT INTO `Caja`( `idEmpleado`, `fechaApertura`, `saldoInicial`, `totalVentas`, `diferencia`, `dineroActual`)"
-                    + " VALUES ( %idE%,Now(),%si%,0,0,%si%);";
+            String SQL = "INSERT INTO `Caja`( `idEmpleado`, `fechaApertura`, `saldoInicial`, `totalVentas`, `diferencia`, `dineroActual`, `estado`)"
+                    + " VALUES ( %idE%,Now(),%si%,0,0,%si%,1);";
             SQL = SQL.replaceAll("%idE%", String.valueOf(idEm));
             SQL = SQL.replaceAll("%si%", String.valueOf(inicio)); 
 
@@ -1558,7 +1558,7 @@ public boolean AbirCaja(String idEm, double inicio) {
 public boolean actualizarCantidadCaja(Double d) {
         try {
             String SQL = "UPDATE `Caja` SET `totalVentas`=totalVentas+1 ,`dineroActual`= dineroActual+%din% "
-                    + "WHERE LAST_INSERT_ID();";
+                    + " WHERE LAST_INSERT_ID();";
 
             SQL = SQL.replaceAll("%din%", String.valueOf(d)); 
 
@@ -1570,8 +1570,80 @@ public boolean actualizarCantidadCaja(Double d) {
         }
         return true;
     }
-    
-    
+    //SELECT dineroActual FROM Caja WHERE idCaja = LAST_INSERT_ID();
+    public String ObtenerTotal() {
+        String a="";
+        try {
+            String SQL = "SELECT dineroActual FROM Caja WHERE idCaja = LAST_INSERT_ID();";
+
+            transaccion.execute(SQL);
+            if (cursor.next()) {
+                a=cursor.getString(1);
+            }
+            System.out.println(SQL);
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener total: " + ex.getMessage());
+            
+        }
+        return a;
+    }
+    public String ObtenerDiferencia() {
+        String a="";
+        try {
+            String SQL = "SELECT diferencia FROM Caja WHERE idCaja = LAST_INSERT_ID();";
+
+            transaccion.execute(SQL);
+            if (cursor.next()) {
+                a=cursor.getString(1);
+            }
+            System.out.println(SQL);
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener diferencia " + ex.getMessage());
+            
+        }
+        return a;
+    }
+    public boolean ObtenerEstado() {
+    int a = -1; // Inicializar con un valor que no sea 0 para evitar confusión
+    try {
+        String SQL = "SELECT estado FROM Caja WHERE idCaja = (SELECT MAX(idCaja) FROM Caja);";
+        ResultSet cursor = transaccion.executeQuery(SQL); // Usar executeQuery para SELECT
+        
+        if (cursor.next()) { // Verificar si hay resultados antes de acceder a los datos
+            a = cursor.getInt("estado"); // Usar el nombre de la columna en lugar de índice
+        }
+        
+        System.out.println(SQL);
+    } catch (SQLException ex) {
+        System.out.println("Error al encontrar estado de caja: " + ex.getMessage());
+    }
+
+        return a == 1; // No es necesario comparar con null, ya que 'a' es un int
+    }
+
+    public boolean CerrarCaja() {
+    try {
+        // Obtener el último idCaja
+        String SQL1 = "SELECT MAX(idCaja) FROM Caja";
+        ResultSet rs = transaccion.executeQuery(SQL1);
+        int ultimo_id = -1;
+        
+        if (rs.next()) {
+            ultimo_id = rs.getInt(1);
+        }
+
+        // Ejecutar la actualización con el ID obtenido
+        String SQL2 = "UPDATE Caja SET estado = 0 WHERE idCaja = " + ultimo_id;
+        transaccion.executeUpdate(SQL2);
+
+        System.out.println(SQL2);
+    } catch (SQLException ex) {
+        System.out.println("Error al Cerrar caja: " + ex.getMessage());
+        return false;
+    }
+    return true;
+}
+
     
 }
 
