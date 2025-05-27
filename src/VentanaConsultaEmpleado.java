@@ -59,6 +59,8 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         btnBuscar = new javax.swing.JButton();
         txtCodigoB = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
         NOMBRE_TITULO = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         JLabelCorreoMostrar = new javax.swing.JLabel();
@@ -83,13 +85,13 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
 
         tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Codigo de barras", "Producto", "Cantidad", "Precio"
+                "Codigo de barras", "Categoria", "Producto", "Cantidad", "Precio"
             }
         ));
         jScrollPane1.setViewportView(tblProductos);
@@ -122,6 +124,12 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
             }
         });
         jPanel3.add(txtCodigoB, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 160, 30));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas las categorias", "Lacteos", " " }));
+        jPanel3.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 160, -1));
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A-Z", "Z-A" }));
+        jPanel3.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 160, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 180, 340));
 
@@ -258,6 +266,8 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
     private javax.swing.JLabel JLabelCorreoMostrar;
     private javax.swing.JLabel NOMBRE_TITULO;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;

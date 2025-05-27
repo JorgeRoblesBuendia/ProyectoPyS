@@ -71,6 +71,7 @@ public class VentanaMenu extends javax.swing.JFrame {
         jMenuItem_Almacen = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem_Servicios = new javax.swing.JMenuItem();
+        jMenuItem_CorteCaja = new javax.swing.JMenuItem();
         jMenu11 = new javax.swing.JMenu();
         jMenuItem_VentanaLogin = new javax.swing.JMenuItem();
 
@@ -209,6 +210,15 @@ public class VentanaMenu extends javax.swing.JFrame {
         });
         jMenu6.add(jMenuItem_Servicios);
 
+        jMenuItem_CorteCaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sales.png"))); // NOI18N
+        jMenuItem_CorteCaja.setText("Cortes de Caja");
+        jMenuItem_CorteCaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_CorteCajaActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem_CorteCaja);
+
         jMenuBar1.add(jMenu6);
 
         jMenu11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/home.png"))); // NOI18N
@@ -293,6 +303,10 @@ public static void mostrarMenu() {
         this.dispose();   
     }//GEN-LAST:event_jMenuItem_VentanaLoginActionPerformed
 
+    private void jMenuItem_CorteCajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_CorteCajaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem_CorteCajaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -348,6 +362,7 @@ public static void mostrarMenu() {
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuItem jMenuItem_Almacen;
     private javax.swing.JMenuItem jMenuItem_Categoria;
+    private javax.swing.JMenuItem jMenuItem_CorteCaja;
     private javax.swing.JMenuItem jMenuItem_Empleados;
     private javax.swing.JMenuItem jMenuItem_Inventario;
     private javax.swing.JMenuItem jMenuItem_Proveedores;
