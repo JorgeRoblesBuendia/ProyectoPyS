@@ -1642,7 +1642,30 @@ public boolean actualizarCantidadCaja(Double d) {
         return false;
     }
     return true;
-}
+    }
+    
+    public ArrayList<String[]> mostrarCajasGerente() {
+        ArrayList<String[]> resultado = new ArrayList<>();
+        try {
+            String SQL = "select c.fechaApertura, e.nombre, c.saldoInicial, c.totalVentas, c.diferencia, "
+                    + "c.estado from Caja c inner join Empleados e WHERE e.idEmpleado=c.idEmpleado";
+            cursor = transaccion.executeQuery(SQL);
+
+            if (cursor.next()) {
+                do {
+                    String[] datos = {
+                        cursor.getString(1),
+                        cursor.getString(2),cursor.getString(3),
+                        cursor.getString(4),cursor.getString(5),cursor.getString(6)
+                    };
+                    resultado.add(datos);
+                } while (cursor.next());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
 
     
 }

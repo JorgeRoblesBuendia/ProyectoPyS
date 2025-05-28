@@ -1,3 +1,10 @@
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -8,12 +15,32 @@
  * @author jorge
  */
 public class VentanaCortesCajaGerente extends javax.swing.JFrame {
+    BaseDatos bd = new BaseDatos();
+    DefaultTableModel m;
 
     /**
      * Creates new form VentanaCortesCajaGerente
      */
     public VentanaCortesCajaGerente() {
         initComponents();
+        
+        bd=new BaseDatos();
+        String correoActual = VentanaLogin.correoUsuario;
+        System.out.println("Correo obtenido: " + correoActual);
+        JLabelCorreoMostrar.setText(VentanaLogin.correoUsuario);
+        
+        try {
+            if(bd.conexion.isClosed()){
+                System.out.println("Noo!!!. Se cerro");
+            }
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(VentanaLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        m=(DefaultTableModel) tblCortesCaja.getModel();
+        actualizarTabla();
+        
+        
     }
 
     /**
@@ -293,6 +320,18 @@ public class VentanaCortesCajaGerente extends javax.swing.JFrame {
                 new VentanaCortesCajaGerente().setVisible(true);
             }
         });
+    }
+    
+    public void actualizarTabla(){
+        ArrayList<String[]>datos =bd.mostrarServicios();
+        if(datos.size()==0)return;
+        int totalRenglones=m.getRowCount();
+        for (int i = 0; i <totalRenglones; i++) {
+            m.removeRow(0);
+        }
+        for (String[] data: datos) {
+            m.addRow(data);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

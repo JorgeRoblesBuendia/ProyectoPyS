@@ -81,7 +81,7 @@ public class VentanaCaja_Abrir extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 30)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("VENTA INICIAR CAJA");
+        jLabel2.setText("INICIAR CAJA");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 24, 860, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
@@ -108,7 +108,8 @@ public class VentanaCaja_Abrir extends javax.swing.JFrame {
 
         tblCaja.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
+                {"25-may-2025", "activo", "300", "300", null},
+                {"25-may-2025", "Cerrado", "100", "50", "50"},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null}

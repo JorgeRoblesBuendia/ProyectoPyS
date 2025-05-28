@@ -117,7 +117,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="VENTA INICIAR CAJA"/>
+            <Property name="text" type="java.lang.String" value="INICIAR CAJA"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -189,12 +189,42 @@
             <Component class="javax.swing.JTable" name="tblCaja">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="4">
-                    <Column editable="true" title="Fecha" type="java.lang.Object"/>
-                    <Column editable="true" title="Estado" type="java.lang.Object"/>
-                    <Column editable="true" title="Inicio" type="java.lang.Object"/>
-                    <Column editable="true" title="Total" type="java.lang.Object"/>
-                    <Column editable="true" title="Diferencia" type="java.lang.Object"/>
+                  <Table columnCount="5" rowCount="5">
+                    <Column editable="true" title="Fecha" type="java.lang.Object">
+                      <Data value="25-may-2025"/>
+                      <Data value="25-may-2025"/>
+                      <Data value="null"/>
+                      <Data value="null"/>
+                      <Data value="null"/>
+                    </Column>
+                    <Column editable="true" title="Estado" type="java.lang.Object">
+                      <Data value="activo"/>
+                      <Data value="Cerrado"/>
+                      <Data value="null"/>
+                      <Data value="null"/>
+                      <Data value="null"/>
+                    </Column>
+                    <Column editable="true" title="Inicio" type="java.lang.Object">
+                      <Data value="300"/>
+                      <Data value="100"/>
+                      <Data value="null"/>
+                      <Data value="null"/>
+                      <Data value="null"/>
+                    </Column>
+                    <Column editable="true" title="Total" type="java.lang.Object">
+                      <Data value="300"/>
+                      <Data value="50"/>
+                      <Data value="null"/>
+                      <Data value="null"/>
+                      <Data value="null"/>
+                    </Column>
+                    <Column editable="true" title="Diferencia" type="java.lang.Object">
+                      <Data value="null"/>
+                      <Data value="50"/>
+                      <Data value="null"/>
+                      <Data value="null"/>
+                      <Data value="null"/>
+                    </Column>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
