@@ -39,7 +39,7 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
             Logger.getLogger(VentanaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
         m=(DefaultTableModel) tblProductos.getModel();
-        actualizarTabla();
+        actualizarTabla();//MostrarCmbCat();
     }
 
     /**
@@ -59,7 +59,7 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         btnBuscar = new javax.swing.JButton();
         txtCodigoB = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbCategoria = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
         NOMBRE_TITULO = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -125,8 +125,13 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
         });
         jPanel3.add(txtCodigoB, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 160, 30));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas las categorias", "Lacteos", " " }));
-        jPanel3.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 160, -1));
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Categorias ", "A-z", "z-a" }));
+        cmbCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCategoriaActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cmbCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 160, -1));
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A-Z", "Z-A" }));
         jPanel3.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 160, -1));
@@ -184,11 +189,28 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
          Producto p = new Producto(); // Creamos un objeto Producto vacío
     p = bd.buscarProducto(txtCodigoB.getText(), p);
     
-    if (p != null && p.id != 0) {
+    /*if (p != null && p.id != 0) {
         System.out.println("Producto encontrado: " + p.nombre);
         
     } else {
         System.out.println("No se encontro el producto.");
+    }
+    */
+    
+    
+    if(cmbCategoria.getSelectedIndex()==0){
+        p = bd.buscarProducto(txtCodigoB.getText(), p);
+    
+        if (p != null && p.id != 0) {
+        System.out.println("Producto encontrado: " + p.nombre);
+        
+        } else {
+            System.out.println("No se encontro el producto.");
+        }
+    }else if(cmbCategoria.getSelectedIndex()==1){
+        actualizarTablaOrd(true);
+    }else if(cmbCategoria.getSelectedIndex()==2){
+        actualizarTablaOrd(false);
     }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -215,6 +237,10 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
         v.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void cmbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbCategoriaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -261,12 +287,39 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
             m.addRow(data);
         }
     }
+    
+    public void actualizarTablaOrd(boolean a){
+        ArrayList<String[]>datos =bd.mostrarProductosCajaOrdCat(a);
+        if(datos.size()==0)return;
+        int totalRenglones=m.getRowCount();
+        for (int i = 0; i <totalRenglones; i++) {
+            m.removeRow(0);
+        }
+        for (String[] data: datos) {
+            m.addRow(data);
+        }
+    }
+    
+        /*public void MostrarCmbCat(){
+        ArrayList<String[]>datos =bd.mostrarCategorias();
+        cmbCategoria.removeAllItems();
+        if (datos.size() == 0) {
+            cmbCategoria.addItem("No hay datos disponibles");
+            return;
+        }
+        // Recorrer los resultados y agregarlos al JComboBox
+        cmbCategoria.addItem("Selecciona una Categoria"); 
+        for (String[] data : datos) {
+            // Por ejemplo, usar el primer campo como elemento (puedes ajustarlo según la lógica necesaria)
+            cmbCategoria.addItem(data[1]); // data[0] es el nombre, código o lo que se necesite mostrar
+        }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JLabelCorreoMostrar;
     private javax.swing.JLabel NOMBRE_TITULO;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cmbCategoria;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;

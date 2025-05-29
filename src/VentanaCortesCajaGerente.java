@@ -323,7 +323,7 @@ public class VentanaCortesCajaGerente extends javax.swing.JFrame {
     }
     
     public void actualizarTabla(){
-        ArrayList<String[]>datos =bd.mostrarServicios();
+        ArrayList<String[]>datos =bd.mostrarCajasGerente();
         if(datos.size()==0)return;
         int totalRenglones=m.getRowCount();
         for (int i = 0; i <totalRenglones; i++) {

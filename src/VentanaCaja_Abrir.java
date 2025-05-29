@@ -305,7 +305,7 @@ public class VentanaCaja_Abrir extends javax.swing.JFrame {
     public void actualizarTabla(){
         Empleado em=new Empleado();
         em=bd.buscarEmpleado(correo, em);
-        ArrayList<String[]>datos =bd.mostrarProductos();
+        ArrayList<String[]>datos =bd.mostrarCajaEmpleado(em.id);
         if(datos.size()==0)return;
         int totalRenglones=m.getRowCount();
         for (int i = 0; i <totalRenglones; i++) {//hh

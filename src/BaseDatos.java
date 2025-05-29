@@ -370,8 +370,36 @@ public ArrayList<String[]> mostrarProductosPorProveedor(String nombreProveedor) 
         try {
             
             //"SELECT * FROM `Productos` WHERE idEmpresa= "+E
-            String SQL="SELECT p.codigoBarras,p.nombre,a.cantidad,a.precioVenta FROM "
-                    + "Productos p INNER JOIN Almacen a on a.idProducto = p.idProducto";
+            String SQL="SELECT p.codigoBarras,c.nombre,p.nombre,a.cantidad,a.precioVenta FROM Productos p INNER JOIN Almacen a on a.idProducto = p.idProducto " +
+"INNER JOIN Categorias c on p.idCategoria = c.idCategoria";
+            System.out.println(SQL);
+            cursor= transaccion.executeQuery(SQL);
+            if(cursor.next()){
+                do{
+                    String[] al = {
+                        cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(4)
+                    };
+                    resultado.add(al);
+                }while(cursor.next());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
+    public ArrayList<String[]> mostrarProductosCajaOrdCat(boolean a){
+        ArrayList <String[]> resultado= new ArrayList ();
+        try {
+             String SQL="";
+            if(a){
+               SQL="SELECT p.codigoBarras,c.nombre,p.nombre,a.cantidad,a.precioVenta FROM Productos p INNER JOIN Almacen a on a.idProducto "
+                    + "= p.idProducto INNER JOIN Categorias c on p.idCategoria = c.idCategoria order by c.idCategoria;";
+            }else{
+                SQL="SELECT p.codigoBarras, c.nombre, p.nombre, a.cantidad, a.precioVenta FROM Productos p INNER JOIN Almacen a ON a.idProducto = p.idProducto INNER JOIN Categorias c ON p.idCategoria = c.idCategoria ORDER BY c.idCategoria DESC";
+            }
+            
+        
+        
             cursor= transaccion.executeQuery(SQL);
             if(cursor.next()){
                 do{
@@ -386,6 +414,7 @@ public ArrayList<String[]> mostrarProductosPorProveedor(String nombreProveedor) 
         }
         return resultado;
     }
+    
     public ArrayList<String[]> mostrarProductosAlmacen(){
         ArrayList <String[]> resultado= new ArrayList ();
         try {
