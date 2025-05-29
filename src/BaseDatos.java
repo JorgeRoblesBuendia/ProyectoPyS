@@ -1666,6 +1666,28 @@ public boolean actualizarCantidadCaja(Double d) {
         }
         return resultado;
     }
+    public ArrayList<String[]> mostrarCajaEmpleado(int id) {
+        ArrayList<String[]> resultado = new ArrayList<>();
+        try {
+            String SQL = "select c.fechaApertura,c.estado,c.saldoInicial,"
+                    + "c.totalVentas,c.diferencia from Caja c inner join Empleados e WHERE e.idEmpleado= "+id;
+            cursor = transaccion.executeQuery(SQL);
+
+            if (cursor.next()) {
+                do {
+                    String[] datos = {
+                        cursor.getString(1),
+                        cursor.getString(2),cursor.getString(3),
+                        cursor.getString(4),cursor.getString(5) 
+                    };
+                    resultado.add(datos);
+                } while (cursor.next());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
 
     
 }
