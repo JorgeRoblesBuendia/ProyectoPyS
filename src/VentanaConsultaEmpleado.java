@@ -60,7 +60,6 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         txtCodigoB = new javax.swing.JTextField();
         cmbCategoria = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
         NOMBRE_TITULO = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         JLabelCorreoMostrar = new javax.swing.JLabel();
@@ -125,16 +124,13 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
         });
         jPanel3.add(txtCodigoB, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 160, 30));
 
-        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Categorias ", "A-z", "z-a" }));
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Categorias", "A-Z", "Z-A" }));
         cmbCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbCategoriaActionPerformed(evt);
             }
         });
         jPanel3.add(cmbCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 160, -1));
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A-Z", "Z-A" }));
-        jPanel3.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 160, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 180, 340));
 
@@ -217,6 +213,36 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
     private void txtCodigoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoBActionPerformed
         
     }//GEN-LAST:event_txtCodigoBActionPerformed
+public void actualizarTablaOrdNombre(boolean orden) {
+    ArrayList<String[]> datos = bd.mostrarProductosCajaOrdCategoria(orden);
+    if (datos.isEmpty()) return;
+
+    // Limpiar tabla
+    int totalRenglones = m.getRowCount();
+    for (int i = 0; i < totalRenglones; i++) {
+        m.removeRow(0);
+    }
+
+    // Agregar datos nuevos
+    for (String[] data : datos) {
+        m.addRow(data);
+    }
+}
+
+public void actualizarTablaOrdCategoria(boolean orden) {
+    ArrayList<String[]> datos = bd.mostrarProductosCajaOrdCategoria(orden);
+    if (datos.isEmpty()) return;
+
+    int totalRenglones = m.getRowCount();
+    for (int i = 0; i < totalRenglones; i++) {
+        m.removeRow(0);
+    }
+
+    for (String[] data : datos) {
+        m.addRow(data);
+    }
+}
+
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
@@ -239,6 +265,18 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void cmbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoriaActionPerformed
+int selectedIndex = cmbCategoria.getSelectedIndex();
+    switch (selectedIndex) {
+        case 0: // "Categorias"
+            actualizarTablaOrdCategoria(true); // A-Z por categoría
+            break;
+        case 1: // "A-z"
+            actualizarTablaOrdNombre(true); // A-Z por nombre
+            break;
+        case 2: // "z-a"
+            actualizarTablaOrdNombre(false); // Z-A por nombre
+            break;
+    }
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbCategoriaActionPerformed
 
@@ -320,7 +358,6 @@ public class VentanaConsultaEmpleado extends javax.swing.JFrame {
     private javax.swing.JLabel NOMBRE_TITULO;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JComboBox<String> cmbCategoria;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;

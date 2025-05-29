@@ -42,6 +42,22 @@ public class VentanaCortesCajaGerente extends javax.swing.JFrame {
         
         
     }
+    
+    public void actualizarTablaPorRango(int dias) {
+    DefaultTableModel modelo = (DefaultTableModel) tblCortesCaja.getModel();
+    ArrayList<String[]> datos = bd.mostrarCostesCajaPorFecha(dias);
+
+    // Limpiar tabla
+    while (modelo.getRowCount() > 0) {
+        modelo.removeRow(0);
+    }
+
+    // Agregar nuevas filas
+    for (String[] fila : datos) {
+        modelo.addRow(fila);
+    }
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,8 +76,6 @@ public class VentanaCortesCajaGerente extends javax.swing.JFrame {
         JLabelCorreoMostrar = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jComboBox3 = new javax.swing.JComboBox<>();
@@ -119,24 +133,17 @@ public class VentanaCortesCajaGerente extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("Nombre:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, -1));
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Empleado A-Z", "Empleado Z-A" }));
-        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 130, -1));
-
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dia", "Semana", "Mes" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 130, -1));
+        jPanel2.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 130, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Fecha");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 70, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 70, -1));
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Max", "Min" }));
         jComboBox3.addActionListener(new java.awt.event.ActionListener() {
@@ -144,11 +151,11 @@ public class VentanaCortesCajaGerente extends javax.swing.JFrame {
                 jComboBox3ActionPerformed(evt);
             }
         });
-        jPanel2.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 130, -1));
+        jPanel2.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 130, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Total");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 70, -1));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 70, -1));
 
         jPanel4.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 810, 80));
 
@@ -280,6 +287,22 @@ public class VentanaCortesCajaGerente extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem_ServiciosActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+jComboBox2.addActionListener(e -> {
+    int selected = jComboBox2.getSelectedIndex();
+    switch (selected) {
+        case 0: // Día
+            actualizarTablaPorRango(1);
+            break;
+        case 1: // Semana
+            actualizarTablaPorRango(7);
+            break;
+        case 2: // Mes
+            actualizarTablaPorRango(30);
+            break;
+    }
+});
+
+
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
@@ -336,10 +359,8 @@ public class VentanaCortesCajaGerente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JLabelCorreoMostrar;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;

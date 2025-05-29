@@ -163,6 +163,65 @@ public class BaseDatos {
         }
         return bandera;
     }
+ public ArrayList<String[]> mostrarProductosCajaOrdCategoria(boolean ascendente) {
+    ArrayList<String[]> productos = new ArrayList<>();
+    try {
+        String sql = "SELECT p.codigoBarras, c.nombre AS categoria, p.nombre, a.cantidad, a.precioVenta " +
+                     "FROM Productos p " +
+                     "INNER JOIN Almacen a ON a.idProducto = p.idProducto " +
+                     "INNER JOIN Categorias c ON p.idCategoria = c.idCategoria " +
+                     "ORDER BY categoria " + (ascendente ? "ASC" : "DESC");
+
+        PreparedStatement pst = this.conexion.prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            String[] fila = new String[5];
+            fila[0] = rs.getString("codigoBarras");
+            fila[1] = rs.getString("categoria");
+            fila[2] = rs.getString("nombre");
+            fila[3] = String.valueOf(rs.getInt("cantidad"));
+            fila[4] = String.valueOf(rs.getDouble("precioVenta"));
+            productos.add(fila);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return productos;
+}
+
+public ArrayList<String[]> mostrarCostesCajaPorFecha(int dias) {
+    ArrayList<String[]> lista = new ArrayList<>();
+    try {
+        String sql = "SELECT c.fechaApertura, e.nombre, c.saldoInicial, c.totalVentas, c.diferencia, c.estado " +
+                     "FROM Caja c " +
+                     "INNER JOIN Empleados e ON e.idEmpleado = c.idEmpleado " +
+                     "WHERE c.fechaApertura >= NOW() - INTERVAL ? DAY " +  // NOTA: usamos NOW() en lugar de CURDATE()
+                     "ORDER BY c.fechaApertura DESC";
+
+        PreparedStatement pst = conexion.prepareStatement(sql);
+        pst.setInt(1, dias);
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            String[] fila = new String[6];
+            fila[0] = rs.getString("fechaApertura");
+            fila[1] = rs.getString("nombre");
+            fila[2] = rs.getString("saldoInicial");
+            fila[3] = rs.getString("totalVentas");
+            fila[4] = rs.getString("diferencia");
+            fila[5] = rs.getString("estado");
+            lista.add(fila);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return lista;
+}
+
+
       //Productoos
     /**
      * Inserta un producto en la base de datos.
