@@ -339,6 +339,7 @@ public class VentanaCaja extends javax.swing.JFrame {
     limpiarTabla();
     actualizarTotal();
     txtDinero.setText("");
+    bd.ObtenerDiferencia();
 
 
     }//GEN-LAST:event_btnVenderActionPerformed

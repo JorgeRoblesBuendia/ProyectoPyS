@@ -1708,7 +1708,12 @@ public boolean actualizarCantidadCaja(Double d) {
 
         return a == 1; // No es necesario comparar con null, ya que 'a' es un int
     }
-
+    
+    
+    
+    
+    
+    
     public boolean CerrarCaja() {
     try {
         // Obtener el último idCaja
@@ -1776,7 +1781,52 @@ public boolean actualizarCantidadCaja(Double d) {
         }
         return resultado;
     }
+  
+    
+    public ArrayList<String[]> mostrarCajaRango1D() {
+        ArrayList<String[]> resultado = new ArrayList<>();
+        try {
+            String SQL = "SELECT c.fechaApertura, e.nombre, c.saldoInicial, c.totalVentas, c.diferencia, c.estado "
+                    + "FROM Caja c INNER JOIN Empleados e ON e.idEmpleado = c.idEmpleado WHERE c.fechaApertura >= CURDATE() - INTERVAL 1 DAY;";
+            cursor = transaccion.executeQuery(SQL);
 
+            if (cursor.next()) {
+                do {
+                    String[] datos = {
+                        cursor.getString(1),
+                        cursor.getString(2),cursor.getString(3),
+                        cursor.getString(4),cursor.getString(5),cursor.getString(6)
+                    };
+                    resultado.add(datos);
+                } while (cursor.next());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
+    public ArrayList<String[]> mostrarCajaRango7D() {
+        ArrayList<String[]> resultado = new ArrayList<>();
+        try {
+            String SQL = "SELECT c.fechaApertura, e.nombre, c.saldoInicial, c.totalVentas, c.diferencia, c.estado "
+                    + "FROM Caja c INNER JOIN Empleados e ON e.idEmpleado = c.idEmpleado WHERE c.fechaApertura >= CURDATE() - INTERVAL 7 DAY;";
+            cursor = transaccion.executeQuery(SQL);
+
+            if (cursor.next()) {
+                do {
+                    String[] datos = {
+                        cursor.getString(1),
+                        cursor.getString(2),cursor.getString(3),
+                        cursor.getString(4),cursor.getString(5),cursor.getString(6)
+                    };
+                    resultado.add(datos);
+                } while (cursor.next());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
     
 }
 
